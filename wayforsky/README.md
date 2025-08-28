@@ -1,70 +1,71 @@
-# Getting Started with Create React App
+## 🔹 1. Frontend (No/Minimal Backend)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Options**:
 
-## Available Scripts
+* **Static Site Generator**: Next.js (React-based, SEO-friendly), Gatsby, or Astro.
+* **Simple React/Vue SPA**: Fine if SEO is not a top priority, but given this is a student-focused site → I’d recommend Next.js for SSR/SEO.
 
-In the project directory, you can run:
+**Pages to include in Phase 1**:
 
-### `npm start`
+* **Home/Landing** → Hero banner, highlights, Apply Now button, webinar ticker.
+* **About Us** → Vision, partnerships, global presence.
+* **Programs Offered** → Courses with overview, fees, and CTAs to apply.
+* **Admissions** → Step-by-step process (Eligibility → Counselling → Offer Letter → Visa → Departure).
+* **Contact** → Basic form + office locations.
+* **Apply Now** → Calls backend.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+You can fill other sections later (gallery, career support, blog, etc.).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🔹 2. Backend (Only for “Apply for Courses”)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Keep it lightweight.
 
-### `npm run build`
+* **Backend Stack Options**:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  * Node.js (Express/NestJS) → easy REST API.
+  * Python (FastAPI) → simple and scalable.
+  * Or Firebase / Supabase → if you want to skip writing backend code for now.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**Features Needed for Apply Now**:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* API endpoint: `/apply`
+* Stores applicant data (name, email, phone, course interested, country preference).
+* Sends confirmation email (via SendGrid/Mailgun/SES).
+* Optional: Admin gets email notification or stores data in a simple DB (PostgreSQL/MongoDB/Firestore).
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🔹 3. Hosting & Deployment
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* **Frontend**: Vercel or Netlify (instant deployment, free tier).
+* **Backend**:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+  * If using Node/FastAPI → deploy on Render, Railway, or AWS Lightsail.
+  * If Firebase/Supabase → backend is already managed.
+* **Database**: If you need storage now, start with free-tier PostgreSQL (Supabase) or MongoDB Atlas.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## 🔹 4. Suggested Tech Stack for Phase 1
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* **Frontend**: Next.js + TailwindCSS (for speed + SEO).
+* **Backend**: Node.js + Express (small API).
+* **DB**: Supabase (PostgreSQL) or MongoDB Atlas.
+* **Email**: SendGrid (free tier).
+* **Hosting**: Vercel (frontend) + Railway (backend).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## 🔹 5. Next Steps (MVP Roadmap)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. **Set up project repo** → monorepo (frontend + backend).
+2. **Build static pages** → Home, About, Programs, Admissions, Contact.
+3. **Integrate Apply Now form** → API + DB + Email confirmation.
+4. **Deploy** → One-click deployment pipeline (Vercel + Railway).
+5. **Track Applications** → Simple admin view (Phase 2).
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+👉 My advice: Start with **frontend static site + Apply form API**, then later integrate the **Student Portal** and **Admin Panel**. This keeps scope small, but gets you something functional quickly.
