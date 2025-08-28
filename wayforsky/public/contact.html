@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wayforsky - Contact</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Added Font Awesome for location container icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/contact.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+        }
+
+        /* Added location container specific styles from map.html */
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .hover-scale:hover {
+            transform: translateY(-2px);
+        }
+        .transition-all {
+            transition: all 0.2s ease-in-out;
+        }
+        .glass-effect-map {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+        .premium-shadow {
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Added all Beta Solar header styles from index.html */
+        /* Apple's San Francisco font stack */
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            letter-spacing: -0.01em;
+            margin: 0;
+            background-color: white;
+        }
+
+        /* Normal header - removed wing clip-path */
+        .header {
+            background: #000000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            width: 100%;
+            height: 64px;
+        }
+
+        @media (min-width: 768px) {
+            .header {
+                height: 80px;
+            }
+        }
+
+
+
+
+
+
+
+        .right-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* Mobile Nav Styles */
+        .mobile-nav {
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            gap: 16px;
+            /* Changed animation to slide in from right with bounce */
+            transform: translateX(30px);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .mobile-menu.open .mobile-nav {
+            transform: translateX(0);
+        }
+
+        /* Individual Nav Link Animations */
+        .mobile-nav .nav-link {
+            opacity: 0;
+            /* Changed to slide in from right with scale effect */
+            transform: translateX(40px) scale(0.9);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .mobile-menu.open .mobile-nav .nav-link {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+        }
+
+        /* Increased stagger delays for more dramatic effect */
+        .mobile-menu.open .mobile-nav .nav-link:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-menu.open .mobile-nav .nav-link:nth-child(2) { transition-delay: 0.2s; }
+        .mobile-menu.open .mobile-nav .nav-link:nth-child(3) { transition-delay: 0.3s; }
+        .mobile-menu.open .mobile-nav .nav-link:nth-child(4) { transition-delay: 0.4s; }
+        .mobile-menu.open .mobile-nav .nav-link:nth-child(5) { transition-delay: 0.5s; }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #00d4ff 0%, #3b82f6 25%, #8b5cf6 50%, #ec4899 75%, #f97316 100%);
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            background: rgba(0, 0, 0, 0.6);
+        }
+        
+        .interest-btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .interest-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+        }
+        
+        .interest-btn.selected {
+            background: white;
+            color: black;
+            border-color: white;
+        }
+        
+        .form-input {
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            border-color: rgba(255, 255, 255, 0.6);
+            outline: none;
+        }
+        
+        .submit-btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0) scale(0.98);
+        }
+        
+        .attachment-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .attachment-btn:hover {
+            color: white;
+        }
+        
+        @media (max-width: 1024px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .left-section {
+                min-height: 50vh;
+                padding: 2rem;
+            }
+            
+            .right-section {
+                padding: 2rem;
+            }
+            
+            .main-heading {
+                font-size: 3rem;
+                line-height: 1.1;
+            }
+        }
+        
+        @media (min-width: 1025px) {
+    .content-wrapper {
+        margin: 0 4cm;
+        max-width: calc(100vw - 8cm);
+        min-height: 90vh;   /* increased height */
+        max-height: none;   /* remove restriction */
+    }
+
+
+            
+            .left-section {
+                flex: 0 0 45%;
+                max-width: 45%;
+            }
+            
+            .right-section {
+                flex: 0 0 55%;
+                max-width: 55%;
+                padding: 3rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .interest-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .main-heading {
+                font-size: 2.5rem;
+            }
+            
+            .left-section, .right-section {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .interest-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-heading {
+                font-size: 2rem;
+            }
+            
+            .nav-menu {
+                gap: 1rem;
+            }
+        }
+        
+        @media (max-width: 640px) {
+    .left-section,
+    .right-section {
+        padding-left: 0.9rem !important;  /* small gap */
+        padding-right: 0.9rem !important; /* small gap */
+    }
+}
+
+
+    </style>
+</head>
+<body class="overflow-x-hidden">
+    <!-- Added Beta Solar header from index.html as perfect replica -->
+    <!-- Normal Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                
+                <!-- Logo -->
+                <div class="logo">
+                    <span>Way</span><span class="accent">ForSky</span>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <nav class="desktop-nav">
+                    <a href="index.html" class="nav-link focus-ring ">Home</a>
+                    <!-- Added dropdown functionality to About Us for desktop -->
+                    <div class="dropdown-container">
+                        <a href="Aboutus.html" class="nav-link focus-ring dropdown-trigger">
+                            About Us
+                            <svg class="dropdown-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
+                                <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="our-story.html" class="dropdown-item">About WayForSky</a>
+                            <a href="our-team.html" class="dropdown-item">Why WayForSky ?</a>
+                        </div>
+                    </div>
+                    <!-- Added dropdown functionality to Courses for desktop -->
+                    <div class="dropdown-container">
+                        <a href="" class="nav-link focus-ring dropdown-trigger">
+                            Courses
+                            <svg class="dropdown-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
+                                <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="web-development.html" class="dropdown-item">Web Development</a>
+                            <a href="mobile-development.html" class="dropdown-item">Mobile Development</a>
+                            <a href="data-science.html" class="dropdown-item">Data Science</a>
+                            <a href="ui-ux-design.html" class="dropdown-item">UI/UX Design</a>
+                        </div>
+                    </div>
+                    <!-- Added dropdown functionality to Events for desktop -->
+                    <div class="dropdown-container">
+                        <a href="" class="nav-link focus-ring dropdown-trigger">
+                            Events
+                            <svg class="dropdown-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
+                                <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="workshops.html" class="dropdown-item">Fleets</a>
+                            <a href="seminars.html" class="dropdown-item">Orientation program</a>
+                            <a href="conferences.html" class="dropdown-item">Seminars</a>
+                            <a href="networking.html" class="dropdown-item">Shorts</a>
+                            <a href="networking.html" class="dropdown-item">Testimonials</a>
+                        </div>
+                    </div>
+                    <!-- Added dropdown functionality to Classes for desktop -->
+                    <div class="dropdown-container">
+                        <a href="" class="nav-link focus-ring dropdown-trigger">
+                            Classes
+                            <svg class="dropdown-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
+                                <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="beginner-classes.html" class="dropdown-item">DGCA ground Classes</a>
+                            <a href="intermediate-classes.html" class="dropdown-item">Radiology Telephonics (RTR) classes</a>
+                            <a href="advanced-classes.html" class="dropdown-item">NIOS Prep Clases</a>
+                        </div>
+                    </div>
+                    <a href="signup.html" class="nav-link focus-ring">Join the Webinar</a>
+
+
+                </nav>
+                
+                <!-- Right Actions -->
+                <div class="right-actions">
+                    <!-- Search Icon -->
+                    <button class="search-icon focus-ring" aria-label="Search">
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <circle cx="8" cy="8" r="7" stroke="#FFFFFF" stroke-width="1.5"/>
+                            <path d="m15 15 3 3" stroke="#FFFFFF" stroke-width="1.5"/>
+                        </svg>
+                    </button>
+                    
+                    <!-- Contact Button -->
+                    <a href="contact-us.html" class="contact-btn focus-ring">
+                        Apply Now
+                    </a>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button class="mobile-menu-btn focus-ring" aria-label="Menu" id="mobileMenuBtn">
+                        <!-- Added hamburger and close icons that toggle based on menu state -->
+                        <svg id="hamburgerIcon" width="20" height="16" viewBox="0 0 20 16" fill="none">
+                            <path d="M0 1h20M0 8h20M0 15h20" stroke="#FFFFFF" stroke-width="1.5"/>
+                        </svg>
+                        <svg id="closeIcon" width="20" height="20" viewBox="0 0 20 20" fill="none" style="display: none;">
+                            <path d="M15 5L5 15M5 5l10 10" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <!-- Restored original mobile menu structure with dropdown functionality -->
+        <div id="mobileMenu" class="mobile-menu">
+            <nav class="mobile-nav">
+                <a href="/index.html" class="mobile-nav-link focus-ring ">Home</a>
+                <!-- Added dropdown functionality to About Us for mobile -->
+                <div class="mobile-dropdown-container">
+                    <button class="mobile-nav-link mobile-dropdown-trigger focus-ring" data-dropdown="aboutus">
+                        About Us
+                        <svg class="mobile-dropdown-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
+                            <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="mobile-dropdown-menu" id="mobile-aboutus">
+                        <a href="our-story.html" class="dropdown-item">About WayForSky</a>
+                        <a href="our-team.html" class="dropdown-item">Why WayForSky ?</a>
+                </div>
+                </div>
+                <div class="mobile-dropdown-container">
+                    <button class="mobile-nav-link mobile-dropdown-trigger focus-ring" data-dropdown="courses">
+                        Courses
+                        <svg class="mobile-dropdown-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
+                            <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="mobile-dropdown-menu" id="mobile-courses">
+                        <a href="web-development.html" class="mobile-dropdown-item">Web Development</a>
+                        <a href="mobile-development.html" class="mobile-dropdown-item">Mobile Development</a>
+                        <a href="data-science.html" class="mobile-dropdown-item">Data Science</a>
+                        <a href="ui-ux-design.html" class="mobile-dropdown-item">UI/UX Design</a>
+                    </div>
+                </div>
+                <div class="mobile-dropdown-container">
+                    <button class="mobile-nav-link mobile-dropdown-trigger focus-ring" data-dropdown="events">
+                        Events
+                        <svg class="mobile-dropdown-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
+                            <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="mobile-dropdown-menu" id="mobile-events">
+                        <a href="workshops.html" class="dropdown-item">Fleets</a>
+                        <a href="seminars.html" class="dropdown-item">Orientation program</a>
+                        <a href="conferences.html" class="dropdown-item">Seminars</a>
+                        <a href="networking.html" class="dropdown-item">Shorts</a>
+                        <a href="networking.html" class="dropdown-item">Testimonials</a>
+                </div>
+                </div>
+                <a href="contact-us.html" class="mobile-nav-link focus-ring">Contact-Us</a>                   
+                <div class="mobile-dropdown-container">
+                    <button class="mobile-nav-link mobile-dropdown-trigger focus-ring" data-dropdown="classes">
+                        Classes
+                        <svg class="mobile-dropdown-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
+                            <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="mobile-dropdown-menu" id="mobile-classes">
+                        <a href="beginner-classes.html" class="dropdown-item">DGCA ground Classes</a>
+                        <a href="intermediate-classes.html" class="dropdown-item">Radiology Telephonics (RTR) classes</a>
+                        <a href="advanced-classes.html" class="dropdown-item">NIOS Prep Clases</a>
+                </div>
+                </div>
+                <a href="signup.html" class="mobile-nav-link focus-ring">Join the Webinar</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Added perfect white line separator between header and form section -->
+    <div style="height: 1px; background-color: white; width: 100%;"></div>
+
+    <div class="min-h-screen relative">
+        <!-- Gradient Background -->
+        <div class="absolute inset-0 gradient-bg"></div>
+        
+        <!-- Dark Overlay -->
+        <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+        
+        <!-- Content Container -->
+        <div class="relative z-10 min-h-screen flex main-container content-wrapper">
+            <!-- Left Section -->
+            <div class="flex-1 flex flex-col justify-between p-16 left-section">
+                <!-- Logo -->
+
+                <!-- Main Heading -->
+                <div class="flex-1 flex items-center">
+                    <div>
+                        <h2 class="text-white font-bold leading-tight mb-8 main-heading" style="font-size: 3.5rem;">
+                            Got a Big Idea?<br />
+                            We've Got the<br />
+                            Wings for It.
+                          </h2>
+                          
+                    </div>
+                </div>
+                
+
+            </div>
+            
+            <!-- Right Section - Form -->
+            <div class="flex-1 glass-effect p-16 right-section">
+                <!-- Navigation -->
+                <nav class="flex justify-start space-x-8 mb-16 nav-menu">
+                    <a href="#" class="nav-link active text-lg">Contact Us</a>
+
+                </nav>
+                
+                <!-- Form -->
+                <form id="contactForm" class="space-y-8">
+                    <!-- Interest Selection -->
+                    <div>
+                        <p class="text-gray-400 text-lg mb-6">I'm interested in...</p>
+                        <div class="grid grid-cols-3 gap-4 mb-8 interest-grid">
+                            <button
+                                type="button"
+                                class="interest-btn px-6 py-3 border border-gray-600 text-sm font-medium text-gray-300"
+                                data-interest="UI/UX design"
+                            >Private Pilot License</button>
+                            <button
+                                type="button"
+                                class="interest-btn px-6 py-3 border border-gray-600 text-sm font-medium text-gray-300"
+                                data-interest="Website"
+                            >
+                            Commercial Pilot License
+                            </button>
+                            <button
+                                type="button"
+                                class="interest-btn px-6 py-3 border border-gray-600 text-sm font-medium text-gray-300"
+                                data-interest="Branding"
+                            >
+                                
+DGCA Ground Classes
+                            </button>
+                            <button
+                                type="button"
+                                class="interest-btn px-6 py-3 border border-gray-600 text-sm font-medium text-gray-300"
+                                data-interest="Design system"
+                            >
+                            Aviation Diploma
+                            </button>
+                            <button
+                                type="button"
+                                class="interest-btn px-6 py-3 border border-gray-600 text-sm font-medium text-gray-300"
+                                data-interest="Other"
+                            >
+                                Other
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Name Input -->
+                    <div>
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Your name"
+                            class="form-input w-full bg-transparent border-0 border-b border-gray-600 py-4 text-white placeholder-gray-500 text-lg"
+                        />
+                    </div>
+                    
+                    <!-- Phone Input -->
+                    <div>
+                        <input
+                            type="tel"
+                            name="phone"
+                            placeholder="Your phone number"
+                            class="form-input w-full bg-transparent border-0 border-b border-gray-600 py-4 text-white placeholder-gray-500 text-lg"
+                        />
+                    </div>
+                    
+                    <!-- Email Input -->
+                    <div>
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Your email"
+                            class="form-input w-full bg-transparent border-0 border-b border-gray-600 py-4 text-white placeholder-gray-500 text-lg"
+                        />
+                    </div>
+                    
+                    <!-- Added Country of Interest dropdown -->
+                    <div>
+                        <select
+                            name="country"
+                            class="form-input w-full bg-transparent border-0 border-b border-gray-600 py-4 text-white placeholder-gray-500 text-lg"
+                            style="color: #9ca3af;"
+                        >
+                            <option value="" disabled selected style="color: #9ca3af;">Country of Interest</option>
+                            <option value="india" style="color: #000;">India</option>
+                            <option value="south-africa" style="color: #000;">South Africa</option>
+                            <option value="hungary" style="color: #000;">Hungary</option>
+                            <option value="other" style="color: #000;">Other</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Added Preferred Intake dropdown -->
+                    <div>
+                        <select
+                            name="intake"
+                            class="form-input w-full bg-transparent border-0 border-b border-gray-600 py-4 text-white placeholder-gray-500 text-lg"
+                            style="color: #9ca3af;"
+                        >
+                            <option value="" disabled selected style="color: #9ca3af;">Preferred Intake</option>
+                            <option value="oct-2024" style="color: #000;">October 2024</option>
+                            <option value="nov-2024" style="color: #000;">November 2024</option>
+                            <option value="dec-2024" style="color: #000;">December 2024</option>
+                            <option value="jan-2025" style="color: #000;">January 2025</option>
+                            <option value="feb-2025" style="color: #000;">February 2025</option>
+                            <option value="mar-2025" style="color: #000;">March 2025</option>
+                            <option value="apr-2025" style="color: #000;">April 2025</option>
+                            <option value="may-2025" style="color: #000;">May 2025</option>
+                            <option value="jun-2025" style="color: #000;">June 2025</option>
+                            <option value="jul-2025" style="color: #000;">July 2025</option>
+                            <option value="aug-2025" style="color: #000;">August 2025</option>
+                            <option value="sep-2025" style="color: #000;">September 2025</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Added Budget dropdown -->
+                    <div>
+                        <select
+                            name="budget"
+                            class="form-input w-full bg-transparent border-0 border-b border-gray-600 py-4 text-white placeholder-gray-500 text-lg"
+                            style="color: #9ca3af;"
+                        >
+                            <option value="" disabled selected style="color: #9ca3af;">Budget</option>
+                            <option value="below-35" style="color: #000;">Below 35 lakhs</option>
+                            <option value="35-40" style="color: #000;">35 - 40 lakhs</option>
+                            <option value="40-45" style="color: #000;">40 - 45 lakhs</option>
+                            <option value="45-50" style="color: #000;">45 - 50 lakhs</option>
+                            <option value="above-50" style="color: #000;">Above 50 lakhs</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Added Ground Classes dropdown -->
+                    <div>
+                        <select
+                            name="ground-classes"
+                            class="form-input w-full bg-transparent border-0 border-b border-gray-600 py-4 text-white placeholder-gray-500 text-lg"
+                            style="color: #9ca3af;"
+                        >
+                            <option value="" disabled selected style="color: #9ca3af;">Ground Classes</option>
+                            <option value="completed" style="color: #000;">Completed</option>
+                            <option value="ongoing" style="color: #000;">Ongoing</option>
+                            <option value="not-started" style="color: #000;">Not started yet</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Project Description -->
+                    <div>
+                        <textarea
+                            name="project"
+                            placeholder="Anything you'd like to add? (optional)"
+                            rows="4"
+                            class="form-input w-full bg-transparent border-0 border-b border-gray-600 py-4 text-white placeholder-gray-500 resize-none text-lg"
+                        ></textarea>
+                    </div>
+                    
+
+                                        <!-- Added consent checkbox above submit button -->
+                                        <div class="pt-4">
+                                            <label class="flex items-start space-x-3 text-gray-400 text-sm cursor-pointer">
+                                                <input
+                                                    type="checkbox"
+                                                    name="consent"
+                                                    required
+                                                    class="mt-1 w-4 h-4 text-white bg-transparent border border-gray-600 rounded focus:ring-2 focus:ring-white focus:ring-opacity-50"
+                                                />
+                                                <span class="leading-relaxed">
+                                                    I consent to WayForSky storing my information to contact me about aviation training opportunities.
+                                                </span>
+                                            </label>
+                                        </div>
+                    
+                    <!-- Submit Button -->
+                    <div class="pt-8 flex justify-start">
+                        <button
+                            type="submit"
+                            class="submit-btn bg-white text-black px-8 py-4 font-medium text-lg shadow-lg"
+                        >
+                            Sent request
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Added location container from map.html -->
+<div class="mx-auto py-12 px-4 bg-white max-w-[calc(theme(maxWidth.7xl)+4cm)]">
+        <div class="bg-white l overflow-hidden border border-gray-100">
+            <div class="grid lg:grid-cols-12 min-h-[600px]">
+                <!-- Left Section - Contact Information -->
+                <div class="lg:col-span-4 p-12 lg:p-16 bg-gray-50 flex flex-col justify-center border-r border-gray-200">
+                    <div class="max-w-md mx-auto lg:mx-0">
+                        <div class="mb-8">
+                            <h2 class="text-3xl font-light text-gray-900 mb-4 tracking-wide">Contact Information</h2>
+                            <p class="text-gray-600 leading-relaxed font-light">
+                                Get in touch with our professional team for inquiries and support.
+                            </p>
+                        </div>
+
+                        <div class="space-y-6">
+                            <!-- Address -->
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 w-12 h-12 bg-white border-2 border-gray-300 flex items-center justify-center text-gray-600 shadow-sm">
+                                  <i class="fas fa-map-marker-alt text-sm"></i>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                  <div class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2 letter-spacing-wide">
+                                    Address
+                                  </div>
+                                  <div class="text-gray-900 font-light leading-relaxed">
+                                    <div>Nandi Building No 56</div>
+                                    <div>Bowring Hospital Road, Shivaji Nagar</div>
+                                    <div>Bangalore, Karnataka 560001</div>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <!-- Phone -->
+                              <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 w-12 h-12 bg-white border-2 border-gray-300 flex items-center justify-center text-gray-600 shadow-sm">
+                                  <i class="fas fa-phone text-sm"></i>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                  <div class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
+                                    Phone
+                                  </div>
+                                  <a href="tel:+919071165504" class="text-gray-900 font-light hover:text-gray-700 transition-colors duration-200">
+                                    +91 9071165504
+                                  </a>
+                                </div>
+                              </div>
+                              
+                              <!-- Email -->
+                              <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 w-12 h-12 bg-white border-2 border-gray-300 flex items-center justify-center text-gray-600 shadow-sm">
+                                  <i class="fas fa-envelope text-sm"></i>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                  <div class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
+                                    Email
+                                  </div>
+                                  <a href="mailto:info@wayforsky.com" class="text-gray-900 font-light hover:text-gray-700 transition-colors duration-200">
+                                    info@wayforsky.com
+                                  </a>
+                                </div>
+                              </div>
+                              
+                            <!-- Hours -->
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 w-12 h-12 bg-white border-2 border-gray-300 flex items-center justify-center text-gray-600 shadow-sm">
+                                    <i class="fas fa-clock text-sm"></i>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
+                                        Hours
+                                    </div>
+                                    <div class="text-gray-900 font-light leading-relaxed">
+                                        <div>Mon-Fri: 9:00 AM - 6:00 PM</div>
+                                        <div>Sat: 10:00 AM - 4:00 PM</div>
+                                        <div>Sun: Closed</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Section - Google Map -->
+                <div class="relative lg:col-span-8">
+                    <div 
+                        id="map" 
+                        class="w-full h-full min-h-[400px] lg:min-h-[600px] bg-gray-100 flex items-center justify-center"
+                    >
+                        <div id="mapLoader" class="text-center">
+                            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                            <p class="text-gray-600">Loading map...</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Map overlay for mobile -->
+                    <div class="absolute top-6 right-6 bg-white shadow-lg p-3 lg:hidden border border-gray-200">
+                        <button 
+                            id="mobileDirectionsBtn"
+                            class="flex items-center space-x-2 text-gray-700 font-medium hover:text-gray-900 transition-colors duration-200"
+                        >
+                            <i class="fas fa-directions text-sm"></i>
+                            <span class="text-sm">Directions</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Footer -->
+        <footer class="bg-white border-t border-gray-100 py-16 px-6 sm:px-8 lg:px-12">
+            <div class="max-w-7xl mx-auto">
+                <!-- Main footer content -->
+                <div class="grid grid-cols-1 lg:grid-cols-4 gap-12 lg:gap-8">
+                    <!-- Brand section -->
+                    <div class="lg:col-span-1">
+                        <div class="mb-8">
+                            <h2 class="text-4xl font-bold text-black mb-4 tracking-tight">
+                                Wayforsky
+                            </h2>
+                            <p class="text-lg text-gray-600 font-medium leading-relaxed">
+                                Your sky your future.
+                            </p>
+                        </div>
+                    </div>
+    
+                    <!-- Navigation sections -->
+                    <div class="lg:col-span-3">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12">
+                            <!-- Company section -->
+                            <div>
+                                <h3 class="text-lg font-semibold text-black mb-6 tracking-wide border-b-2 border-blue-600 pb-2 inline-block">
+                                    Company
+                                </h3>
+                                <ul class="space-y-4">
+
+                                    <li>
+                                        <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 text-base font-medium block py-1 hover:translate-x-1 transform">
+                                            About
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 text-base font-medium block py-1 hover:translate-x-1 transform">
+                                            Vision
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 text-base font-medium block py-1 hover:translate-x-1 transform">
+                                            Genesis
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+    
+                            <!-- Marketplace section -->
+                            <div>
+                                <h3 class="text-lg font-semibold text-black mb-6 tracking-wide border-b-2 border-blue-600 pb-2 inline-block">
+                                    Marketplace
+                                </h3>
+                                <ul class="space-y-4">
+                                    <li>
+                                        <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 text-base font-medium block py-1 hover:translate-x-1 transform">
+                                            FAQ
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 text-base font-medium block py-1 hover:translate-x-1 transform">
+                                            Blog
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 text-base font-medium block py-1 hover:translate-x-1 transform">
+                                            Apply
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+    
+                            <!-- Support section -->
+                            <div>
+                                <h3 class="text-lg font-semibold text-black mb-6 tracking-wide border-b-2 border-blue-600 pb-2 inline-block">
+                                    Support
+                                </h3>
+                                <ul class="space-y-4">
+                                    <li>
+                                        <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 text-base font-medium block py-1 hover:translate-x-1 transform">
+                                            Contact
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 text-base font-medium block py-1 hover:translate-x-1 transform">
+                                            FAQ
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+    
+                            <!-- Office Address section -->
+                            <div>
+                                <h3 class="text-lg font-semibold text-black mb-6 tracking-wide border-b-2 border-blue-600 pb-2 inline-block">
+                                  Office
+                                </h3>
+                                <div class="space-y-3 text-gray-600">
+                                  <p class="text-base font-medium">
+                                    Wayforsky Headquarters
+                                  </p>
+                              
+                                  <!-- Address -->
+                                  <!-- On large screens: one line (no <br>) -->
+                                  <!-- On small screens: broken into multiple lines -->
+                                  <p class="text-sm leading-relaxed text-gray-700">
+                                    <span class="hidden sm:inline">
+                                      Nandi Building No 56, Bowring Hospital Road, Shivaji Nagar, Bangalore, Karnataka 560001
+                                    </span>
+                                    <span class="sm:hidden">
+                                      Nandi Building No 56<br>
+                                      Bowring Hospital Road, Shivaji Nagar<br>
+                                      Bangalore, Karnataka 560001
+                                    </span>
+                                  </p>
+                              
+                                  <!-- Phone -->
+                                  <p class="text-sm">
+                                    <span class="font-medium text-black">Phone:</span><br>
+                                    +91 9071165504
+                                  </p>
+                              
+                                  <!-- Email -->
+                                  <p class="text-sm">
+                                    <span class="font-medium text-black">Email:</span><br>
+                                    <a href="mailto:hello@remx.com" class="text-blue-600 hover:text-blue-700 transition-colors duration-200">
+                                        info@wayforsky.com
+                                    </a>
+                                  </p>
+                                </div>
+                              </div>
+                              
+                        </div>
+                    </div>
+                </div>
+    
+    
+                <!-- Bottom section -->
+                <div class="mt-16 pt-8 border-t border-gray-100">
+                    <div class="flex flex-col sm:flex-row justify-between items-center space-y-6 sm:space-y-0">
+                        <!-- Powered by -->
+                        <div class="flex items-center justify-center space-x-2 text-gray-600 text-base">
+                            <span>Lifting Dreams</span>
+                            <img src="https://img.icons8.com/ios-filled/50/1E90FF/airplane-take-off.png" alt="plane icon" class="w-6 h-6">
+                            <span>by Creative Layer</span>
+                          </div>
+                          
+                          
+    
+                        <!-- Social icons -->
+                        <div class="flex items-center space-x-6">
+                            <!-- Twitter -->
+                            <a href="#" class="text-gray-500 hover:text-blue-600 transition-all duration-200 transform hover:scale-110 hover:-translate-y-1" aria-label="Twitter">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                </svg>
+                            </a>
+    
+                            <!-- Facebook -->
+                            <a href="#" class="text-gray-500 hover:text-blue-600 transition-all duration-200 transform hover:scale-110 hover:-translate-y-1" aria-label="Facebook">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                </svg>
+                            </a>
+    
+                            <!-- YouTube -->
+                            <a href="#" class="text-gray-500 hover:text-blue-600 transition-all duration-200 transform hover:scale-110 hover:-translate-y-1" aria-label="YouTube">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    
+        <script>
+            // Add smooth scrolling and enhanced interactions
+            document.addEventListener('DOMContentLoaded', function() {
+                // Add hover effects to social icons
+                const socialIcons = document.querySelectorAll('footer a[aria-label]');
+                socialIcons.forEach(icon => {
+                    icon.addEventListener('mouseenter', function() {
+                        this.style.transform = 'scale(1.1) translateY(-2px)';
+                    });
+                    icon.addEventListener('mouseleave', function() {
+                        this.style.transform = 'scale(1) translateY(0)';
+                    });
+                });
+    
+                // Add click animation to the main button
+                const mainButton = document.querySelector('button');
+                mainButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1.05)';
+                        setTimeout(() => {
+                            this.style.transform = 'scale(1)';
+                        }, 100);
+                    }, 100);
+                });
+    
+                // Add subtle animation to footer links
+                const footerLinks = document.querySelectorAll('footer ul a');
+                footerLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        this.style.color = '#2563eb';
+                        setTimeout(() => {
+                            this.style.color = '';
+                        }, 200);
+                    });
+                });
+            });
+        </script>
+    
+    <script>
+        // Mobile menu toggle function
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const hamburgerIcon = document.getElementById('hamburgerIcon');
+            const closeIcon = document.getElementById('closeIcon');
+            
+            menu.classList.toggle('open');
+            
+            if (menu.classList.contains('open')) {
+                hamburgerIcon.style.transform = 'scale(0)';
+                setTimeout(() => {
+                    hamburgerIcon.style.display = 'none';
+                    closeIcon.style.display = 'block';
+                    closeIcon.style.transform = 'scale(0)';
+                    setTimeout(() => {
+                        closeIcon.style.transform = 'scale(1)';
+                    }, 50);
+                }, 150);
+            } else {
+                closeIcon.style.transform = 'scale(0)';
+                setTimeout(() => {
+                    closeIcon.style.display = 'none';
+                    hamburgerIcon.style.display = 'block';
+                    hamburgerIcon.style.transform = 'scale(0)';
+                    setTimeout(() => {
+                        hamburgerIcon.style.transform = 'scale(1)';
+                    }, 50);
+                }, 150);
+            }
+        }
+
+        // Active state management function
+        function setActive(clickedLink) {
+            // Remove active class from all nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Add active class to clicked link
+            clickedLink.classList.add('active');
+            
+            // Close mobile menu if open
+            const menu = document.getElementById('mobileMenu');
+            const hamburgerIcon = document.getElementById('hamburgerIcon');
+            const closeIcon = document.getElementById('closeIcon');
+            
+            menu.classList.remove('open');
+            hamburgerIcon.style.display = 'block';
+            closeIcon.style.display = 'none';
+        }
+
+        // Initialize functionality after DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Desktop navigation active state
+            document.querySelectorAll('.desktop-nav .nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Allow navigation to proceed - don't prevent default
+                    // setActive(this); // Remove this to allow page navigation
+                });
+            });
+            
+            // Mobile navigation active state
+            document.querySelectorAll('.mobile-nav .nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Allow navigation to proceed - don't prevent default
+                    // setActive(this); // Remove this to allow page navigation
+                });
+            });
+            
+            // Mobile menu button
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            }
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                const menu = document.getElementById('mobileMenu');
+                const menuBtn = document.querySelector('.mobile-menu-btn');
+                const hamburgerIcon = document.getElementById('hamburgerIcon');
+                const closeIcon = document.getElementById('closeIcon');
+                
+                if (menu && menuBtn && !menu.contains(e.target) && !menuBtn.contains(e.target)) {
+                    menu.classList.remove('open');
+                    hamburgerIcon.style.display = 'block';
+                    closeIcon.style.display = 'none';
+                }
+            });
+
+            // Interest selection functionality
+            const interestButtons = document.querySelectorAll('.interest-btn');
+            const selectedInterests = new Set();
+
+            interestButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const interest = this.dataset.interest;
+                    
+                    if (selectedInterests.has(interest)) {
+                        selectedInterests.delete(interest);
+                        this.classList.remove('selected');
+                    } else {
+                        selectedInterests.add(interest);
+                        this.classList.add('selected');
+                    }
+                });
+            });
+
+            // Form submission
+            const contactForm = document.getElementById('contactForm');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(this);
+                const data = {
+                    name: formData.get('name'),
+                    phone: formData.get('phone'),
+                    email: formData.get('email'),
+                    project: formData.get('project'),
+                    interests: Array.from(selectedInterests)
+                };
+                
+                console.log('Form submitted:', data);
+                
+                // Show success message
+                const submitBtn = document.querySelector('.submit-btn');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Request sent!';
+                submitBtn.style.background = '#10b981';
+                
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.style.background = 'white';
+                }, 2000);
+            });
+
+            // Smooth scrolling for mobile
+            if (window.innerWidth <= 1024) {
+                document.documentElement.style.scrollBehavior = 'smooth';
+            }
+
+            // Dynamic viewport height for mobile
+            function setVH() {
+                let vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
+            }
+
+            setVH();
+            window.addEventListener('resize', setVH);
+
+        // Company coordinates (replace with your actual lat/lng)
+        const COMPANY_LOCATION = {
+            lat: 12.98125,   // Your company's latitude
+            lng: 77.60672    // Your company's longitude
+        };
+
+        // Replace with your actual Google Maps API key
+        const GOOGLE_MAPS_API_KEY = 'AIzaSyC2x_pTe8yRrV53qnI_-hUj7t1ldjkpWLQ';
+
+        let map;
+        let marker;
+
+        // Initialize map function
+        function initMap() {
+            const mapElement = document.getElementById('map');
+            const mapLoader = document.getElementById('mapLoader');
+            
+            if (!mapElement) return;
+
+            // Hide loader
+            if (mapLoader) {
+                mapLoader.style.display = 'none';
+            }
+
+            // Create map
+            map = new google.maps.Map(mapElement, {
+                zoom: 15,
+                center: COMPANY_LOCATION,
+                styles: [
+                    {
+                        featureType: 'all',
+                        elementType: 'geometry.fill',
+                        stylers: [{ weight: '2.00' }]
+                    },
+                    {
+                        featureType: 'all',
+                        elementType: 'geometry.stroke',
+                        stylers: [{ color: '#9c9c9c' }]
+                    },
+                    {
+                        featureType: 'all',
+                        elementType: 'labels.text',
+                        stylers: [{ visibility: 'on' }]
+                    },
+                    {
+                        featureType: 'landscape',
+                        elementType: 'all',
+                        stylers: [{ color: '#f2f2f2' }]
+                    },
+                    {
+                        featureType: 'water',
+                        elementType: 'all',
+                        stylers: [{ color: '#46bcec' }, { visibility: 'on' }]
+                    }
+                ]
+            });
+
+            // Add marker
+            marker = new google.maps.Marker({
+                position: COMPANY_LOCATION,
+                map: map,
+                title: 'Our Training Center',
+                animation: google.maps.Animation.DROP,
+                icon: {
+                    url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ef4444' width='32' height='32'%3E%3Cpath d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'/%3E%3C/svg%3E",
+                    scaledSize: new google.maps.Size(32, 32),
+                }
+            });
+        }
+
+        // Handle get directions
+        function handleGetDirections() {
+            const url = `https://www.google.com/maps/dir/?api=1&destination=${COMPANY_LOCATION.lat},${COMPANY_LOCATION.lng}`;
+            window.open(url, '_blank');
+        }
+
+        // Load Google Maps API
+        function loadGoogleMaps() {
+            if (window.google && window.google.maps) {
+                initMap();
+                return;
+            }
+
+            const script = document.createElement('script');
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&callback=initMap`;
+            script.async = true;
+            script.defer = true;
+            script.onerror = function() {
+                const mapLoader = document.getElementById('mapLoader');
+                if (mapLoader) {
+                    mapLoader.innerHTML = `
+                        <div class="text-center">
+                            <i class="fas fa-exclamation-triangle text-red-500 text-2xl mb-2"></i>
+                            <p class="text-red-600">Failed to load map</p>
+                            <p class="text-sm text-gray-500">Please check your API key</p>
+                        </div>
+                    `;
+                }
+            };
+            document.head.appendChild(script);
+        }
+
+            // Load Google Maps
+            loadGoogleMaps();
+
+            // Get directions button (mobile only)
+            const mobileDirectionsBtn = document.getElementById('mobileDirectionsBtn');
+            if (mobileDirectionsBtn) {
+                mobileDirectionsBtn.addEventListener('click', handleGetDirections);
+            }
+
+
+            // Make initMap globally available for Google Maps callback
+            window.initMap = initMap;
+        });
+    </script>
+        <script src="/public/contact.js"></script>
+
+    <!-- Added popup modals for success message and scheduling -->
+    <!-- Success Popup Modal -->
+    <div id="successPopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg p-8 max-w-md mx-4 text-center">
+            <div class="text-4xl mb-4">✅</div>
+            <h3 class="text-xl font-semibold mb-4 text-gray-900">Thank you for sharing your details!</h3>
+            <p class="text-gray-600 mb-6">Our team has received your enquiry and will get back to you shortly. Would you like to book a free phone counselling session with one of our Junior Counsellors at a time that suits you?</p>
+            <div class="flex flex-col gap-3">
+                <button id="bookSessionBtn" class="bg-pink-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-pink-600 transition-colors">
+                    Yes, Book My Free Counselling Session
+                </button>
+                <button id="noThanksBtn" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-300 transition-colors">
+                    No Thanks, I'll Wait for Contact
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Thank You Confirmation -->
+    <div id="thankYouPopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg p-8 max-w-md mx-4 text-center">
+            <div class="text-4xl mb-4">✅</div>
+            <h3 class="text-xl font-semibold mb-4 text-gray-900">Your enquiry has been submitted successfully.</h3>
+            <p class="text-gray-600 mb-6">Our team will reach out to you soon.</p>
+            <button id="closeThankYouBtn" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-300 transition-colors">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <!-- Scheduling Modal -->
+    <div id="schedulingModal"  class="fixed inset-0 bg-black md:bg-opacity-90 flex items-center justify-center z-[9999] hidden">
+       <div class="bg-black text-white rounded-lg max-w-6xl w-full mx-4 h-[90vh] flex">
+            <!-- Left Side - Business Info -->
+<!-- Left Side - Business Info -->
+<div class="w-1/2 p-12 flex flex-col justify-center hidden md:flex">
+    <h1 class="text-5xl font-light mb-6 leading-tight">Let's get down to business</h1>
+    <p class="text-gray-400 text-lg mb-8 leading-relaxed">
+        We'd love to chat! If you fill out the information below, someone from the team will reach out right away!
+    </p>
+    <div class="mt-auto">
+        <img src="/placeholder.svg?height=200&width=300" alt="Professional briefcase" class="opacity-80">
+    </div>
+</div>
+
+<!-- Right Side - Scheduling Interface -->
+<div class="w-full md:w-1/2 bg-gray-900 p-8">
+    <!-- Tab Headers -->
+    <div class="flex mb-8 border-b border-gray-700">
+        <button class="tab-btn px-6 py-3 text-gray-400 border-b-2 border-transparent" data-tab="message">Send a Message</button>
+        <button class="tab-btn px-6 py-3 text-white border-b-2 border-pink-500 active" data-tab="schedule">Schedule a Call</button>
+    </div>
+
+                <!-- Calendar Step -->
+                <div id="calendarStep" class="scheduling-step">
+                    <div class="mb-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <button id="prevMonth" class="text-white hover:text-pink-500 transition-colors">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                                </svg>
+                            </button>
+                            <h3 id="currentMonth" class="text-xl font-medium">January 2024</h3>
+                            <button id="nextMonth" class="text-white hover:text-pink-500 transition-colors">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <!-- Calendar Grid -->
+                        <div class="grid grid-cols-7 gap-1 mb-4">
+                            <div class="text-center text-gray-500 text-sm py-2">SUN</div>
+                            <div class="text-center text-gray-500 text-sm py-2">MON</div>
+                            <div class="text-center text-gray-500 text-sm py-2">TUE</div>
+                            <div class="text-center text-gray-500 text-sm py-2">WED</div>
+                            <div class="text-center text-gray-500 text-sm py-2">THU</div>
+                            <div class="text-center text-gray-500 text-sm py-2">FRI</div>
+                            <div class="text-center text-gray-500 text-sm py-2">SAT</div>
+                        </div>
+                        <div id="calendarGrid" class="grid grid-cols-7 gap-1 mb-6">
+                            <!-- Calendar dates will be generated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-white mb-2">Time Zone</label>
+                        <select class="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white">
+                            <option>India Standard Time (5:25 PM)</option>
+                            <option>Eastern Time (EST)</option>
+                            <option>Pacific Time (PST)</option>
+                        </select>
+                    </div>
+
+                    <button id="calendarNextBtn" class="w-full bg-pink-500 text-white py-3 rounded-lg font-medium hover:bg-pink-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        Next
+                    </button>
+                </div>
+
+                <!-- Time Selection Step -->
+                <div id="timeStep" class="scheduling-step hidden">
+                    <div class="mb-6">
+                        <h3 class="text-xl font-medium mb-6">Select Time</h3>
+                        <div class="grid grid-cols-4 gap-3 mb-8">
+                            <button class="time-slot border border-gray-600 rounded-full px-4 py-2 text-sm hover:border-pink-500 transition-colors" data-time="10:00 AM">10:00 AM</button>
+                            <button class="time-slot border border-gray-600 rounded-full px-4 py-2 text-sm hover:border-pink-500 transition-colors" data-time="12:00 PM">12:00 PM</button>
+                            <button class="time-slot border border-gray-600 rounded-full px-4 py-2 text-sm hover:border-pink-500 transition-colors" data-time="02:00 PM">02:00 PM</button>
+                            <button class="time-slot border border-gray-600 rounded-full px-4 py-2 text-sm hover:border-pink-500 transition-colors" data-time="04:00 PM">04:00 PM</button>
+                            <button class="time-slot border border-gray-600 rounded-full px-4 py-2 text-sm hover:border-pink-500 transition-colors" data-time="10:00 AM">10:00 AM</button>
+                            <button class="time-slot border border-gray-600 rounded-full px-4 py-2 text-sm hover:border-pink-500 transition-colors" data-time="12:00 PM">12:00 PM</button>
+                            <button class="time-slot border border-gray-600 rounded-full px-4 py-2 text-sm hover:border-pink-500 transition-colors" data-time="02:00 PM">02:00 PM</button>
+                            <button class="time-slot border border-gray-600 rounded-full px-4 py-2 text-sm hover:border-pink-500 transition-colors" data-time="04:00 PM">04:00 PM</button>
+                            <button class="time-slot border border-gray-600 rounded-full px-4 py-2 text-sm hover:border-pink-500 transition-colors" data-time="10:00 AM">10:00 AM</button>
+                            <button class="time-slot border border-gray-600 rounded-full px-4 py-2 text-sm hover:border-pink-500 transition-colors" data-time="12:00 PM">12:00 PM</button>
+                            <button class="time-slot border border-gray-600 rounded-full px-4 py-2 text-sm hover:border-pink-500 transition-colors" data-time="02:00 PM">02:00 PM</button>
+                            <button class="time-slot border border-gray-600 rounded-full px-4 py-2 text-sm hover:border-pink-500 transition-colors" data-time="04:00 PM">04:00 PM</button>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-800 rounded-lg p-4 mb-6">
+                        <h4 class="font-medium mb-2">📞 Free Phone Counselling Session</h4>
+                        <div class="text-sm text-gray-400 space-y-1">
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span>30 min</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                </svg>
+                                <span>Phone call details provided upon confirmation.</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0h6m-6 0l-2 13a2 2 0 002 2h8a2 2 0 002-2L16 7"></path>
+                                </svg>
+                                <span id="selectedDateTime">Select date and time</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="confirmSessionBtn" class="w-full bg-pink-500 text-white py-3 rounded-lg font-medium hover:bg-pink-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        Confirm My Session
+                    </button>
+                </div>
+
+                <!-- Close button -->
+                <button id="closeSchedulingModal" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Final Confirmation Popup -->
+    <div id="finalConfirmationPopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg p-8 max-w-md mx-4 text-center">
+            <div class="text-4xl mb-4">🎉</div>
+            <h3 class="text-xl font-semibold mb-4 text-gray-900">Your counselling session has been booked successfully!</h3>
+            <p class="text-gray-600 mb-6">Our Junior Counsellor will call you on your selected date and time. A confirmation email/WhatsApp has also been sent to you.</p>
+            <button id="closeFinalConfirmationBtn" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-300 transition-colors">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <!-- Added scheduling functionality script -->
+    <script>
+        let selectedDate = null;
+        let selectedTime = null;
+        let currentMonth = new Date();
+
+        // Form submission handler
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('successPopup').classList.remove('hidden');
+        });
+
+        // Success popup button handlers
+        document.getElementById('bookSessionBtn').addEventListener('click', function() {
+            document.getElementById('successPopup').classList.add('hidden');
+            document.getElementById('schedulingModal').classList.remove('hidden');
+            generateCalendar();
+        });
+
+        document.getElementById('noThanksBtn').addEventListener('click', function() {
+            document.getElementById('successPopup').classList.add('hidden');
+            document.getElementById('thankYouPopup').classList.remove('hidden');
+        });
+
+        document.getElementById('closeThankYouBtn').addEventListener('click', function() {
+            document.getElementById('thankYouPopup').classList.add('hidden');
+        });
+
+        // Close scheduling modal
+        document.getElementById('closeSchedulingModal').addEventListener('click', function() {
+            document.getElementById('schedulingModal').classList.add('hidden');
+        });
+
+        // Calendar navigation
+        document.getElementById('prevMonth').addEventListener('click', function() {
+            currentMonth.setMonth(currentMonth.getMonth() - 1);
+            generateCalendar();
+        });
+
+        document.getElementById('nextMonth').addEventListener('click', function() {
+            currentMonth.setMonth(currentMonth.getMonth() + 1);
+            generateCalendar();
+        });
+
+        // Calendar next button
+        document.getElementById('calendarNextBtn').addEventListener('click', function() {
+            if (selectedDate) {
+                document.getElementById('calendarStep').classList.add('hidden');
+                document.getElementById('timeStep').classList.remove('hidden');
+            }
+        });
+
+        // Time slot selection
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('time-slot')) {
+                // Remove previous selection
+                document.querySelectorAll('.time-slot').forEach(slot => {
+                    slot.classList.remove('bg-pink-500', 'border-pink-500');
+                    slot.classList.add('border-gray-600');
+                });
+                
+                // Add selection to clicked slot
+                e.target.classList.remove('border-gray-600');
+                e.target.classList.add('bg-pink-500', 'border-pink-500');
+                
+                selectedTime = e.target.dataset.time;
+                updateSelectedDateTime();
+                document.getElementById('confirmSessionBtn').disabled = false;
+            }
+        });
+
+        // Confirm session button
+        document.getElementById('confirmSessionBtn').addEventListener('click', function() {
+            document.getElementById('schedulingModal').classList.add('hidden');
+            document.getElementById('finalConfirmationPopup').classList.remove('hidden');
+        });
+
+        document.getElementById('closeFinalConfirmationBtn').addEventListener('click', function() {
+            document.getElementById('finalConfirmationPopup').classList.add('hidden');
+        });
+
+        // Generate calendar
+        function generateCalendar() {
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"];
+            
+            document.getElementById('currentMonth').textContent = monthNames[currentMonth.getMonth()] + ' ' + currentMonth.getFullYear();
+            
+            const firstDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
+            const lastDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
+            const startDate = new Date(firstDay);
+            startDate.setDate(startDate.getDate() - firstDay.getDay());
+            
+            const calendarGrid = document.getElementById('calendarGrid');
+            calendarGrid.innerHTML = '';
+            
+            for (let i = 0; i < 42; i++) {
+                const date = new Date(startDate);
+                date.setDate(startDate.getDate() + i);
+                
+                const dateButton = document.createElement('button');
+                dateButton.className = 'w-10 h-10 text-center rounded-full hover:bg-gray-700 transition-colors';
+                dateButton.textContent = date.getDate();
+                
+                if (date.getMonth() !== currentMonth.getMonth()) {
+                    dateButton.className += ' text-gray-600';
+                    dateButton.disabled = true;
+                } else {
+                    dateButton.className += ' text-white';
+                    dateButton.addEventListener('click', function() {
+                        // Remove previous selection
+                        document.querySelectorAll('#calendarGrid button').forEach(btn => {
+                            btn.classList.remove('bg-pink-500');
+                        });
+                        
+                        // Add selection to clicked date
+                        this.classList.add('bg-pink-500');
+                        selectedDate = new Date(date);
+                        document.getElementById('calendarNextBtn').disabled = false;
+                    });
+                }
+                
+                calendarGrid.appendChild(dateButton);
+            }
+        }
+
+        function updateSelectedDateTime() {
+            if (selectedDate && selectedTime) {
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                const dateStr = selectedDate.toLocaleDateString('en-US', options);
+                document.getElementById('selectedDateTime').textContent = `${selectedTime}, ${dateStr}`;
+            }
+        }
+
+        // Initialize calendar on page load
+        generateCalendar();
+    </script>
+
+</body>
+</html>
