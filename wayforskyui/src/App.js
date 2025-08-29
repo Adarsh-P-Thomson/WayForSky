@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import Header from "./Header"
+import Header from "./components/Header"
 import HeroSection from "./HeroSection"
 import Quickintro from "./Quickintro"   // ✅ Import Quickintro
 import FeatureSection from "./FeatureSection"
