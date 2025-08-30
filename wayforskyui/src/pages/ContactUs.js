@@ -296,7 +296,7 @@ const ContactUs = () => {
             }
             .page-container {
                 overflow-x: hidden;
-                margin-top: 2cm;
+                margin-top: 2.1cm;
             }
 
             /* Main Section Styles */
