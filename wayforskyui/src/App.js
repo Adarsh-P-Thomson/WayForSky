@@ -24,7 +24,7 @@ function HomePage() {
     <>
       <HeroSection />
       <Quickintro />
-      <FeatureSection />
+
       <TrainingLocations />
       <Fleet /> 
       <Programoverview />
