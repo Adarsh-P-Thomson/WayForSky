@@ -1,163 +1,6 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-
-const Styles = () => {
-    const css = `
-        /* General Styles */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
-        }
-
-        /* Location/Map Section Styles */
-        .animate-spin {
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        .hover-scale:hover {
-            transform: translateY(-2px);
-        }
-        .transition-all {
-            transition: all 0.2s ease-in-out;
-        }
-        .glass-effect-map {
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.95);
-        }
-        .premium-shadow {
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        }
-
-        /* Form Section Styles */
-        .gradient-bg {
-            background: linear-gradient(135deg, #00d4ff 0%, #3b82f6 25%, #8b5cf6 50%, #ec4899 75%, #f97316 100%);
-        }
-
-        .glass-effect {
-            backdrop-filter: blur(20px);
-            background: rgba(0, 0, 0, 0.6);
-        }
-
-        .interest-btn {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .interest-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
-        }
-
-        .interest-btn.selected {
-            background: white;
-            color: black;
-            border-color: white;
-        }
-
-        .form-input {
-            transition: all 0.3s ease;
-        }
-
-        .form-input:focus {
-            border-color: rgba(255, 255, 255, 0.6);
-            outline: none;
-        }
-
-        .submit-btn {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
-        }
-
-        .submit-btn:active {
-            transform: translateY(0) scale(0.98);
-        }
-
-        /* Responsive Styles */
-        @media (max-width: 1024px) {
-            .main-container {
-                flex-direction: column;
-            }
-            
-            .left-section {
-                min-height: 50vh;
-                padding: 2rem;
-            }
-            
-            .right-section {
-                padding: 2rem;
-            }
-            
-            .main-heading {
-                font-size: 3rem;
-                line-height: 1.1;
-            }
-        }
-
-        @media (min-width: 1025px) {
-            .content-wrapper {
-                margin: 0 4cm;
-                max-width: calc(100vw - 8cm);
-                min-height: 90vh;
-                max-height: none;
-            }
-            .left-section {
-                flex: 0 0 45%;
-                max-width: 45%;
-            }
-            .right-section {
-                flex: 0 0 55%;
-                max-width: 55%;
-                padding: 3rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .interest-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-    `;
-    return <style dangerouslySetInnerHTML={{ __html: css }} />;
-};
-
-const CalendarGrid = ({ currentMonth, selectedDate, onDateSelect }) => {
-    const firstDayOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
-    const lastDayOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
-    const firstDayOfWeek = firstDayOfMonth.getDay();
-    const totalDays = lastDayOfMonth.getDate();
-
-    const blanks = Array(firstDayOfWeek).fill(null);
-    const daysInMonth = Array.from({ length: totalDays }, (_, i) => i + 1);
-
-    return (
-        <div id="calendarGrid" className="grid grid-cols-7 gap-1 mb-6">
-            {['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'].map(day => (
-                <div key={day} className="text-center text-gray-500 text-sm py-2">{day}</div>
-            ))}
-            {blanks.map((_, i) => <div key={`blank-${i}`}></div>)}
-            {daysInMonth.map(day => {
-                const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
-                const isSelected = selectedDate && date.toDateString() === selectedDate.toDateString();
-                return (
-                    <button
-                        key={day}
-                        onClick={() => onDateSelect(date)}
-                        className={`w-10 h-10 text-center rounded-full hover:bg-gray-700 transition-colors text-white ${isSelected ? 'bg-pink-500' : ''}`}
-                    >
-                        {day}
-                    </button>
-                );
-            })}
-        </div>
-    );
-};
+import React, { useState, useEffect, useRef } from 'react';
 
 const ContactUs = () => {
-    // State for the form
     const [selectedInterests, setSelectedInterests] = useState(new Set());
     const [formData, setFormData] = useState({
         name: '',
@@ -170,20 +13,97 @@ const ContactUs = () => {
         project: '',
         consent: false,
     });
+    const [submitStatus, setSubmitStatus] = useState('');
 
-    // State for popups
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
     const [showThankYouPopup, setShowThankYouPopup] = useState(false);
     const [showSchedulingModal, setShowSchedulingModal] = useState(false);
     const [showFinalConfirmation, setShowFinalConfirmation] = useState(false);
 
-    // State for scheduling modal
+    const [currentStep, setCurrentStep] = useState('calendar');
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedTime, setSelectedTime] = useState(null);
     const [currentMonth, setCurrentMonth] = useState(new Date());
-    const [step, setStep] = useState('calendar'); // 'calendar' or 'time'
 
     const mapRef = useRef(null);
+    
+    // Generate time slots from 10:00 AM to 5:30 PM every 30 minutes
+    const timeSlots = [];
+    for (let i = 0; i < 16; i++) { // 16 slots for 10:00 AM to 5:30 PM
+        const hour = 10 + Math.floor(i / 2);
+        const minute = (i % 2) * 30;
+        const period = hour >= 12 ? 'PM' : 'AM';
+        const displayHour = hour > 12 ? hour - 12 : (hour === 0 ? 12 : hour);
+        const displayMinute = minute === 0 ? '00' : '30';
+        timeSlots.push(`${displayHour}:${displayMinute} ${period}`);
+    }
+
+
+    const GOOGLE_MAPS_API_KEY = 'YourApiKey'; // IMPORTANT: Replace with your actual Google Maps API Key
+    const COMPANY_LOCATION = { lat: 12.98125, lng: 77.60672 };
+
+    useEffect(() => {
+        // Add Font Awesome stylesheet if it doesn't exist
+        if (!document.querySelector('link[href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"]')) {
+            const fontAwesomeLink = document.createElement('link');
+            fontAwesomeLink.rel = 'stylesheet';
+            fontAwesomeLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
+            document.head.appendChild(fontAwesomeLink);
+        }
+
+        // Load Google Maps Script
+        if (!window.google) {
+            const script = document.createElement('script');
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&callback=initMap`;
+            script.async = true;
+            script.defer = true;
+            document.head.appendChild(script);
+            window.initMap = initMap;
+             script.onerror = () => {
+                if(document.getElementById('mapLoader')) {
+                    document.getElementById('mapLoader').innerHTML = `
+                        <div class="text-center">
+                            <p style="color: #dc2626;">Failed to load map.</p>
+                            <p style="font-size: 0.875rem; color: #6b7280;">Please check your API key.</p>
+                        </div>
+                    `;
+                }
+            };
+        } else {
+            initMap();
+        }
+    }, []);
+
+
+    const initMap = () => {
+        if (mapRef.current && window.google) {
+             if(document.getElementById('mapLoader')) {
+                document.getElementById('mapLoader').style.display = 'none';
+            }
+            const map = new window.google.maps.Map(mapRef.current, {
+                zoom: 15,
+                center: COMPANY_LOCATION,
+                styles: [
+                    { featureType: 'all', elementType: 'geometry.fill', stylers: [{ weight: '2.00' }] },
+                    { featureType: 'all', elementType: 'geometry.stroke', stylers: [{ color: '#9c9c9c' }] },
+                    { featureType: 'all', elementType: 'labels.text', stylers: [{ visibility: 'on' }] },
+                    { featureType: 'landscape', elementType: 'all', stylers: [{ color: '#f2f2f2' }] },
+                    { featureType: 'water', elementType: 'all', stylers: [{ color: '#46bcec' }, { visibility: 'on' }] }
+                ]
+            });
+            new window.google.maps.Marker({
+                position: COMPANY_LOCATION,
+                map: map,
+                title: 'Our Training Center',
+                animation: window.google.maps.Animation.DROP,
+                 icon: {
+                    url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ef4444' width='32' height='32'%3E%3Cpath d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'/%3E%3C/svg%3E",
+                    scaledSize: new window.google.maps.Size(32, 32),
+                }
+            });
+        }
+    };
+
 
     const handleInterestClick = (interest) => {
         const newInterests = new Set(selectedInterests);
@@ -195,16 +115,6 @@ const ContactUs = () => {
         setSelectedInterests(newInterests);
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const submissionData = {
-            ...formData,
-            interests: Array.from(selectedInterests),
-        };
-        console.log('Form submitted:', submissionData);
-        setShowSuccessPopup(true);
-    };
-
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
         setFormData(prev => ({
@@ -213,7 +123,18 @@ const ContactUs = () => {
         }));
     };
 
-    const openSchedulingModal = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const data = { ...formData, interests: Array.from(selectedInterests) };
+        console.log('Form submitted:', data);
+        setSubmitStatus('Request sent!');
+        setShowSuccessPopup(true);
+        setTimeout(() => {
+            setSubmitStatus('');
+        }, 2000);
+    };
+
+    const handleBookSession = () => {
         setShowSuccessPopup(false);
         setShowSchedulingModal(true);
     };
@@ -222,166 +143,785 @@ const ContactUs = () => {
         setShowSuccessPopup(false);
         setShowThankYouPopup(true);
     };
-
-    const closeThankYouPopup = () => setShowThankYouPopup(false);
-    const closeSchedulingModal = () => setShowSchedulingModal(false);
-    const confirmSession = () => {
-        setShowSchedulingModal(false);
-        setShowFinalConfirmation(true);
+    
+    const handleGetDirections = () => {
+        const url = `https://www.google.com/maps/dir/?api=1&destination=${COMPANY_LOCATION.lat},${COMPANY_LOCATION.lng}`;
+        window.open(url, '_blank');
     };
-    const closeFinalConfirmation = () => setShowFinalConfirmation(false);
 
-    const handlePrevMonth = () => setCurrentMonth(prev => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));
-    const handleNextMonth = () => setCurrentMonth(prev => new Date(prev.getFullYear(), prev.getMonth() + 1, 1));
 
-    const updateSelectedDateTime = () => {
+    // Scheduling Modal Logic
+    const generateCalendar = () => {
+        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const calendarGrid = [];
+        const firstDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
+        const lastDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
+        const startDate = new Date(firstDay);
+        startDate.setDate(startDate.getDate() - firstDay.getDay());
+
+        for (let i = 0; i < 42; i++) {
+            const date = new Date(startDate);
+            date.setDate(startDate.getDate() + i);
+            calendarGrid.push(date);
+        }
+        return {
+            monthName: monthNames[currentMonth.getMonth()] + ' ' + currentMonth.getFullYear(),
+            grid: calendarGrid
+        };
+    };
+
+    const { monthName, grid } = generateCalendar();
+
+    const handleDateClick = (date) => {
+        setSelectedDate(date);
+    };
+    
+    const handleTimeClick = (time) => {
+        setSelectedTime(time);
+    };
+
+    const selectedDateTimeString = () => {
         if (selectedDate && selectedTime) {
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            const dateStr = selectedDate.toLocaleDateString('en-US', options);
-            return `${selectedTime}, ${dateStr}`;
+            return `${selectedTime}, ${selectedDate.toLocaleDateString('en-US', options)}`;
         }
         return 'Select date and time';
     };
 
-    const initMap = useCallback(() => {
-        const COMPANY_LOCATION = { lat: 12.98125, lng: 77.60672 };
-        if (mapRef.current && window.google) {
-            const mapLoader = document.getElementById('mapLoader');
-            if (mapLoader) mapLoader.style.display = 'none';
-
-            const map = new window.google.maps.Map(mapRef.current, {
-                zoom: 15,
-                center: COMPANY_LOCATION,
-                styles: [ /* Map styles from your HTML file can be added here */ ]
-            });
-            new window.google.maps.Marker({
-                position: COMPANY_LOCATION,
-                map: map,
-                title: 'Our Training Center',
-                animation: window.google.maps.Animation.DROP,
-            });
-        }
-    }, []);
-
-    useEffect(() => {
-        const GOOGLE_MAPS_API_KEY = 'YourApikey'; // IMPORTANT: Replace with your actual key
-        if (window.google && window.google.maps) {
-            initMap();
-            return;
-        }
-
-        window.initMap = initMap;
-
-        const script = document.createElement('script');
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&callback=initMap`;
-        script.async = true;
-        script.defer = true;
-        script.onerror = () => {
-            const mapLoader = document.getElementById('mapLoader');
-            if (mapLoader) mapLoader.innerHTML = `<p class="text-red-500">Failed to load map.</p>`;
-        };
-        document.head.appendChild(script);
-
-        return () => {
-            const scriptElement = document.querySelector(`script[src*="${GOOGLE_MAPS_API_KEY}"]`);
-            if (scriptElement) {
-                document.head.removeChild(scriptElement);
-            }
-            delete window.initMap;
-        };
-    }, [initMap]);
-
-    const interestButtons = [
-        { label: 'Private Pilot License', key: 'PPL' },
-        { label: 'Commercial Pilot License', key: 'CPL' },
-        { label: 'DGCA Ground Classes', key: 'DGCA' },
-        { label: 'Aviation Diploma', key: 'Diploma' },
-        { label: 'Other', key: 'Other' },
-    ];
+    const renderCalendar = () => (
+        <div id="calendarStep">
+            <div className="mb-6">
+                <div className="calendar-header">
+                    <button onClick={() => setCurrentMonth(new Date(currentMonth.setMonth(currentMonth.getMonth() - 1)))} className="calendar-nav-btn">
+                        <svg className="icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path></svg>
+                    </button>
+                    <h3 className="month-name">{monthName}</h3>
+                    <button onClick={() => setCurrentMonth(new Date(currentMonth.setMonth(currentMonth.getMonth() + 1)))} className="calendar-nav-btn">
+                        <svg className="icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
+                </div>
+                <div className="calendar-days-grid">
+                    {['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'].map(day => <div key={day} className="calendar-day-label">{day}</div>)}
+                </div>
+                <div className="calendar-dates-grid">
+                    {grid.map((date, index) => {
+                        const isCurrentMonth = date.getMonth() === currentMonth.getMonth();
+                        const isSelected = selectedDate && date.toDateString() === selectedDate.toDateString();
+                        return (
+                            <button
+                                key={index}
+                                disabled={!isCurrentMonth}
+                                onClick={() => handleDateClick(date)}
+                                className={`calendar-date-btn ${!isCurrentMonth ? 'disabled' : ''} ${isSelected ? 'selected' : ''}`}
+                            >
+                                {date.getDate()}
+                            </button>
+                        );
+                    })}
+                </div>
+            </div>
+             <div className="mb-6">
+                <label className="form-label-white">Time Zone</label>
+                <select className="form-select-dark">
+                    <option>India Standard Time (IST)</option>
+                    <option>Eastern Time (EST)</option>
+                    <option>Pacific Time (PST)</option>
+                </select>
+            </div>
+            <button onClick={() => setCurrentStep('time')} disabled={!selectedDate} className="modal-action-button">
+                Next
+            </button>
+        </div>
+    );
+    
+    const renderTimeSelector = () => (
+         <div id="timeStep">
+            <div className="mb-6">
+                <h3 className="modal-subtitle">Select Time</h3>
+                <div className="time-slots-grid">
+                    {timeSlots.map((time) => (
+                        <button
+                            key={time}
+                            onClick={() => handleTimeClick(time)}
+                            className={`time-slot-btn ${selectedTime === time ? 'selected' : ''}`}
+                        >
+                            {time}
+                        </button>
+                    ))}
+                </div>
+            </div>
+            <div className="session-info-box">
+                <h4 className="session-info-title">📞 Free Phone Counselling Session</h4>
+                <div className="session-info-details">
+                    <div className="session-info-item">
+                         <svg className="icon-xs" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span>30 min</span>
+                    </div>
+                    <div className="session-info-item">
+                        <svg className="icon-xs" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        <span>Phone call details provided upon confirmation.</span>
+                    </div>
+                    <div className="session-info-item">
+                        <svg className="icon-xs" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0h6m-6 0l-2 13a2 2 0 002 2h8a2 2 0 002-2L16 7"></path></svg>
+                        <span>{selectedDateTimeString()}</span>
+                    </div>
+                </div>
+            </div>
+             <button
+                onClick={() => {
+                    setShowSchedulingModal(false);
+                    setShowFinalConfirmation(true);
+                }}
+                disabled={!selectedTime}
+                className="modal-action-button"
+            >
+                Confirm My Session
+            </button>
+        </div>
+    );
+    
 
     return (
-        <>
-            <Styles />
-            <div className="min-h-screen relative">
-                <div className="absolute inset-0 gradient-bg"></div>
-                <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-                <div className="relative z-10 min-h-screen flex main-container content-wrapper">
-                    <div className="flex-1 flex flex-col justify-between p-16 left-section">
-                        <div className="flex-1 flex items-center">
-                            <div>
-                                <h2 className="text-white font-bold leading-tight mb-8 main-heading" style={{ fontSize: '3.5rem' }}>
-                                    Got a Big Idea?<br />
-                                    We've Got the<br />
-                                    Wings for It.
-                                </h2>
-                            </div>
+    <>
+        <style>{`
+            /* General Styles */
+            body, html {
+                overflow-x: hidden;
+                margin: 0;
+                padding: 0;
+            }
+            * {
+                font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+                box-sizing: border-box;
+            }
+            .page-container {
+                overflow-x: hidden;
+                margin-top: 2cm;
+            }
+
+            /* Main Section Styles */
+            .hero-section {
+                min-height: 100vh;
+                position: relative;
+            }
+            .gradient-bg {
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(135deg, #00d4ff 0%, #3b82f6 25%, #8b5cf6 50%, #ec4899 75%, #f97316 100%);
+            }
+            .dark-overlay {
+                position: absolute;
+                inset: 0;
+                background-color: rgba(0, 0, 0, 0.4);
+            }
+            .main-container {
+                position: relative;
+                z-index: 10;
+                min-height: 100vh;
+                display: flex;
+            }
+            .left-section {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                padding: 4rem;
+            }
+            .hero-content {
+                flex: 1;
+                display: flex;
+                align-items: center;
+            }
+            .main-heading {
+                color: white;
+                font-weight: 700;
+                line-height: 1.1;
+                margin-bottom: 2rem;
+                font-size: 3.5rem;
+            }
+            .right-section {
+                flex: 1;
+                padding: 4rem;
+                backdrop-filter: blur(20px);
+                background: rgba(0, 0, 0, 0.6);
+            }
+            .main-nav {
+                display: flex;
+                justify-content: flex-start;
+                margin-bottom: 4rem;
+            }
+            .main-nav a {
+                margin-right: 2rem;
+                color: white;
+                font-size: 1.125rem;
+                text-decoration: none;
+            }
+
+            /* Form Styles */
+            .contact-form {
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+            }
+            .form-prompt {
+                color: #9ca3af;
+                font-size: 1.125rem;
+                margin-bottom: 1.5rem;
+            }
+            .interest-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+                margin-bottom: 2rem;
+            }
+            .interest-btn {
+                padding: 0.75rem 1.5rem;
+                border: 1px solid #4b5563;
+                font-size: 0.875rem;
+                font-weight: 500;
+                color: #d1d5db;
+                background-color: transparent;
+                cursor: pointer;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .interest-btn:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+            }
+            .interest-btn.selected {
+                background: white;
+                color: black;
+                border-color: white;
+            }
+            .form-input, .form-select, .form-textarea {
+                width: 100%;
+                background-color: transparent;
+                border: 0;
+                border-bottom: 1px solid #4b5563;
+                padding: 1rem 0;
+                color: white;
+                font-size: 1.125rem;
+                transition: all 0.3s ease;
+            }
+            .form-input::placeholder, .form-textarea::placeholder {
+                color: #6b7280;
+            }
+            .form-input:focus, .form-select:focus, .form-textarea:focus {
+                border-color: rgba(255, 255, 255, 0.6);
+                outline: none;
+            }
+            .form-select {
+                color: #9ca3af;
+            }
+            .form-select option {
+                color: #000;
+            }
+            .form-textarea {
+                resize: none;
+            }
+            .consent-container {
+                padding-top: 1rem;
+            }
+            .consent-label {
+                display: flex;
+                align-items: flex-start;
+                gap: 0.75rem;
+                color: #9ca3af;
+                font-size: 0.875rem;
+                cursor: pointer;
+            }
+            .consent-label span {
+                line-height: 1.625;
+            }
+            .consent-checkbox {
+                margin-top: 0.25rem;
+                width: 1rem;
+                height: 1rem;
+            }
+            .submit-btn-container {
+                padding-top: 2rem;
+                display: flex;
+                justify-content: flex-start;
+            }
+            .submit-btn {
+                background-color: white;
+                color: black;
+                padding: 1rem 2rem;
+                font-weight: 500;
+                font-size: 1.125rem;
+                border: none;
+                box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+                cursor: pointer;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .submit-btn:hover {
+                transform: translateY(-2px) scale(1.02);
+                box-shadow: 0 10px 15px -3px rgba(255,255,255,0.2), 0 4px 6px -2px rgba(255,255,255,0.1);
+            }
+            .submit-btn:active {
+                transform: translateY(0) scale(0.98);
+            }
+
+            /* Location Section */
+            .location-container {
+                padding: 3rem 0;
+                background-color: white;
+            }
+            .location-card {
+                background-color: white;
+                overflow: hidden;
+                border: 1px solid #e5e7eb;
+            }
+            .location-grid {
+                display: grid;
+                min-height: 600px;
+            }
+            .contact-info-section {
+                padding: 4rem;
+                background-color: white;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                border-right: 1px solid #e5e7eb;
+            }
+            .contact-info-content {
+                max-width: 28rem;
+                margin: 0 auto;
+            }
+            .contact-header {
+                margin-bottom: 2rem;
+            }
+            .contact-title {
+                font-size: 1.875rem;
+                font-weight: 300;
+                color: #111827;
+                margin-bottom: 1rem;
+                letter-spacing: 0.025em;
+            }
+            .contact-subtitle {
+                color: #4b5563;
+                line-height: 1.625;
+                font-weight: 300;
+            }
+            .contact-details {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            .info-item {
+                display: flex;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .info-icon-wrapper {
+                flex-shrink: 0;
+                width: 3rem;
+                height: 3rem;
+                background-color: white;
+                border: 2px solid #d1d5db;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #4b5563;
+                box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+            }
+            .info-icon-wrapper .fa { font-size: 0.875rem; }
+            .info-content {
+                flex: 1;
+                min-width: 0;
+            }
+            .info-title {
+                font-size: 0.75rem;
+                font-weight: 500;
+                color: #6b7280;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                margin-bottom: 0.5rem;
+            }
+            .info-text {
+                color: #111827;
+                font-weight: 300;
+                line-height: 1.625;
+            }
+            .info-text a {
+                color: #111827;
+                text-decoration: none;
+                transition: color 0.2s;
+            }
+            .info-text a:hover { color: #374151; }
+            .map-section {
+                position: relative;
+            }
+            .map-container {
+                width: 100%;
+                height: 100%;
+                min-height: 400px;
+                background-color: #f3f4f6;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .map-loader { text-align: center; }
+            .spinner {
+                animation: spin 1s linear infinite;
+                border-radius: 50%;
+                width: 3rem;
+                height: 3rem;
+                border-bottom: 2px solid #3b82f6;
+                margin: 0 auto 1rem;
+            }
+            @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+            .loader-text { color: #4b5563; }
+            .mobile-directions {
+                position: absolute;
+                top: 1.5rem;
+                right: 1.5rem;
+                background-color: white;
+                box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+                padding: 0.75rem;
+                border: 1px solid #e5e7eb;
+            }
+            .mobile-directions-btn {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                color: #374151;
+                font-weight: 500;
+                text-decoration: none;
+                background: none;
+                border: none;
+                cursor: pointer;
+                transition: color 0.2s;
+            }
+            .mobile-directions-btn:hover { color: #111827; }
+            .mobile-directions-btn .fa { font-size: 0.875rem; }
+            .mobile-directions-btn span { font-size: 0.875rem; }
+
+            /* Modals */
+            .modal-overlay {
+                position: fixed;
+                inset: 0;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 50;
+            }
+            .modal-content {
+                background-color: white;
+                border-radius: 0.5rem;
+                padding: 2rem;
+                max-width: 28rem;
+                margin: 1rem;
+                text-align: center;
+            }
+            .modal-icon { font-size: 2.25rem; margin-bottom: 1rem; }
+            .modal-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; color: #111827; }
+            .modal-text { color: #4b5563; margin-bottom: 1.5rem; }
+            .modal-actions { display: flex; flex-direction: column; gap: 0.75rem; }
+            .modal-button {
+                padding: 0.75rem 1.5rem;
+                border-radius: 0.5rem;
+                font-weight: 500;
+                transition: background-color 0.2s;
+                border: none;
+                cursor: pointer;
+            }
+            .modal-button.primary { background-color: #ec4899; color: white; }
+            .modal-button.primary:hover { background-color: #db2777; }
+            .modal-button.secondary { background-color: #e5e7eb; color: #374151; }
+            .modal-button.secondary:hover { background-color: #d1d5db; }
+
+            /* Scheduling Modal */
+            .scheduling-modal-overlay {
+                position: fixed;
+                inset: 0;
+                background-color: rgba(0, 0, 0, 0.9);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 100;
+            }
+            .scheduling-modal-content {
+                background-color: #000;
+                color: white;
+                border-radius: 0.5rem;
+                max-width: 80rem;
+                width: calc(100% - 2rem);
+                height: 90vh;
+                display: flex;
+            }
+            .scheduling-modal-left {
+                width: 50%;
+                padding: 3rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            .scheduling-modal-title { font-size: 3rem; font-weight: 300; margin-bottom: 1.5rem; line-height: 1.2; }
+            .scheduling-modal-text { color: #9ca3af; font-size: 1.125rem; margin-bottom: 2rem; line-height: 1.625; }
+            .scheduling-modal-right {
+                width: 50%;
+                background-color: #111827;
+                padding: 2rem;
+                position: relative;
+                overflow-y: auto;
+            }
+            .modal-close-btn {
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                color: #9ca3af;
+                background: none;
+                border: none;
+                cursor: pointer;
+            }
+            .modal-close-btn:hover { color: white; }
+            .icon-md { width: 1.5rem; height: 1.5rem; }
+            .modal-tabs { display: flex; margin-bottom: 2rem; border-bottom: 1px solid #374151; }
+            .tab-btn {
+                padding: 0.75rem 1.5rem;
+                color: #9ca3af;
+                border-bottom: 2px solid transparent;
+                background: none;
+                border-top: none;
+                border-left: none;
+                border-right: none;
+                cursor: pointer;
+            }
+            .tab-btn.active { color: white; border-bottom-color: #ec4899; }
+            .mb-6 { margin-bottom: 1.5rem; }
+            .calendar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+            .calendar-nav-btn { color: white; transition: color 0.2s; background: none; border: none; cursor: pointer; }
+            .calendar-nav-btn:hover { color: #ec4899; }
+            .icon-sm { width: 1.5rem; height: 1.5rem; }
+            .month-name { font-size: 1.25rem; font-weight: 500; }
+            .calendar-days-grid, .calendar-dates-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.25rem; }
+            .calendar-days-grid { margin-bottom: 1rem; }
+            .calendar-dates-grid { margin-bottom: 1.5rem; }
+            .calendar-day-label { text-align: center; color: #6b7280; font-size: 0.875rem; padding: 0.5rem 0; }
+            .calendar-date-btn {
+                width: 2.5rem;
+                height: 2.5rem;
+                text-align: center;
+                border-radius: 9999px;
+                transition: background-color 0.2s;
+                color: white;
+                background: none;
+                border: none;
+                cursor: pointer;
+            }
+            .calendar-date-btn:hover { background-color: #374151; }
+            .calendar-date-btn.disabled { color: #4b5563; cursor: default; }
+            .calendar-date-btn.disabled:hover { background-color: transparent; }
+            .calendar-date-btn.selected { background-color: #ec4899; }
+            .form-label-white { display: block; color: white; margin-bottom: 0.5rem; }
+            .form-select-dark {
+                width: 100%;
+                background-color: #1f2937;
+                border: 1px solid #4b5563;
+                border-radius: 0.25rem;
+                padding: 0.5rem 0.75rem;
+                color: white;
+            }
+            .modal-action-button {
+                width: 100%;
+                background-color: #ec4899;
+                color: white;
+                padding: 0.75rem 0;
+                border-radius: 0.5rem;
+                font-weight: 500;
+                transition: background-color 0.2s;
+                border: none;
+                cursor: pointer;
+            }
+            .modal-action-button:hover { background-color: #db2777; }
+            .modal-action-button:disabled { opacity: 0.5; cursor: not-allowed; }
+            .modal-subtitle { font-size: 1.25rem; font-weight: 500; margin-bottom: 1.5rem; }
+            .time-slots-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-bottom: 2rem; }
+            .time-slot-btn {
+                border: 1px solid #4b5563;
+                border-radius: 9999px;
+                padding: 0.5rem 1rem;
+                font-size: 0.875rem;
+                transition: border-color 0.2s;
+                color: white;
+                background: none;
+                cursor: pointer;
+            }
+            .time-slot-btn:hover { border-color: #ec4899; }
+            .time-slot-btn.selected { background-color: #ec4899; border-color: #ec4899; }
+            .session-info-box { background-color: #1f2937; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1.5rem; }
+            .session-info-title { font-weight: 500; margin-bottom: 0.5rem; }
+            .session-info-details { font-size: 0.875rem; color: #9ca3af; display: flex; flex-direction: column; gap: 0.25rem; }
+            .session-info-item { display: flex; align-items: center; gap: 0.5rem; }
+            .icon-xs { width: 1rem; height: 1rem; }
+
+            /* Responsive Styles */
+            @media (max-width: 1024px) {
+                .main-container { flex-direction: column; }
+                .left-section { min-height: 50vh; padding: 2rem; }
+                .right-section { padding: 2rem; }
+                .main-heading { font-size: 3rem; }
+                .location-grid { grid-template-columns: 1fr; }
+                .scheduling-modal-left { display: none; }
+                .scheduling-modal-right { width: 100%; }
+            }
+            @media (min-width: 1025px) {
+                .content-wrapper { margin: 0 4cm; max-width: calc(100vw - 8cm); min-height: 90vh; max-height: none; }
+                .left-section { flex: 0 0 45%; max-width: 45%; }
+                .right-section { flex: 0 0 55%; max-width: 55%; padding: 3rem; }
+                .location-grid { grid-template-columns: repeat(12, 1fr); }
+                .contact-info-section { grid-column: span 4; }
+                .map-section { grid-column: span 8; }
+                .mobile-directions { display: none; }
+            }
+            @media (max-width: 768px) {
+                .interest-grid { grid-template-columns: repeat(2, 1fr); }
+                .main-heading { font-size: 2.5rem; }
+                .left-section, .right-section { padding: 1.5rem; }
+                .contact-info-section { padding: 3rem; }
+            }
+            @media (max-width: 640px) {
+                .interest-grid { grid-template-columns: 1fr; }
+                .main-heading { font-size: 2rem; }
+                .left-section, .right-section { padding-left: 0.9rem !important; padding-right: 0.9rem !important; }
+            }
+        `}</style>
+        <div className="page-container">
+            <div style={{ height: '1px', backgroundColor: 'white', width: '100%' }}></div>
+            <div className="hero-section">
+                <div className="gradient-bg"></div>
+                <div className="dark-overlay"></div>
+                <div className="main-container content-wrapper">
+                    <div className="left-section">
+                        <div className="hero-content">
+                            <h2 className="main-heading">
+                                Got a Big Idea?<br />
+                                We've Got the<br />
+                                Wings for It.
+                            </h2>
                         </div>
                     </div>
-                    <div className="flex-1 glass-effect p-16 right-section">
-                        <nav className="flex justify-start space-x-8 mb-16 nav-menu">
-                            <a href="#" className="nav-link active text-lg">Contact Us</a>
-                        </nav>
-                        <form id="contactForm" className="space-y-8" onSubmit={handleSubmit}>
+                    <div className="right-section">
+
+                        <form id="contactForm" className="contact-form" onSubmit={handleSubmit}>
                             <div>
-                                <p className="text-gray-400 text-lg mb-6">I'm interested in...</p>
-                                <div className="grid grid-cols-3 gap-4 mb-8 interest-grid">
-                                    {interestButtons.map(btn => (
+                                <p className="form-prompt">I'm interested in...</p>
+                                <div className="interest-grid">
+                                    {['Private Pilot License', 'Commercial Pilot License', 'DGCA Ground Classes', 'Aviation Diploma', 'Other'].map(interest => (
                                         <button
-                                            key={btn.key}
+                                            key={interest}
                                             type="button"
-                                            className={`interest-btn px-6 py-3 border border-gray-600 text-sm font-medium text-gray-300 ${selectedInterests.has(btn.key) ? 'selected' : ''}`}
-                                            onClick={() => handleInterestClick(btn.key)}
-                                        >{btn.label}</button>
+                                            onClick={() => handleInterestClick(interest)}
+                                            className={`interest-btn ${selectedInterests.has(interest) ? 'selected' : ''}`}
+                                        >
+                                            {interest}
+                                        </button>
                                     ))}
                                 </div>
                             </div>
-                            <div>
-                                <input type="text" name="name" placeholder="Your name" onChange={handleInputChange} value={formData.name} className="form-input w-full bg-transparent border-0 border-b border-gray-600 py-4 text-white placeholder-gray-500 text-lg" />
-                            </div>
-                            <div>
-                                <input type="tel" name="phone" placeholder="Your phone number" onChange={handleInputChange} value={formData.phone} className="form-input w-full bg-transparent border-0 border-b border-gray-600 py-4 text-white placeholder-gray-500 text-lg" />
-                            </div>
-                            <div>
-                                <input type="email" name="email" placeholder="Your email" onChange={handleInputChange} value={formData.email} className="form-input w-full bg-transparent border-0 border-b border-gray-600 py-4 text-white placeholder-gray-500 text-lg" />
-                            </div>
-                            <div>
-                                <select name="country" onChange={handleInputChange} value={formData.country} className="form-input w-full bg-transparent border-0 border-b border-gray-600 py-4 text-white placeholder-gray-500 text-lg" style={{ color: formData.country ? 'white' : '#9ca3af' }}>
-                                    <option value="" disabled>Country of Interest</option>
-                                    <option value="india" style={{ color: '#000' }}>India</option>
-                                    <option value="south-africa" style={{ color: '#000' }}>South Africa</option>
-                                    <option value="hungary" style={{ color: '#000' }}>Hungary</option>
-                                    <option value="other" style={{ color: '#000' }}>Other</option>
-                                </select>
-                            </div>
-                            <div>
-                                <textarea name="project" placeholder="Anything you'd like to add? (optional)" rows="4" onChange={handleInputChange} value={formData.project} className="form-input w-full bg-transparent border-0 border-b border-gray-600 py-4 text-white placeholder-gray-500 resize-none text-lg"></textarea>
-                            </div>
-                            <div className="pt-4">
-                                <label className="flex items-start space-x-3 text-gray-400 text-sm cursor-pointer">
-                                    <input type="checkbox" name="consent" required onChange={handleInputChange} checked={formData.consent} className="mt-1 w-4 h-4 text-white bg-transparent border border-gray-600 rounded focus:ring-2 focus:ring-white focus:ring-opacity-50" />
-                                    <span className="leading-relaxed">I consent to WayForSky storing my information to contact me about aviation training opportunities.</span>
+                            
+                            <input type="text" name="name" placeholder="Your name" onChange={handleInputChange} className="form-input" />
+                            <input type="tel" name="phone" placeholder="Your phone number" onChange={handleInputChange} className="form-input" />
+                            <input type="email" name="email" placeholder="Your email" onChange={handleInputChange} className="form-input" />
+
+                            <select name="country" onChange={handleInputChange} defaultValue="" className="form-select">
+                                <option value="" disabled>Country of Interest</option>
+                                <option value="india">India</option>
+                                <option value="south-africa">South Africa</option>
+                                <option value="hungary">Hungary</option>
+                                <option value="other">Other</option>
+                            </select>
+
+                            <select name="intake" onChange={handleInputChange} defaultValue="" className="form-select">
+                                <option value="" disabled>Preferred Intake</option>
+                                <option value="oct-2024">October 2024</option>
+                                <option value="nov-2024">November 2024</option>
+                                <option value="dec-2024">December 2024</option>
+                                <option value="jan-2025">January 2025</option>
+                            </select>
+                            
+                             <select name="budget" onChange={handleInputChange} defaultValue="" className="form-select">
+                                <option value="" disabled>Budget</option>
+                                <option value="below-35">Below 35 lakhs</option>
+                                <option value="35-40">35 - 40 lakhs</option>
+                                <option value="40-45">40 - 45 lakhs</option>
+                            </select>
+
+                            <select name="ground-classes" onChange={handleInputChange} defaultValue="" className="form-select">
+                                <option value="" disabled>Ground Classes</option>
+                                <option value="completed">Completed</option>
+                                <option value="ongoing">Ongoing</option>
+                                <option value="not-started">Not started yet</option>
+                            </select>
+
+                            <textarea name="project" placeholder="Anything you'd like to add? (optional)" rows="4" onChange={handleInputChange} className="form-textarea"></textarea>
+                            
+                             <div className="consent-container">
+                                <label className="consent-label">
+                                    <input type="checkbox" name="consent" required onChange={handleInputChange} className="consent-checkbox" />
+                                    <span>
+                                        I consent to WayForSky storing my information to contact me about aviation training opportunities.
+                                    </span>
                                 </label>
                             </div>
-                            <div className="pt-8 flex justify-start">
-                                <button type="submit" className="submit-btn bg-white text-black px-8 py-4 font-medium text-lg shadow-lg">Sent request</button>
+
+                            <div className="submit-btn-container">
+                                <button type="submit" className="submit-btn" style={{backgroundColor: submitStatus ? '#10b981' : 'white'}}>
+                                    {submitStatus || 'Sent request'}
+                                </button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
 
-            <div className="mx-auto py-12 px-4 bg-white max-w-[calc(theme(maxWidth.7xl)+4cm)]">
-                <div className="bg-white l overflow-hidden border border-gray-100">
-                    <div className="grid lg:grid-cols-12 min-h-[600px]">
-                        <div className="lg:col-span-4 p-12 lg:p-16 bg-gray-50 flex flex-col justify-center border-r border-gray-200">
-                            {/* Contact Info */}
-                        </div>
-                        <div className="relative lg:col-span-8">
-                            <div id="map" ref={mapRef} className="w-full h-full min-h-[400px] lg:min-h-[600px] bg-gray-100 flex items-center justify-center">
-                                <div id="mapLoader" className="text-center">
-                                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-                                    <p className="text-gray-600">Loading map...</p>
+            <div className="location-container">
+                <div className="location-card">
+                    <div className="location-grid">
+                        <div className="contact-info-section">
+                            <div className="contact-info-content">
+                                <div className="contact-header">
+                                    <h2 className="contact-title">Contact Information</h2>
+                                    <p className="contact-subtitle">
+                                        Get in touch with our professional team for inquiries and support.
+                                    </p>
                                 </div>
+                                <div className="contact-details">
+                                    {[
+                                        { icon: 'fas fa-map-marker-alt', title: 'Address', content: ['Nandi Building No 56', 'Bowring Hospital Road, Shivaji Nagar', 'Bangalore, Karnataka 560001'] },
+                                        { icon: 'fas fa-phone', title: 'Phone', content: <a href="tel:+919071165504">+91 9071165504</a> },
+                                        { icon: 'fas fa-envelope', title: 'Email', content: <a href="mailto:info@wayforsky.com">info@wayforsky.com</a> },
+                                        { icon: 'fas fa-clock', title: 'Hours', content: ['Mon-Fri: 9:00 AM - 6:00 PM', 'Sat: 10:00 AM - 4:00 PM', 'Sun: Closed'] }
+                                    ].map(item => (
+                                        <div key={item.title} className="info-item">
+                                            <div className="info-icon-wrapper">
+                                                <i className={`${item.icon} fa`}></i>
+                                            </div>
+                                            <div className="info-content">
+                                                <div className="info-title">{item.title}</div>
+                                                <div className="info-text">
+                                                    {Array.isArray(item.content) ? item.content.map((line, i) => <div key={i}>{line}</div>) : item.content}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="map-section">
+                            <div ref={mapRef} className="map-container">
+                                <div id="mapLoader" className="map-loader">
+                                    <div className="spinner"></div>
+                                    <p className="loader-text">Loading map...</p>
+                                </div>
+                            </div>
+                             <div className="mobile-directions">
+                                <button onClick={handleGetDirections} className="mobile-directions-btn">
+                                    <i className="fas fa-directions fa"></i>
+                                    <span>Directions</span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -390,95 +930,46 @@ const ContactUs = () => {
 
             {/* Modals */}
             {showSuccessPopup && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                    <div className="bg-white rounded-lg p-8 max-w-md mx-4 text-center">
-                        <div className="text-4xl mb-4">✅</div>
-                        <h3 className="text-xl font-semibold mb-4 text-gray-900">Thank you for sharing your details!</h3>
-                        <p className="text-gray-600 mb-6">Our team has received your enquiry and will get back to you shortly. Would you like to book a free phone counselling session with one of our Junior Counsellors at a time that suits you?</p>
-                        <div className="flex flex-col gap-3">
-                            <button onClick={openSchedulingModal} className="bg-pink-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-pink-600 transition-colors">
-                                Yes, Book My Free Counselling Session
-                            </button>
-                            <button onClick={handleNoThanks} className="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-300 transition-colors">
-                                No Thanks, I'll Wait for Contact
-                            </button>
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <div className="modal-icon">✅</div>
+                        <h3 className="modal-title">Thank you for sharing your details!</h3>
+                        <p className="modal-text">Our team has received your enquiry and will get back to you shortly. Would you like to book a free phone counselling session with one of our Junior Counsellors at a time that suits you?</p>
+                        <div className="modal-actions">
+                            <button onClick={handleBookSession} className="modal-button primary">Yes, Book My Free Counselling Session</button>
+                            <button onClick={handleNoThanks} className="modal-button secondary">No Thanks, I'll Wait for Contact</button>
                         </div>
                     </div>
                 </div>
             )}
-
+            
             {showThankYouPopup && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                    <div className="bg-white rounded-lg p-8 max-w-md mx-4 text-center">
-                        <div className="text-4xl mb-4">✅</div>
-                        <h3 className="text-xl font-semibold mb-4 text-gray-900">Your enquiry has been submitted successfully.</h3>
-                        <p className="text-gray-600 mb-6">Our team will reach out to you soon.</p>
-                        <button onClick={closeThankYouPopup} className="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-300 transition-colors">
-                            Close
-                        </button>
+                 <div className="modal-overlay">
+                    <div className="modal-content">
+                        <div className="modal-icon">✅</div>
+                        <h3 className="modal-title">Your enquiry has been submitted successfully.</h3>
+                        <p className="modal-text">Our team will reach out to you soon.</p>
+                        <button onClick={() => setShowThankYouPopup(false)} className="modal-button secondary">Close</button>
                     </div>
                 </div>
             )}
-
+            
             {showSchedulingModal && (
-                <div id="schedulingModal" className="fixed inset-0 bg-black md:bg-opacity-90 flex items-center justify-center z-[9999]">
-                    <div className="bg-black text-white rounded-lg max-w-6xl w-full mx-4 h-[90vh] flex">
-                        <div className="w-1/2 p-12 flex-col justify-center hidden md:flex">
-                            <h1 className="text-5xl font-light mb-6 leading-tight">Let's get down to business</h1>
-                            <p className="text-gray-400 text-lg mb-8 leading-relaxed">
+                 <div className="scheduling-modal-overlay">
+                    <div className="scheduling-modal-content">
+                         <div className="scheduling-modal-left">
+                            <h1 className="scheduling-modal-title">Let's get down to business</h1>
+                            <p className="scheduling-modal-text">
                                 We'd love to chat! If you fill out the information below, someone from the team will reach out right away!
                             </p>
                         </div>
-                        <div className="w-full md:w-1/2 bg-gray-900 p-8 overflow-y-auto">
-                            <div className="flex mb-8 border-b border-gray-700">
-                                <button className="tab-btn px-6 py-3 text-gray-400 border-b-2 border-transparent" data-tab="message">Send a Message</button>
-                                <button className="tab-btn px-6 py-3 text-white border-b-2 border-pink-500 active" data-tab="schedule">Schedule a Call</button>
+                        <div className="scheduling-modal-right">
+                             <div className="modal-tabs">
+                                <button className="tab-btn active">Schedule a Call</button>
                             </div>
-
-                            {step === 'calendar' && (
-                                <div id="calendarStep">
-                                    <div className="flex items-center justify-between mb-4">
-                                        <button onClick={handlePrevMonth} className="text-white hover:text-pink-500 transition-colors">
-                                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path></svg>
-                                        </button>
-                                        <h3 id="currentMonth" className="text-xl font-medium">{currentMonth.toLocaleString('default', { month: 'long', year: 'numeric' })}</h3>
-                                        <button onClick={handleNextMonth} className="text-white hover:text-pink-500 transition-colors">
-                                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path></svg>
-                                        </button>
-                                    </div>
-                                    <CalendarGrid currentMonth={currentMonth} selectedDate={selectedDate} onDateSelect={setSelectedDate} />
-                                    <button onClick={() => setStep('time')} className="w-full bg-pink-500 text-white py-3 rounded-lg font-medium hover:bg-pink-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled={!selectedDate}>
-                                        Next
-                                    </button>
-                                </div>
-                            )}
-
-                            {step === 'time' && (
-                                <div id="timeStep">
-                                    <h3 className="text-xl font-medium mb-6">Select Time</h3>
-                                    <div className="grid grid-cols-4 gap-3 mb-8">
-                                        {['10:00 AM', '12:00 PM', '02:00 PM', '04:00 PM'].map(time => (
-                                            <button
-                                                key={time}
-                                                onClick={() => setSelectedTime(time)}
-                                                className={`time-slot border rounded-full px-4 py-2 text-sm transition-colors ${selectedTime === time ? 'bg-pink-500 border-pink-500' : 'border-gray-600 hover:border-pink-500'}`}
-                                            >{time}</button>
-                                        ))}
-                                    </div>
-                                    <div className="bg-gray-800 rounded-lg p-4 mb-6">
-                                        <h4 className="font-medium mb-2">📞 Free Phone Counselling Session</h4>
-                                        <div className="text-sm text-gray-400 space-y-1">
-                                            <div id="selectedDateTime">{updateSelectedDateTime()}</div>
-                                        </div>
-                                    </div>
-                                    <button onClick={confirmSession} className="w-full bg-pink-500 text-white py-3 rounded-lg font-medium hover:bg-pink-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled={!selectedTime}>
-                                        Confirm My Session
-                                    </button>
-                                </div>
-                            )}
-
-                            <button onClick={closeSchedulingModal} className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            {currentStep === 'calendar' ? renderCalendar() : renderTimeSelector()}
+                             <button onClick={() => setShowSchedulingModal(false)} className="modal-close-btn">
+                                <svg className="icon-md" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                             </button>
                         </div>
                     </div>
@@ -486,19 +977,20 @@ const ContactUs = () => {
             )}
 
             {showFinalConfirmation && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                    <div className="bg-white rounded-lg p-8 max-w-md mx-4 text-center">
-                        <div className="text-4xl mb-4">🎉</div>
-                        <h3 className="text-xl font-semibold mb-4 text-gray-900">Your counselling session has been booked successfully!</h3>
-                        <p className="text-gray-600 mb-6">Our Junior Counsellor will call you on your selected date and time. A confirmation email/WhatsApp has also been sent to you.</p>
-                        <button onClick={closeFinalConfirmation} className="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-300 transition-colors">
-                            Close
-                        </button>
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <div className="modal-icon">🎉</div>
+                        <h3 className="modal-title">Your counselling session has been booked successfully!</h3>
+                        <p className="modal-text">Our Junior Counsellor will call you on your selected date and time. A confirmation email/WhatsApp has also been sent to you.</p>
+                        <button onClick={() => setShowFinalConfirmation(false)} className="modal-button secondary">Close</button>
                     </div>
                 </div>
             )}
-        </>
+
+        </div>
+    </>
     );
 };
 
 export default ContactUs;
+

@@ -1,7 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
+// ✅ Import useLocation to read the current URL
+import { Link, useLocation } from "react-router-dom"
 
 const DropdownArrow = ({ className }) => (
   <svg
@@ -38,8 +39,9 @@ const MobileDropdownArrow = ({ className }) => (
   </svg>
 );
 
-export default function Header({ currentPage }) {
-  // Accept props for navigation
+// ✅ Removed 'currentPage' prop, as the component now handles this internally
+export default function Header() {
+  const location = useLocation(); // ✅ Get current location from React Router
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState(null)
   const [isHeaderHidden, setIsHeaderHidden] = useState(false)
@@ -106,7 +108,7 @@ export default function Header({ currentPage }) {
             <nav className="desktop-nav">
               <Link
                 to="/"
-                className={`nav-link focus-ring ${currentPage === "home" ? "active" : ""}`}
+                className={`nav-link focus-ring ${location.pathname === "/" ? "active" : ""}`}
               >
                 Home
               </Link>
@@ -154,11 +156,11 @@ export default function Header({ currentPage }) {
               </div>
 
               <div className="dropdown-container">
-                {/* ✅ UPDATED: Added active class logic for the Events link */}
+                {/* ✅ UPDATED: Events is active when on the /fleet page */}
                 <Link
                   to="/events"
                   className={`nav-link focus-ring dropdown-trigger ${
-                    currentPage === "fleet" ? "active" : ""
+                    location.pathname === "/fleet" ? "active" : ""
                   }`}
                 >
                   Events
@@ -207,7 +209,11 @@ export default function Header({ currentPage }) {
               <Link to="/webinar" className="nav-link focus-ring">
                 Join the Webinar
               </Link>
-              <Link to="/contactus" className="nav-link focus-ring">
+               {/* ✅ UPDATED: Contact Us is active on the /contactus page */}
+              <Link
+                to="/contactus"
+                className={`nav-link focus-ring ${location.pathname === "/contactus" ? "active" : ""}`}
+                >
                 Contact Us
               </Link>
             </nav>
@@ -220,9 +226,9 @@ export default function Header({ currentPage }) {
                   <path d="m15 15 3 3" stroke="#FFFFFF" strokeWidth="1.5" />
                 </svg>
               </button>
-
+                {/* ✅ UPDATED: Link points to the correct /contactus route */}
               <Link
-                to="/contact"
+                to="/contactus"
                 className="contact-btn focus-ring"
               >
                 Apply Now
@@ -259,7 +265,7 @@ export default function Header({ currentPage }) {
           <nav className="mobile-nav">
             <Link
               to="/"
-              className={`mobile-nav-link focus-ring ${currentPage === "home" ? "active" : ""}`}
+              className={`mobile-nav-link focus-ring ${location.pathname === "/" ? "active" : ""}`}
               onClick={closeMobileMenu}
             >
               Home
@@ -314,10 +320,10 @@ export default function Header({ currentPage }) {
             </div>
 
             <div className="mobile-dropdown-container">
-              {/* ✅ UPDATED: Added active class logic for the mobile Events button */}
+               {/* ✅ UPDATED: Events is active when on the /fleet page */}
               <button
                 className={`mobile-nav-link mobile-dropdown-trigger focus-ring ${
-                  activeDropdown === "events" || currentPage === "fleet"
+                  activeDropdown === "events" || location.pathname === "/fleet"
                     ? "active"
                     : ""
                 }`}
@@ -348,8 +354,11 @@ export default function Header({ currentPage }) {
                 </Link>
               </div>
             </div>
-
-            <Link to="/contact" className="mobile-nav-link focus-ring" onClick={closeMobileMenu}>
+             {/* ✅ UPDATED: Mobile Contact Us link is active and points to the correct route */}
+            <Link
+                to="/contactus"
+                className={`mobile-nav-link focus-ring ${location.pathname === "/contactus" ? "active" : ""}`}
+                onClick={closeMobileMenu}>
               Contact Us
             </Link>
 
