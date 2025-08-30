@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
 
 const DropdownArrow = ({ className }) => (
   <svg
@@ -37,7 +38,7 @@ const MobileDropdownArrow = ({ className }) => (
   </svg>
 );
 
-export default function Header({ onPageChange, currentPage }) {
+export default function Header({ currentPage }) {
   // Accept props for navigation
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState(null)
@@ -88,12 +89,6 @@ export default function Header({ onPageChange, currentPage }) {
     setActiveDropdown(null)
   }
 
-  const handleNavClick = (page, e) => {
-    e.preventDefault()
-    onPageChange(page)
-    closeMobileMenu()
-  }
-
   return (
     <>
       <header className={`header ${isHeaderHidden ? "header-hidden" : ""}`}>
@@ -101,119 +96,120 @@ export default function Header({ onPageChange, currentPage }) {
           <div className="header-content">
             {/* Logo */}
             <div className="logo">
-              <span>Way</span>
-              <span className="accent">ForSky</span>
+              <Link to="/">
+                <span>Way</span>
+                <span className="accent">ForSky</span>
+              </Link>
             </div>
 
             {/* Desktop Navigation */}
             <nav className="desktop-nav">
-              <a
-                href="/"
+              <Link
+                to="/"
                 className={`nav-link focus-ring ${currentPage === "home" ? "active" : ""}`}
               >
                 Home
-              </a>
+              </Link>
 
               <div className="dropdown-container">
-                <a href="/about" className="nav-link focus-ring dropdown-trigger">
+                <Link to="/about" className="nav-link focus-ring dropdown-trigger">
                   About Us
                   <DropdownArrow />
-                </a>
+                </Link>
                 <div className="dropdown-menu">
-                  <a href="/our-story" className="dropdown-item">
+                  <Link to="/our-story" className="dropdown-item">
                     About WayForSky
-                  </a>
-                  <a href="/why-wayforsky" className="dropdown-item">
+                  </Link>
+                  <Link to="/why-wayforsky" className="dropdown-item">
                     Why WayForSky ?
-                  </a>
+                  </Link>
                 </div>
               </div>
 
               <div className="dropdown-container">
-                <a href="/courses" className="nav-link focus-ring dropdown-trigger">
+                <Link to="/courses" className="nav-link focus-ring dropdown-trigger">
                   Courses
                   <DropdownArrow />
-                </a>
+                </Link>
                 <div className="dropdown-menu">
-                  <a href="/Zero-to-Hero" className="dropdown-item">
+                  <Link to="/zero-to-hero" className="dropdown-item">
                     Zero to Hero Airline Ready Program - EASA
-                  </a>
-                  <a href="/Commercial-Pilot-License" className="dropdown-item">
+                  </Link>
+                  <Link to="/commercial-pilot-license" className="dropdown-item">
                     Commercial Pilot License with MEIR - SACAA
-                  </a>
-                  <a href="/data-science" className="dropdown-item">
+                  </Link>
+                  <Link to="/private-pilot-license" className="dropdown-item">
                     Private Pilot License
-                  </a>
-                  <a href="/ui-ux-design" className="dropdown-item">
+                  </Link>
+                  <Link to="/flight-instructor-rating" className="dropdown-item">
                     Flight Instructor Rating
-                  </a>
-                  <a href="/ui-ux-design" className="dropdown-item">
+                  </Link>
+                  <Link to="/type-rating" className="dropdown-item">
                     Type Rating A320 and B737 Cabin Crew
-                  </a>
-                  <a href="/ui-ux-design" className="dropdown-item">
+                  </Link>
+                  <Link to="/cabin-crew" className="dropdown-item">
                     Cabin Crew
-                  </a>
+                  </Link>
                 </div>
               </div>
 
               <div className="dropdown-container">
                 {/* ✅ UPDATED: Added active class logic for the Events link */}
-                <a
-                  href="/events"
+                <Link
+                  to="/events"
                   className={`nav-link focus-ring dropdown-trigger ${
                     currentPage === "fleet" ? "active" : ""
                   }`}
                 >
                   Events
                   <DropdownArrow />
-                </a>
+                </Link>
                 <div className="dropdown-menu">
-                  <a
-                    href="/fleets"
+                  <Link
+                    to="/fleet"
                     className="dropdown-item"
-                    onClick={(e) => handleNavClick("fleet", e)}
                   >
                     Fleets
-                  </a>
-                  <a href="/orientation" className="dropdown-item">
+                  </Link>
+                  <Link to="/orientation" className="dropdown-item">
                     Orientation program
-                  </a>
-                  <a href="/seminars" className="dropdown-item">
+                  </Link>
+                  <Link to="/seminars" className="dropdown-item">
                     Seminars
-                  </a>
-                  <a href="/shorts" className="dropdown-item">
+                  </Link>
+                  <Link to="/shorts" className="dropdown-item">
                     Shorts
-                  </a>
-                  <a href="/testimonials" className="dropdown-item">
+                  </Link>
+                  <Link to="/testimonials" className="dropdown-item">
                     Testimonials
-                  </a>
+                  </Link>
                 </div>
               </div>
 
               <div className="dropdown-container">
-                <a href="/classes" className="nav-link focus-ring dropdown-trigger">
+                <Link to="/classes" className="nav-link focus-ring dropdown-trigger">
                   Classes
                   <DropdownArrow />
-                </a>
+                </Link>
                 <div className="dropdown-menu">
-                  <a href="/dgca-classes" className="dropdown-item">
+                  <Link to="/dgca-classes" className="dropdown-item">
                     DGCA ground Classes
-                  </a>
-                  <a href="/rtr-classes" className="dropdown-item">
+                  </Link>
+                  <Link to="/rtr-classes" className="dropdown-item">
                     Radiology Telephonics (RTR) classes
-                  </a>
-                  <a href="/nios-classes" className="dropdown-item">
+                  </Link>
+                  <Link to="/nios-classes" className="dropdown-item">
                     NIOS Prep Classes
-                  </a>
+                  </Link>
                 </div>
               </div>
 
-              <a href="/webinar" className="nav-link focus-ring">
+              <Link to="/webinar" className="nav-link focus-ring">
                 Join the Webinar
-              </a>
-              <a href="/contact.html" className="nav-link focus-ring">
-                Contact-Us
-              </a>
+              </Link>
+              <Link to="/contact" className="nav-link focus-ring">
+                Contact Us
+              </Link>
             </nav>
 
             {/* Right Actions */}
@@ -225,13 +221,12 @@ export default function Header({ onPageChange, currentPage }) {
                 </svg>
               </button>
 
-              <a
-                href="/contact"
+              <Link
+                to="/contact"
                 className="contact-btn focus-ring"
-                onClick={(e) => handleNavClick("contact", e)} // Handle apply now navigation
               >
                 Apply Now
-              </a>
+              </Link>
 
               <button className="mobile-menu-btn focus-ring" aria-label="Menu" onClick={toggleMobileMenu}>
                 <svg
@@ -262,13 +257,13 @@ export default function Header({ onPageChange, currentPage }) {
         {/* Mobile Menu */}
         <div className={`mobile-menu ${isMobileMenuOpen ? "open" : ""}`}>
           <nav className="mobile-nav">
-            <a
-              href="/"
+            <Link
+              to="/"
               className={`mobile-nav-link focus-ring ${currentPage === "home" ? "active" : ""}`}
-              onClick={(e) => handleNavClick("home", e)}
+              onClick={closeMobileMenu}
             >
               Home
-            </a>
+            </Link>
 
             <div className="mobile-dropdown-container">
               <button
@@ -279,12 +274,12 @@ export default function Header({ onPageChange, currentPage }) {
                 <MobileDropdownArrow />
               </button>
               <div className={`mobile-dropdown-menu ${activeDropdown === "aboutus" ? "open" : ""}`}>
-                <a href="/our-story" className="mobile-dropdown-item" onClick={closeMobileMenu}>
+                <Link to="/our-story" className="mobile-dropdown-item" onClick={closeMobileMenu}>
                   About WayForSky
-                </a>
-                <a href="/why-wayforsky" className="mobile-dropdown-item" onClick={closeMobileMenu}>
+                </Link>
+                <Link to="/why-wayforsky" className="mobile-dropdown-item" onClick={closeMobileMenu}>
                   Why WayForSky ?
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -297,18 +292,24 @@ export default function Header({ onPageChange, currentPage }) {
                 <MobileDropdownArrow />
               </button>
               <div className={`mobile-dropdown-menu ${activeDropdown === "courses" ? "open" : ""}`}>
-                <a href="/web-development" className="mobile-dropdown-item" onClick={closeMobileMenu}>
-                  Web Development
-                </a>
-                <a href="/mobile-development" className="mobile-dropdown-item" onClick={closeMobileMenu}>
-                  Mobile Development
-                </a>
-                <a href="/data-science" className="mobile-dropdown-item" onClick={closeMobileMenu}>
-                  Data Science
-                </a>
-                <a href="/ui-ux-design" className="mobile-dropdown-item" onClick={closeMobileMenu}>
-                  UI/UX Design
-                </a>
+                <Link to="/zero-to-hero" className="mobile-dropdown-item" onClick={closeMobileMenu}>
+                  Zero to Hero Airline Ready Program - EASA
+                </Link>
+                <Link to="/commercial-pilot-license" className="mobile-dropdown-item" onClick={closeMobileMenu}>
+                  Commercial Pilot License with MEIR - SACAA
+                </Link>
+                <Link to="/private-pilot-license" className="mobile-dropdown-item" onClick={closeMobileMenu}>
+                  Private Pilot License
+                </Link>
+                <Link to="/flight-instructor-rating" className="mobile-dropdown-item" onClick={closeMobileMenu}>
+                  Flight Instructor Rating
+                </Link>
+                <Link to="/type-rating" className="mobile-dropdown-item" onClick={closeMobileMenu}>
+                  Type Rating A320 and B737 Cabin Crew
+                </Link>
+                <Link to="/cabin-crew" className="mobile-dropdown-item" onClick={closeMobileMenu}>
+                  Cabin Crew
+                </Link>
               </div>
             </div>
 
@@ -326,31 +327,31 @@ export default function Header({ onPageChange, currentPage }) {
                 <MobileDropdownArrow />
               </button>
               <div className={`mobile-dropdown-menu ${activeDropdown === "events" ? "open" : ""}`}>
-                <a
-                  href="/fleets"
+                <Link
+                  to="/fleet"
                   className="mobile-dropdown-item"
-                  onClick={(e) => handleNavClick("fleet", e)}
+                  onClick={closeMobileMenu}
                 >
                   Fleets
-                </a>
-                <a href="/orientation" className="mobile-dropdown-item" onClick={closeMobileMenu}>
+                </Link>
+                <Link to="/orientation" className="mobile-dropdown-item" onClick={closeMobileMenu}>
                   Orientation program
-                </a>
-                <a href="/seminars" className="mobile-dropdown-item" onClick={closeMobileMenu}>
+                </Link>
+                <Link to="/seminars" className="mobile-dropdown-item" onClick={closeMobileMenu}>
                   Seminars
-                </a>
-                <a href="/shorts" className="mobile-dropdown-item" onClick={closeMobileMenu}>
+                </Link>
+                <Link to="/shorts" className="mobile-dropdown-item" onClick={closeMobileMenu}>
                   Shorts
-                </a>
-                <a href="/testimonials" className="mobile-dropdown-item" onClick={closeMobileMenu}>
+                </Link>
+                <Link to="/testimonials" className="mobile-dropdown-item" onClick={closeMobileMenu}>
                   Testimonials
-                </a>
+                </Link>
               </div>
             </div>
 
-            <a href="/contact.html" className="mobile-nav-link focus-ring">
-              Contact-Us
-            </a>
+            <Link to="/contact" className="mobile-nav-link focus-ring" onClick={closeMobileMenu}>
+              Contact Us
+            </Link>
 
             <div className="mobile-dropdown-container">
               <button
@@ -361,21 +362,21 @@ export default function Header({ onPageChange, currentPage }) {
                 <MobileDropdownArrow />
               </button>
               <div className={`mobile-dropdown-menu ${activeDropdown === "classes" ? "open" : ""}`}>
-                <a href="/dgca-classes" className="mobile-dropdown-item" onClick={closeMobileMenu}>
+                <Link to="/dgca-classes" className="mobile-dropdown-item" onClick={closeMobileMenu}>
                   DGCA ground Classes
-                </a>
-                <a href="/rtr-classes" className="mobile-dropdown-item" onClick={closeMobileMenu}>
+                </Link>
+                <Link to="/rtr-classes" className="mobile-dropdown-item" onClick={closeMobileMenu}>
                   Radiology Telephonics (RTR) classes
-                </a>
-                <a href="/nios-classes" className="mobile-dropdown-item" onClick={closeMobileMenu}>
+                </Link>
+                <Link to="/nios-classes" className="mobile-dropdown-item" onClick={closeMobileMenu}>
                   NIOS Prep Classes
-                </a>
+                </Link>
               </div>
             </div>
 
-            <a href="/webinar" className="mobile-nav-link focus-ring" onClick={closeMobileMenu}>
+            <Link to="/webinar" className="mobile-nav-link focus-ring" onClick={closeMobileMenu}>
               Join the Webinar
-            </a>
+            </Link>
           </nav>
         </div>
       </header>
