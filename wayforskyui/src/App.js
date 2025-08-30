@@ -1,14 +1,15 @@
-"use client"
+/* THIS IS ROUTING PAGE CONTROL . DONT DO ANYTHING ELSE*/
 
-import { useState } from "react"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+
 import Header from "./components/Header"
 import HeroSection from "./HeroSection"
 import Quickintro from "./Quickintro"
 import FeatureSection from "./FeatureSection"
 import Contact from "./contact"
 import TrainingLocations from "./TrainingLocations"
-import Fleet from "./Fleet" // This is the SECTION for the homepage ( untouched)
-import FleetPage from "./fleetpage.js" // ✅ Here is the new SEPARATE PAGE (FIXED)
+import Fleet from "./Fleet" 
+import FleetPage from "./fleetpage.js" 
 import Programoverview from "./Programoverview"
 import Blog from "./Blog"
 import CTA from "./CTA"
@@ -17,39 +18,42 @@ import Footer from "./components/Footer"
 import "./App.css"
 import "./TrainingLocation.css"
 
-function App() {
-  const [currentPage, setCurrentPage] = useState("home")
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page)
-  }
-
+// ✅ HomePage is grouped as one component
+function HomePage() {
   return (
-    <div className="App">
-      <Header onPageChange={handlePageChange} currentPage={currentPage} />
-      
-      {/* This renders only the HOME page content */}
-      {currentPage === "home" && (
-        <>
-          <HeroSection />
-          <Quickintro />
-          <FeatureSection />
-          <TrainingLocations />
-          <Fleet /> {/* This is your original homepage fleet section. It stays here. */}
-          <Programoverview />
-          <Blog />
-          <CTA />
-        </>
-      )}
+    <>
+      <HeroSection />
+      <Quickintro />
+      <FeatureSection />
+      <TrainingLocations />
+      <Fleet /> 
+      <Programoverview />
+      <Blog />
+      <CTA />
+    </>
+  )
+}
 
-      {/* ✅ This renders ONLY the FLEET PAGE when you click the link */}
-      {currentPage === "fleet" && <FleetPage />}
+function App() {
+  return (
+    <Router>
+      <div className="App">
+        <Header /> 
 
-      {/* This renders ONLY the CONTACT PAGE */}
-      {currentPage === "contact" && <Contact />}
-      
-      <Footer />
-    </div>
+        <Routes>
+          {/* Homepage */}
+          <Route path="/" element={<HomePage />} />
+
+          {/* Fleet Page */}
+          <Route path="/fleet" element={<FleetPage />} />
+
+          {/* Contact Page */}
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+
+        <Footer />
+      </div>
+    </Router>
   )
 }
 
