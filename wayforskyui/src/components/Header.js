@@ -117,17 +117,23 @@ export default function Header({ onPageChange, currentPage }) {
                   </svg>
                 </a>
                 <div className="dropdown-menu">
-                  <a href="/web-development" className="dropdown-item">
-                    Web Development
+                  <a href="/Zero-to-Hero" className="dropdown-item">
+                    Zero to Hero Airline Ready Program - EASA
                   </a>
-                  <a href="/mobile-development" className="dropdown-item">
-                    Mobile Development
+                  <a href="/Commercial-Pilot-License" className="dropdown-item">
+                    Commercial Pilot License with MEIR - SACAA
                   </a>
                   <a href="/data-science" className="dropdown-item">
-                    Data Science
+                    Private Pilot License
                   </a>
                   <a href="/ui-ux-design" className="dropdown-item">
-                    UI/UX Design
+                    Flight Instructor Rating
+                  </a>
+                  <a href="/ui-ux-design" className="dropdown-item">
+                    Type Rating A320 and B737 Cabin Crew
+                  </a>
+                  <a href="/ui-ux-design" className="dropdown-item">
+                    Cabin Crew
                   </a>
                 </div>
               </div>

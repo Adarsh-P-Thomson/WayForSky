@@ -11,6 +11,7 @@ import Fleet from "./Fleet"
 import Programoverview from "./Programoverview" // Import Programoverview component
 import Blog from "./Blog"
 import CTA from "./CTA" // Import CTA component
+import Footer from "./components/Footer" // ✅ Import Footer component
 
 import "./App.css"
 import "./TrainingLocation.css"
@@ -41,6 +42,9 @@ function App() {
         </>
       )}
       {currentPage === "contact" && <Contact />}
+
+      {/* ✅ Footer always at the bottom */}
+      <Footer />
     </div>
   )
 }
