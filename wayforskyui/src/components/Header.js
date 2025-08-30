@@ -2,6 +2,41 @@
 
 import { useState, useEffect } from "react"
 
+const DropdownArrow = ({ className }) => (
+  <svg
+    className={className || "dropdown-arrow"}
+    width="12"
+    height="8"
+    viewBox="0 0 12 8"
+    fill="none"
+  >
+    <path
+      d="M1 1.5L6 6.5L11 1.5"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+const MobileDropdownArrow = ({ className }) => (
+  <svg
+    className={className || "dropdown-arrow"}
+    width="12"
+    height="8"
+    viewBox="0 0 12 8"
+    fill="none"
+  >
+    <path
+      d="M1 1.5L6 6.5L11 1.5"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 export default function Header({ onPageChange, currentPage }) {
   // Accept props for navigation
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -82,15 +117,7 @@ export default function Header({ onPageChange, currentPage }) {
               <div className="dropdown-container">
                 <a href="/about" className="nav-link focus-ring dropdown-trigger">
                   About Us
-                  <svg className="dropdown-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
-                    <path
-                      d="M1 1.5L6 6.5L11 1.5"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                  <DropdownArrow />
                 </a>
                 <div className="dropdown-menu">
                   <a href="/our-story" className="dropdown-item">
@@ -105,15 +132,7 @@ export default function Header({ onPageChange, currentPage }) {
               <div className="dropdown-container">
                 <a href="/courses" className="nav-link focus-ring dropdown-trigger">
                   Courses
-                  <svg className="dropdown-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
-                    <path
-                      d="M1 1.5L6 6.5L11 1.5"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                  <DropdownArrow />
                 </a>
                 <div className="dropdown-menu">
                   <a href="/Zero-to-Hero" className="dropdown-item">
@@ -146,15 +165,7 @@ export default function Header({ onPageChange, currentPage }) {
                   }`}
                 >
                   Events
-                  <svg className="dropdown-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
-                    <path
-                      d="M1 1.5L6 6.5L11 1.5"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                  <DropdownArrow />
                 </a>
                 <div className="dropdown-menu">
                   <a
@@ -182,15 +193,7 @@ export default function Header({ onPageChange, currentPage }) {
               <div className="dropdown-container">
                 <a href="/classes" className="nav-link focus-ring dropdown-trigger">
                   Classes
-                  <svg className="dropdown-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
-                    <path
-                      d="M1 1.5L6 6.5L11 1.5"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                  <DropdownArrow />
                 </a>
                 <div className="dropdown-menu">
                   <a href="/dgca-classes" className="dropdown-item">
@@ -273,15 +276,7 @@ export default function Header({ onPageChange, currentPage }) {
                 onClick={() => toggleMobileDropdown("aboutus")}
               >
                 About Us
-                <svg className="mobile-dropdown-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
-                  <path
-                    d="M1 1.5L6 6.5L11 1.5"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                <MobileDropdownArrow />
               </button>
               <div className={`mobile-dropdown-menu ${activeDropdown === "aboutus" ? "open" : ""}`}>
                 <a href="/our-story" className="mobile-dropdown-item" onClick={closeMobileMenu}>
@@ -299,15 +294,7 @@ export default function Header({ onPageChange, currentPage }) {
                 onClick={() => toggleMobileDropdown("courses")}
               >
                 Courses
-                <svg className="mobile-dropdown-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
-                  <path
-                    d="M1 1.5L6 6.5L11 1.5"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                <MobileDropdownArrow />
               </button>
               <div className={`mobile-dropdown-menu ${activeDropdown === "courses" ? "open" : ""}`}>
                 <a href="/web-development" className="mobile-dropdown-item" onClick={closeMobileMenu}>
@@ -336,15 +323,7 @@ export default function Header({ onPageChange, currentPage }) {
                 onClick={() => toggleMobileDropdown("events")}
               >
                 Events
-                <svg className="mobile-dropdown-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
-                  <path
-                    d="M1 1.5L6 6.5L11 1.5"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                <MobileDropdownArrow />
               </button>
               <div className={`mobile-dropdown-menu ${activeDropdown === "events" ? "open" : ""}`}>
                 <a
@@ -379,15 +358,7 @@ export default function Header({ onPageChange, currentPage }) {
                 onClick={() => toggleMobileDropdown("classes")}
               >
                 Classes
-                <svg className="mobile-dropdown-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
-                  <path
-                    d="M1 1.5L6 6.5L11 1.5"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                <MobileDropdownArrow />
               </button>
               <div className={`mobile-dropdown-menu ${activeDropdown === "classes" ? "open" : ""}`}>
                 <a href="/dgca-classes" className="mobile-dropdown-item" onClick={closeMobileMenu}>
