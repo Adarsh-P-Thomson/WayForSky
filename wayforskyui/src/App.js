@@ -6,7 +6,6 @@ import Header from "./components/Header"
 import HeroSection from "./HeroSection"
 import Quickintro from "./Quickintro"
 import FeatureSection from "./FeatureSection"
-import Contact from "./contact"
 import TrainingLocations from "./TrainingLocations"
 import Fleet from "./Fleet" 
 import FleetPage from "./fleetpage.js" 
@@ -28,9 +27,9 @@ function HomePage() {
     <>
       <HeroSection />
       <Quickintro />
-
+      <FeatureSection />
       <TrainingLocations />
-      <Fleet /> 
+      <Fleet />
       <Programoverview />
       <Blog />
       <CTA />
@@ -52,7 +51,6 @@ function App() {
           <Route path="/fleet" element={<FleetPage />} />
 
           {/* Contact Page */}
-          <Route path="/contact" element={<Contact />} />
         
 
           <Route path="/our-story" element={<Aboutus />} />
