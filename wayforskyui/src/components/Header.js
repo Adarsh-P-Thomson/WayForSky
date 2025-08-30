@@ -207,7 +207,7 @@ export default function Header({ currentPage }) {
               <Link to="/webinar" className="nav-link focus-ring">
                 Join the Webinar
               </Link>
-              <Link to="/contact" className="nav-link focus-ring">
+              <Link to="/contactus" className="nav-link focus-ring">
                 Contact Us
               </Link>
             </nav>
