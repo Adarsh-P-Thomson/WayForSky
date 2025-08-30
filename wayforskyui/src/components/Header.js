@@ -75,7 +75,6 @@ export default function Header({ onPageChange, currentPage }) {
               <a
                 href="/"
                 className={`nav-link focus-ring ${currentPage === "home" ? "active" : ""}`}
-                onClick={(e) => handleNavClick("home", e)}
               >
                 Home
               </a>
@@ -413,4 +412,3 @@ export default function Header({ onPageChange, currentPage }) {
     </>
   )
 }
-
