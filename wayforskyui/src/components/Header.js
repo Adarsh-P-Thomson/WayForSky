@@ -117,23 +117,35 @@ export default function Header({ onPageChange, currentPage }) {
                   </svg>
                 </a>
                 <div className="dropdown-menu">
-                  <a href="/web-development" className="dropdown-item">
-                    Web Development
+                  <a href="/Zero-to-Hero" className="dropdown-item">
+                    Zero to Hero Airline Ready Program - EASA
                   </a>
-                  <a href="/mobile-development" className="dropdown-item">
-                    Mobile Development
+                  <a href="/Commercial-Pilot-License" className="dropdown-item">
+                    Commercial Pilot License with MEIR - SACAA
                   </a>
                   <a href="/data-science" className="dropdown-item">
-                    Data Science
+                    Private Pilot License
                   </a>
                   <a href="/ui-ux-design" className="dropdown-item">
-                    UI/UX Design
+                    Flight Instructor Rating
+                  </a>
+                  <a href="/ui-ux-design" className="dropdown-item">
+                    Type Rating A320 and B737 Cabin Crew
+                  </a>
+                  <a href="/ui-ux-design" className="dropdown-item">
+                    Cabin Crew
                   </a>
                 </div>
               </div>
 
               <div className="dropdown-container">
-                <a href="/events" className="nav-link focus-ring dropdown-trigger">
+                {/* ✅ UPDATED: Added active class logic for the Events link */}
+                <a
+                  href="/events"
+                  className={`nav-link focus-ring dropdown-trigger ${
+                    currentPage === "fleet" ? "active" : ""
+                  }`}
+                >
                   Events
                   <svg className="dropdown-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
                     <path
@@ -146,7 +158,11 @@ export default function Header({ onPageChange, currentPage }) {
                   </svg>
                 </a>
                 <div className="dropdown-menu">
-                  <a href="/fleets" className="dropdown-item">
+                  <a
+                    href="/fleets"
+                    className="dropdown-item"
+                    onClick={(e) => handleNavClick("fleet", e)}
+                  >
                     Fleets
                   </a>
                   <a href="/orientation" className="dropdown-item">
@@ -311,8 +327,13 @@ export default function Header({ onPageChange, currentPage }) {
             </div>
 
             <div className="mobile-dropdown-container">
+              {/* ✅ UPDATED: Added active class logic for the mobile Events button */}
               <button
-                className={`mobile-nav-link mobile-dropdown-trigger focus-ring ${activeDropdown === "events" ? "active" : ""}`}
+                className={`mobile-nav-link mobile-dropdown-trigger focus-ring ${
+                  activeDropdown === "events" || currentPage === "fleet"
+                    ? "active"
+                    : ""
+                }`}
                 onClick={() => toggleMobileDropdown("events")}
               >
                 Events
@@ -327,7 +348,11 @@ export default function Header({ onPageChange, currentPage }) {
                 </svg>
               </button>
               <div className={`mobile-dropdown-menu ${activeDropdown === "events" ? "open" : ""}`}>
-                <a href="/fleets" className="mobile-dropdown-item" onClick={closeMobileMenu}>
+                <a
+                  href="/fleets"
+                  className="mobile-dropdown-item"
+                  onClick={(e) => handleNavClick("fleet", e)}
+                >
                   Fleets
                 </a>
                 <a href="/orientation" className="mobile-dropdown-item" onClick={closeMobileMenu}>
@@ -388,3 +413,4 @@ export default function Header({ onPageChange, currentPage }) {
     </>
   )
 }
+

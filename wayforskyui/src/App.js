@@ -3,23 +3,23 @@
 import { useState } from "react"
 import Header from "./components/Header"
 import HeroSection from "./HeroSection"
-import Quickintro from "./Quickintro"   // ✅ Import Quickintro
+import Quickintro from "./Quickintro"
 import FeatureSection from "./FeatureSection"
-import Contact from "./contact" // Import Contact component
+import Contact from "./contact"
 import TrainingLocations from "./TrainingLocations"
-import Fleet from "./Fleet"
-import Programoverview from "./Programoverview" // Import Programoverview component
+import Fleet from "./Fleet" // This is the SECTION for the homepage ( untouched)
+import FleetPage from "./fleetpage.js" // ✅ Here is the new SEPARATE PAGE (FIXED)
+import Programoverview from "./Programoverview"
 import Blog from "./Blog"
-import CTA from "./CTA" // Import CTA component
+import CTA from "./CTA"
+import Footer from "./components/Footer"
 
 import "./App.css"
 import "./TrainingLocation.css"
 
 function App() {
-  // Add state to manage current page
   const [currentPage, setCurrentPage] = useState("home")
 
-  // Function to handle page navigation
   const handlePageChange = (page) => {
     setCurrentPage(page)
   }
@@ -27,22 +27,31 @@ function App() {
   return (
     <div className="App">
       <Header onPageChange={handlePageChange} currentPage={currentPage} />
-      <HeroSection />
-      <Quickintro />   {/* ✅ Added Quickintro here */}
-      {/* Conditionally render pages based on currentPage state */}
+      
+      {/* This renders only the HOME page content */}
       {currentPage === "home" && (
         <>
+          <HeroSection />
+          <Quickintro />
           <FeatureSection />
           <TrainingLocations />
-          <Fleet />
-          <Programoverview /> {/* Added Programoverview here */}
+          <Fleet /> {/* This is your original homepage fleet section. It stays here. */}
+          <Programoverview />
           <Blog />
-          <CTA /> {/* Added CTA at the end */}
+          <CTA />
         </>
       )}
+
+      {/* ✅ This renders ONLY the FLEET PAGE when you click the link */}
+      {currentPage === "fleet" && <FleetPage />}
+
+      {/* This renders ONLY the CONTACT PAGE */}
       {currentPage === "contact" && <Contact />}
+      
+      <Footer />
     </div>
   )
 }
 
 export default App
+
