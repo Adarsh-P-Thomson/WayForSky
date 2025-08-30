@@ -1,6 +1,9 @@
 import React from "react"
 import logo from "../assets/WhiteBg.jpg" // ✅ adjust path if needed
 
+// ✅ 1. Import the specific icons you need from react-icons
+import { FaTwitter, FaFacebook, FaYoutube, FaInstagram } from "react-icons/fa";
+
 const Footer = () => {
   return (
     <footer style={styles.footer}>
@@ -16,10 +19,10 @@ const Footer = () => {
           <h3 style={styles.title}>Explore</h3>
           <ul style={styles.list}>
             <li><a href="/" style={styles.link}>Home</a></li>
-            <li><a href="/about" style={styles.link}>About Us</a></li>
+            <li><a href="/our-story" style={styles.link}>About Us</a></li>
             <li><a href="/courses" style={styles.link}>Courses</a></li>
             <li><a href="/fleet" style={styles.link}>Fleet</a></li>
-            <li><a href="/contact" style={styles.link}>Contact</a></li>
+            <li><a href="/contactus" style={styles.link}>Contact</a></li>
           </ul>
         </div>
 
@@ -44,10 +47,11 @@ const Footer = () => {
         <div style={styles.section}>
           <h3 style={styles.title}>Follow Us</h3>
           <div style={styles.socialContainer}>
-            <a href="#" style={styles.social}><i className="fab fa-twitter"></i></a>
-            <a href="#" style={styles.social}><i className="fab fa-facebook"></i></a>
-            <a href="#" style={styles.social}><i className="fab fa-youtube"></i></a>
-            <a href="#" style={styles.social}><i className="fab fa-instagram"></i></a>
+            {/* ✅ 2. Replace the old <i> tags with the imported icon components */}
+            <a href="#" style={styles.social}><FaTwitter /></a>
+            <a href="#" style={styles.social}><FaFacebook /></a>
+            <a href="#" style={styles.social}><FaYoutube /></a>
+            <a href="#" style={styles.social}><FaInstagram /></a>
           </div>
         </div>
       </div>
@@ -132,7 +136,7 @@ const styles = {
   socialContainer: {
     display: "flex",
     gap: "1rem",
-    fontSize: "1.5rem",
+    fontSize: "1.5rem", // This will now control the size of the SVG icons
   },
   social: {
     color: "#64748b",

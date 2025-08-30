@@ -114,7 +114,7 @@ export default function Header() {
               </Link>
 
               <div className="dropdown-container">
-                <Link to="/about" className="nav-link focus-ring dropdown-trigger">
+                <Link to="/our-story" className="nav-link focus-ring dropdown-trigger">
                   About Us
                   <DropdownArrow />
                 </Link>
@@ -158,7 +158,7 @@ export default function Header() {
               <div className="dropdown-container">
                 {/* ✅ UPDATED: Events is active when on the /fleet page */}
                 <Link
-                  to="/events"
+                  to="/fleet"
                   className={`nav-link focus-ring dropdown-trigger ${
                     location.pathname === "/fleet" ? "active" : ""
                   }`}
