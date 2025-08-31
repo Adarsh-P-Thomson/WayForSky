@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 // ✅ Import useLocation to read the current URL
 import { Link, useLocation } from "react-router-dom"
+import HeaderLogo from "../assets/Headerlogo.jpeg"; 
 
 const DropdownArrow = ({ className }) => (
   <svg
@@ -97,12 +98,21 @@ export default function Header() {
         <div className="container">
           <div className="header-content">
             {/* Logo */}
-            <div className="logo">
-              <Link to="/">
-                <span>Way</span>
-                <span className="accent">ForSky</span>
-              </Link>
-            </div>
+<div className="logo">
+  <Link to="/">
+    <img 
+      src={HeaderLogo} 
+      alt="WayForSky Logo" 
+      style={{
+        height: "50px",
+        width: "auto",
+        display: "block"
+      }}
+    />
+  </Link>
+</div>
+
+
 
             {/* Desktop Navigation */}
             <nav className="desktop-nav">
