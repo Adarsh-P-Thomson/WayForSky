@@ -15,6 +15,9 @@ import CTA from "./CTA"
 import Footer from "./components/Footer"
 import Aboutus from "./pages/Aboutus"
 import WhyUs from "./pages/WhyUs.js" 
+import Zerotohero from "./pages/Zerotohero.js" 
+import Southafricacpl from "./pages/Southafricacpl.js" 
+import Privatepilot from "./pages/Privatepilot.js" 
 import NotFoundPage from "./pages/static/NotFoundPage"
 
 import "./App.css"
@@ -56,6 +59,13 @@ function App() {
           <Route path="/our-story" element={<Aboutus />} />
 
           <Route path="/why-wayforsky" element={<WhyUs />} />
+          
+          <Route path="/zero-to-hero" element={<Zerotohero />} />
+
+          <Route path="/commercial-pilot-license" element={<Southafricacpl />} />
+
+          <Route path="/private-pilot-license" element={<Privatepilot />} />
+
 
           <Route path="/contactus" element={<ContactUs />} />
 
