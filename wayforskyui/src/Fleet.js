@@ -2,47 +2,45 @@ import React, { useState, useEffect } from 'react';
 import './Fleet.css';
 
 const Fleet = () => {
+  // MODIFIED: Updated the master list of all aircraft and simulators
   const aircrafts = [
-    {
-      name: "Cessna 172",
-      category: "Single Engine",
-      image: "/cessna-172-side.png"
-    },
-    {
-      name: "Piper Cherokee",
-      category: "Single Engine", 
-      image: "/piper-cherokee-side.png"
-    },
-    {
-      name: "Beechcraft Baron",
-      category: "Multi-Engine",
-      image: "/beechcraft-baron-side.png"
-    },
-    {
-      name: "Diamond DA42",
-      category: "Multi-Engine",
-      image: "/diamond-da42-side.png"
-    },
-    {
-      name: "Flight Simulator",
-      category: "Simulators",
-      image: "/flight-simulator.png"
-    }
+    { name: "Cessna 172", category: "Single Engine", image: "/cessna-172-side.png" },
+    { name: "Tecnam 2008JC", category: "Single Engine", image: "/tecnam-2008jc.png" },
+    { name: "Piper 28 181 Archer III", category: "Single Engine", image: "/piper-archer-iii.png" },
+    { name: "Diamond DA42", category: "Multi-Engine", image: "/diamond-da42-side.png" },
+    { name: "Beechcraft Baron", category: "Multi-Engine", image: "/beechcraft-baron-side.png" },
+    { name: "Piper Seneca II", category: "Multi-Engine", image: "/piper-seneca-ii.png" },
+    { name: "Tecnam 2006T", category: "Multi-Engine", image: "/tecnam-2006t.png" },
+    { name: "FNPT II", category: "Simulators", image: "/fnpt-ii.png" },
+    { name: "A320 / B737", category: "Simulators", image: "/a320-b737-sim.png" },
+    { name: "ALSIM", category: "Simulators", image: "/alsim-simulator.png" },
+    { name: "Redbird", category: "Simulators", image: "/redbird-simulator.png" },
   ];
 
-  const [currentIndex, setCurrentIndex] = useState(0);
+  // State to track the index in the master 'aircrafts' list
+  const [masterIndex, setMasterIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [filteredAircrafts, setFilteredAircrafts] = useState(aircrafts);
-  const [activeCategory, setActiveCategory] = useState("Single Engine");
+  
+  // The active category is now derived from the current aircraft in the master list
+  const activeCategory = aircrafts[masterIndex].category;
 
+  // Filtered list for rendering indicators based on the active category
+  const filteredAircrafts = aircrafts.filter(a => a.category === activeCategory);
+
+  // The current aircraft is always taken from the master list
+  const currentAircraft = aircrafts[masterIndex];
+  
+  // Find the index of the current aircraft within its own category for the indicator highlight
+  const currentIndexInCategory = filteredAircrafts.findIndex(a => a.name === currentAircraft.name);
+
+  // REFACTORED: Navigation now works on the entire 'aircrafts' list
   const handleNext = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     
     setTimeout(() => {
-      setCurrentIndex((prevIndex) => 
-        prevIndex === filteredAircrafts.length - 1 ? 0 : prevIndex + 1
-      );
+      const nextIndex = (masterIndex + 1) % aircrafts.length;
+      setMasterIndex(nextIndex);
       setIsTransitioning(false);
     }, 250);
   };
@@ -52,50 +50,46 @@ const Fleet = () => {
     setIsTransitioning(true);
     
     setTimeout(() => {
-      setCurrentIndex((prevIndex) => 
-        prevIndex === 0 ? filteredAircrafts.length - 1 : prevIndex - 1
-      );
+      const prevIndex = (masterIndex - 1 + aircrafts.length) % aircrafts.length;
+      setMasterIndex(prevIndex);
       setIsTransitioning(false);
     }, 250);
   };
 
+  // REFACTORED: Jumps to the first aircraft of the selected category
   const handleCategoryFilter = (category) => {
-    if (isTransitioning) return;
+    if (isTransitioning || category === activeCategory) return;
     
     setIsTransitioning(true);
-    setActiveCategory(category);
     
     setTimeout(() => {
-      const filtered = aircrafts.filter(aircraft => aircraft.category === category);
-      setFilteredAircrafts(filtered);
-      setCurrentIndex(0);
+      const firstIndexInCategory = aircrafts.findIndex(a => a.category === category);
+      if (firstIndexInCategory !== -1) {
+        setMasterIndex(firstIndexInCategory);
+      }
       setIsTransitioning(false);
     }, 250);
   };
 
-  const handleIndicatorClick = (index) => {
-    if (index === currentIndex || isTransitioning) return;
-    
+  // REFACTORED: Clicking an indicator finds the aircraft in the master list
+  const handleIndicatorClick = (indicatorIndex) => {
+    const targetAircraft = filteredAircrafts[indicatorIndex];
+    if (targetAircraft.name === currentAircraft.name || isTransitioning) return;
+
     setIsTransitioning(true);
     setTimeout(() => {
-      setCurrentIndex(index);
+      const newMasterIndex = aircrafts.findIndex(a => a.name === targetAircraft.name);
+      if (newMasterIndex !== -1) {
+        setMasterIndex(newMasterIndex);
+      }
       setIsTransitioning(false);
     }, 250);
   };
-
-  useEffect(() => {
-    const filtered = aircrafts.filter(aircraft => aircraft.category === activeCategory);
-    setFilteredAircrafts(filtered);
-    setCurrentIndex(0);
-  }, []);
-
-  const currentAircraft = filteredAircrafts[currentIndex];
 
   return (
     <div className="fleet-container">
       <div className="fleet-content">
         
-        {/* MODIFIED: New header structure for title and button alignment */}
         <div className="fleet-header-top">
           <h2 className="fleet-title">
             Our Fleets 
@@ -113,7 +107,6 @@ const Fleet = () => {
           all meticulously maintained to the highest aviation safety standards.
         </p>
 
-        {/* Aircraft Header */}
         <div className="aircraft-header">
           <h1 className={`aircraft-name ${isTransitioning ? 'fade-out' : 'fade-in'}`}>
             {currentAircraft?.name}
@@ -123,11 +116,9 @@ const Fleet = () => {
           </p>
         </div>
 
-        {/* Main Content */}
         <div className="main-content">
           <div className="aircraft-container">
             <div className="aircraft-display">
-              {/* Previous Button */}
               <button
                 className="nav-button nav-button-prev"
                 onClick={handlePrev}
@@ -137,7 +128,6 @@ const Fleet = () => {
                 </svg>
               </button>
             
-              {/* Next Button */}
               <button
                 className="nav-button nav-button-next"
                 onClick={handleNext}
@@ -147,9 +137,6 @@ const Fleet = () => {
                 </svg>
               </button>
             
-
-            
-              {/* Aircraft Image */}
               <img
                 src={currentAircraft?.image}
                 alt={currentAircraft?.name}
@@ -159,18 +146,16 @@ const Fleet = () => {
           </div>
         </div>
 
-        {/* Aircraft Indicators */}
         <div className="indicators">
           {filteredAircrafts.map((_, index) => (
             <button
               key={index}
-              className={`indicator ${index === currentIndex ? 'indicator-active' : ''}`}
+              className={`indicator ${index === currentIndexInCategory ? 'indicator-active' : ''}`}
               onClick={() => handleIndicatorClick(index)}
             />
           ))}
         </div>
 
-        {/* Category Filter */}
         <div className="category-filter">
           <button 
             className={`category-btn ${activeCategory === 'Single Engine' ? 'category-btn-active' : ''}`}

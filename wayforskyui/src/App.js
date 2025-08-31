@@ -18,6 +18,7 @@ import WhyUs from "./pages/WhyUs.js"
 import Zerotohero from "./pages/Zerotohero.js" 
 import Southafricacpl from "./pages/Southafricacpl.js" 
 import Privatepilot from "./pages/Privatepilot.js" 
+import Cabincrew from "./pages/Cabincrew.js" 
 import NotFoundPage from "./pages/static/NotFoundPage"
 
 import "./App.css"
@@ -55,7 +56,7 @@ function App() {
 
           {/* Contact Page */}
         
-
+Cabincrew.js
           <Route path="/our-story" element={<Aboutus />} />
 
           <Route path="/why-wayforsky" element={<WhyUs />} />
@@ -66,6 +67,7 @@ function App() {
 
           <Route path="/private-pilot-license" element={<Privatepilot />} />
 
+          <Route path="/cabin-crew" element={<Cabincrew />} />
 
           <Route path="/contactus" element={<ContactUs />} />
 
