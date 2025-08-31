@@ -197,8 +197,8 @@ export default function Header() {
                   <Link to="/dgca-classes" className="dropdown-item">
                     DGCA ground Classes
                   </Link>
-                  <Link to="/rtr-classes" className="dropdown-item">
-                    Radiology Telephonics (RTR) classes
+                  <Link to="/elp-classes" className="dropdown-item">
+                    English Language Proficiency (ELP) Training
                   </Link>
                   <Link to="/nios-classes" className="dropdown-item">
                     NIOS Prep Classes

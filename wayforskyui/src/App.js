@@ -20,10 +20,12 @@ import Southafricacpl from "./pages/Southafricacpl.js"
 import Privatepilot from "./pages/Privatepilot.js" 
 import Cabincrew from "./pages/Cabincrew.js" 
 import NotFoundPage from "./pages/static/NotFoundPage"
-
+import DGCAGroundClassesPage from "./pages/DGCAGroundClassesPage.js"
 import "./App.css"
 import "./TrainingLocation.css"
 import ContactUs from "./pages/ContactUs.js"
+import ELPClassesPage from "./pages/ELPClassesPage.js"
+import NIOSPrepPage from "./pages/NIOSPrepPage.js"
 
 // ✅ HomePage is grouped as one component
 function HomePage() {
@@ -71,8 +73,27 @@ Cabincrew.js
 
           <Route path="/contactus" element={<ContactUs />} />
 
+
+        <Route path="/dgca-classes" element={<DGCAGroundClassesPage />} />
+
+        <Route path="/elp-classes" element={<ELPClassesPage />} />
+
+        <Route path="/nios-classes" element={<NIOSPrepPage />} />
+
+
+
+
+
+
+
+
+
+          
+
           {/* 👇 Add this catch-all route at the very end */}
           <Route path="*" element={<NotFoundPage />} />
+
+
 
 
 
