@@ -1,12 +1,22 @@
+/**
+ * IMPORTANT: This is a template for a Privacy Policy page.
+ * It is NOT legal advice. You should consult with a qualified legal professional
+ * to ensure that your Privacy Policy is complete, accurate, and compliant
+ * with all applicable laws and regulations for your specific
+ * situation and jurisdiction.
+ */
+
 export default function PrivacyPolicy() {
+  const effectiveDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
   return (
     <main className="font-sans">
       {/* Header */}
       <header className="px-6 pt-10 pb-6 bg-background">
         <div className="mx-auto max-w-3xl">
           <h1 className="text-3xl font-semibold tracking-tight text-balance text-foreground">Privacy Policy</h1>
-          <p className="mt-1 text-sm text-muted-foreground">WayForSky – Global Aviation Pathway</p>
-          <div className="mt-4 h-px w-full bg-border" />
+          <p className="mt-2 text-sm text-muted-foreground">Last updated: {effectiveDate}</p>
+          <div className="mt-6 h-px w-full bg-border" />
         </div>
       </header>
 
@@ -21,7 +31,7 @@ export default function PrivacyPolicy() {
               href="https://www.wayforsky.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-primary underline underline-offset-4 hover:opacity-90"
+              className="text-primary underline underline-offset-4 transition-opacity hover:opacity-90"
               aria-label="Visit www.wayforsky.com (opens in a new tab)"
             >
               www.wayforsky.com
@@ -126,7 +136,7 @@ export default function PrivacyPolicy() {
               To exercise your rights, please contact us at{" "}
               <a
                 href="mailto:info@wayforsky.com"
-                className="text-primary underline underline-offset-4 hover:opacity-90"
+                className="text-primary underline underline-offset-4 transition-opacity hover:opacity-90"
               >
                 info@wayforsky.com
               </a>
@@ -167,7 +177,7 @@ export default function PrivacyPolicy() {
               <div className="mt-2">
                 <span className="block">
                   Phone:{" "}
-                  <a href="tel:+917019903800" className="text-primary underline underline-offset-4 hover:opacity-90">
+                  <a href="tel:+917019903800" className="text-primary underline underline-offset-4 transition-opacity hover:opacity-90">
                     +91 70199 03800
                   </a>
                 </span>
@@ -175,7 +185,7 @@ export default function PrivacyPolicy() {
                   Email:{" "}
                   <a
                     href="mailto:info@wayforsky.com"
-                    className="text-primary underline underline-offset-4 hover:opacity-90"
+                    className="text-primary underline underline-offset-4 transition-opacity hover:opacity-90"
                   >
                     info@wayforsky.com
                   </a>
@@ -186,7 +196,7 @@ export default function PrivacyPolicy() {
                     href="https://www.wayforsky.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-primary underline underline-offset-4 hover:opacity-90"
+                    className="text-primary underline underline-offset-4 transition-opacity hover:opacity-90"
                     aria-label="Visit www.wayforsky.com (opens in a new tab)"
                   >
                     www.wayforsky.com
