@@ -139,7 +139,7 @@ export default function Header() {
               </div>
 
               <div className="dropdown-container">
-                <Link to="/courses" className="nav-link focus-ring dropdown-trigger">
+                <Link to="/zero-to-hero" className="nav-link focus-ring dropdown-trigger">
                   Courses
                   <DropdownArrow />
                 </Link>
@@ -183,15 +183,7 @@ export default function Header() {
                   >
                     Fleets
                   </Link>
-                  <Link to="/orientation" className="dropdown-item">
-                    Orientation program
-                  </Link>
-                  <Link to="/seminars" className="dropdown-item">
-                    Seminars
-                  </Link>
-                  <Link to="/shorts" className="dropdown-item">
-                    Shorts
-                  </Link>
+
                   <Link to="/testimonials" className="dropdown-item">
                     Testimonials
                   </Link>
@@ -199,7 +191,7 @@ export default function Header() {
               </div>
 
               <div className="dropdown-container">
-                <Link to="/classes" className="nav-link focus-ring dropdown-trigger">
+                <Link to="/dgca-classes" className="nav-link focus-ring dropdown-trigger">
                   Classes
                   <DropdownArrow />
                 </Link>
@@ -346,15 +338,7 @@ export default function Header() {
                 >
                   Fleets
                 </Link>
-                <Link to="/orientation" className="mobile-dropdown-item" onClick={closeMobileMenu}>
-                  Orientation program
-                </Link>
-                <Link to="/seminars" className="mobile-dropdown-item" onClick={closeMobileMenu}>
-                  Seminars
-                </Link>
-                <Link to="/shorts" className="mobile-dropdown-item" onClick={closeMobileMenu}>
-                  Shorts
-                </Link>
+
                 <Link to="/testimonials" className="mobile-dropdown-item" onClick={closeMobileMenu}>
                   Testimonials
                 </Link>

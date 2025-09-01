@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import { Link } from "react-router-dom";
 // Declare the BenefitImage variable
 const BenefitImage = styled.img`
   width: 100%;
@@ -159,8 +160,45 @@ const ContactLink = styled.a`
 
 // Container for all benefit items
 const BenefitsContainer = styled.div`
-  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
   margin: 0 auto;
+  max-width: calc(100vw - 4cm);
+  padding: 0 2cm;
+  
+  @media (max-width: 1400px) {
+    gap: 50px;
+    padding: 0 1.5cm;
+    max-width: calc(100vw - 3cm);
+  }
+  
+  @media (max-width: 1200px) {
+    gap: 40px;
+    padding: 0 1cm;
+    max-width: calc(100vw - 2cm);
+  }
+  
+  @media (max-width: 1024px) {
+    gap: 30px;
+    padding: 0 30px;
+    max-width: calc(100vw - 60px);
+  }
+  
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0 20px;
+    max-width: calc(100vw - 40px);
+  }
+  
+  @media (max-width: 768px) {
+    display: block;
+    margin: 0;
+    gap: 0;
+    padding: 0;
+    max-width: 100%;
+  }
 `
 
 // Individual benefit item with 3-column grid
@@ -169,12 +207,20 @@ const BenefitItem = styled.div`
   grid-template-columns: 200px 80px 1fr;
   gap: 40px;
   align-items: flex-start;
-  padding: 40px 0;
+  padding: 0;
+  min-width: 0; /* Prevent grid overflow */
+  overflow: hidden; /* Prevent content overflow */
   
   @media (max-width: 1024px) {
     grid-template-columns: 180px 70px 1fr;
     gap: 30px;
-    padding: 35px 0;
+    padding: 0;
+  }
+  
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 30px 0;
   }
   
   @media (max-width: 768px) {
@@ -195,9 +241,14 @@ const ImageContainer = styled.div`
   height: 140px;
   border-radius: 12px;
   overflow: hidden;
+  flex-shrink: 0; /* Prevent image from shrinking */
   
   @media (max-width: 1024px) {
     height: 130px;
+  }
+  
+  @media (max-width: 900px) {
+    display: none; /* Hide desktop image on tablet and below */
   }
   
   @media (max-width: 768px) {
@@ -211,9 +262,14 @@ const BenefitNumber = styled.div`
   font-weight: 700;
   color: #666666;
   font-family: 'Inter', monospace;
+  flex-shrink: 0; /* Prevent number from shrinking */
   
   @media (max-width: 1024px) {
     font-size: 2.25rem;
+  }
+  
+  @media (max-width: 900px) {
+    display: none; /* Hide desktop number on tablet and below */
   }
   
   @media (max-width: 768px) {
@@ -226,6 +282,8 @@ const TextContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
+  min-width: 0; /* Allow text to wrap properly */
+  word-wrap: break-word; /* Ensure long words break */
   
   @media (max-width: 480px) {
     gap: 12px;
@@ -239,6 +297,7 @@ const BenefitTitle = styled.h3`
   color: #1a1a1a;
   margin: 0;
   line-height: 1.3;
+  word-wrap: break-word; /* Prevent title overflow */
   
   @media (max-width: 1024px) {
     font-size: 1.625rem;
@@ -265,6 +324,8 @@ const BenefitDescription = styled.p`
   color: #666666;
   line-height: 1.6;
   margin: 0;
+  word-wrap: break-word; /* Prevent description overflow */
+  hyphens: auto; /* Enable hyphenation for better text flow */
   
   @media (max-width: 1024px) {
     font-size: 1.0625rem;
@@ -334,14 +395,17 @@ const MobileTopRow = styled.div`
 
 // Separator line component
 const Separator = styled.div`
-  border-bottom: 1px solid #e0e0e0;
-  margin: 40px 0;
+  display: none;
   
-  @media (max-width: 1024px) {
-    margin: 35px 0;
+  @media (max-width: 900px) {
+    display: block;
+    border-bottom: 1px solid #e0e0e0;
+    margin: 30px 0;
   }
   
   @media (max-width: 768px) {
+    display: block;
+    border-bottom: 1px solid #e0e0e0;
     margin: 30px 0;
   }
   
@@ -387,7 +451,11 @@ const Quickintro = () => {
             recognized commercial pilots. At WayForSky, we go beyond admissions—we provide end-to-end support:
           </SubHeading>
         </div>
-        <ContactLink href="#contact">Ready to get started? Contact us</ContactLink>
+
+
+<ContactLink as={Link} to="/contactus">
+  Ready to get started? Contact us
+</ContactLink>
       </HeaderContainer>
 
       {/* Benefits list container */}

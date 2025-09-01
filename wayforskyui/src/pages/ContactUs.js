@@ -296,8 +296,14 @@ const ContactUs = () => {
             }
             .page-container {
                 overflow-x: hidden;
-                margin-top: 2.1cm;
+                margin-top: 1.6cm;
             }
+@media screen and (min-width: 1024px) {
+  .page-container {
+    overflow-x: hidden;
+    margin-top: 2.1cm;
+  }
+}
 
             /* Main Section Styles */
             .hero-section {

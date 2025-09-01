@@ -165,31 +165,14 @@ const SecondaryButton = styled(motion.button)`
   }
 `;
 
-const RightColumn = styled.div`
+const RightColumn = styled(motion.div)`
   position: relative;
   overflow: hidden;
-  background: #f0f0f0;
+background: url('https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2') center/cover no-repeat;
   border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-`;
-
-const ImagePlaceholder = styled(motion.div)`
-  width: 80%;
-  height: 60%;
-  background: url('https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2') center/cover no-repeat;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  
-  @media (max-width: 768px) {
-    width: 90%;
-    height: 70%;
-  }
 `;
 
 // Framer Motion variants for animations
@@ -349,15 +332,12 @@ const CTA = () => {
         </ContentContainer>
       </LeftColumn>
 
-      {/* Right Column - Dark pattern background */}
-      <RightColumn>
-        <ImagePlaceholder
-          variants={patternVariants}
-          initial="hidden"
-          animate="visible"
-        >
-        </ImagePlaceholder>
-      </RightColumn>
+      {/* Right Column - Full image background */}
+      <RightColumn
+        variants={patternVariants}
+        initial="hidden"
+        animate="visible"
+      />
     </HeroContainer>
   );
 };

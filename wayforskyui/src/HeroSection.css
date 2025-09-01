@@ -104,22 +104,7 @@
     gap: 16px;
   }
   
-  .primary-cta {
-    padding: 16px 32px;
-    background-color: rgba(255, 255, 255, 0.9);
-    color: #111827;
-    font-weight: 500;
-    border-radius: 2px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 1.125rem;
-    backdrop-filter: blur(10px);
-  }
-  
-  .primary-cta:hover {
-    background-color: white;
-  }
+
   
   .secondary-cta {
     padding: 16px 32px;
@@ -228,13 +213,7 @@
     .cta-buttons {
       width: 100%;
     }
-    
-    .primary-cta,
-    .secondary-cta {
-      width: 100%;
-      font-size: 1rem;
-      padding: 12px 24px;
-    }
+
   }
   
   /* Small mobile screens (480px and below) */

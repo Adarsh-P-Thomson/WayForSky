@@ -1,7 +1,7 @@
 /* THIS IS ROUTING PAGE CONTROL . DONT DO ANYTHING ELSE*/
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-
+import ScrollToTop from "./ScrollToTop"   // ✅ import it here
 import Header from "./components/Header"
 import HeroSection from "./HeroSection"
 import Quickintro from "./Quickintro"
@@ -24,14 +24,9 @@ import Cabincrew from "./pages/Cabincrew.js"
 import NotFoundPage from "./pages/static/NotFoundPage"
 import DGCAGroundClassesPage from "./pages/DGCAGroundClassesPage.js"
 import "./App.css"
-import "./TrainingLocation.css"
 import ContactUs from "./pages/ContactUs.js"
 import ELPClassesPage from "./pages/ELPClassesPage.js"
 import NIOSPrepPage from "./pages/NIOSPrepPage.js"
-import TermsAndConditions from "./pages/static/TermsAndConditons.js"
-import PrivacyPolicy from "./pages/static/PrivacyPolicy.js"
-
-
 
 // ✅ HomePage is grouped as one component
 function HomePage() {
@@ -52,6 +47,7 @@ function HomePage() {
 function App() {
   return (
     <Router>
+            <ScrollToTop /> 
       <div className="App">
         <Header /> 
 
@@ -90,13 +86,6 @@ Cabincrew.js
         <Route path="/elp-classes" element={<ELPClassesPage />} />
 
         <Route path="/nios-classes" element={<NIOSPrepPage />} />
-
-        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
-
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-
-        "
-
 
 
 

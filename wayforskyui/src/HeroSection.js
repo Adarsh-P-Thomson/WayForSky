@@ -1,7 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // ✅ Import useNavigate
 import './HeroSection.css';
 
 function HeroSection() {
+  const navigate = useNavigate();
+
   return (
     <section className="hero-container">
       <div className="hero-overlay">
@@ -15,12 +18,10 @@ function HeroSection() {
                 Your Sky.
               </h1>
             </div>
-            <div className="image-focal-point">
-              {/* This space is for the background image focal point */}
-            </div>
+            <div className="image-focal-point">{/* background focal point */}</div>
           </div>
 
-          {/* Dividing Line */}
+          {/* Divider */}
           <div className="section-divider"></div>
 
           {/* Bottom Section */}
@@ -32,12 +33,14 @@ function HeroSection() {
               <p className="subheadline">
                 At WayForSky, we guide aspiring pilots from their first counselling session to their very first solo flight—and beyond. With trusted training academies in South Africa, Hungary, and India, we make your pilot career not just a dream, but a reality.
               </p>
+
               <div className="cta-buttons">
-                <button className="primary-cta">
-                  🎯 Start Your Journey
-                </button>
-                <button className="secondary-cta">
-                  💬 Book Free Counselling Call
+                {/* ✅ Navigate to /contactus */}
+                <button
+                  className="secondary-cta"
+                  onClick={() => navigate("/contactus")}
+                >
+                  Book Free Counselling Call
                 </button>
               </div>
             </div>

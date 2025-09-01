@@ -15,7 +15,7 @@ const WhywayforskyStyles = () => (
     .wfs-mainHeading {
       font-size: clamp(2.25rem, 5vw, 3rem);
       font-weight: 600;
-      color: #1a1a1a;
+      color: #F5F5F5;
       text-align: left;
       margin-bottom: 3rem;
     }

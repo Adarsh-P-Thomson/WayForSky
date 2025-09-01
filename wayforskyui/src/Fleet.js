@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
+
 import './Fleet.css';
 
 const Fleet = () => {
@@ -32,7 +34,7 @@ const Fleet = () => {
   
   // Find the index of the current aircraft within its own category for the indicator highlight
   const currentIndexInCategory = filteredAircrafts.findIndex(a => a.name === currentAircraft.name);
-
+const navigate = useNavigate();
   // REFACTORED: Navigation now works on the entire 'aircrafts' list
   const handleNext = () => {
     if (isTransitioning) return;
@@ -94,12 +96,28 @@ const Fleet = () => {
           <h2 className="fleet-title">
             Our Fleets 
           </h2>
-          <button className="explore-button">
-            <span>Explore Our Fleet</span>
-            <svg className="explore-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-            </svg>
-          </button>
+<button
+  className="explore-button"
+  onClick={() => {
+    navigate("/fleet");
+    window.scrollTo(0, 0); // 👈 ensures page starts at top
+  }}
+>
+  <span>Explore Our Fleet</span>
+  <svg 
+    className="explore-icon" 
+    fill="none" 
+    stroke="currentColor" 
+    viewBox="0 0 24 24"
+  >
+    <path 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+      strokeWidth="2" 
+      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+    />
+  </svg>
+</button>
         </div>
         
         <p className="fleet-description">
