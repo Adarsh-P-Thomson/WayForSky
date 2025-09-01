@@ -384,7 +384,7 @@ const CPLHungaryPage = () => {
       marginBottom: '8px'
     },
     benefitDescription: {
-color: '#ffffff',
+      color: 'rgba(255, 255, 255, 0.9)',
     },
     whiteSection: {
       backgroundColor: 'white',
@@ -677,7 +677,7 @@ color: '#ffffff',
     },
     ctaDescription: {
       fontSize: '20px',
-color: '#ffffff',
+      color: 'rgba(255, 255, 255, 0.9)',
       marginBottom: '32px',
       maxWidth: '768px',
       margin: '0 auto 32px'
@@ -721,7 +721,8 @@ color: '#ffffff',
                 <p style={styles.headerSubtitle}>Commercial Pilot License</p>
               </div>
             </div>
-            <nav style={{...styles.nav, ...styles.navVisible}}>
+            {/* UPDATED NAV ELEMENT */}
+            <nav style={{...styles.nav, ...styles.navVisible}} className="nav-visible">
               {sections.map((section) => (
                 <button
                   key={section.id}
@@ -1071,6 +1072,7 @@ color: '#ffffff',
         </div>
       </div>
 
+      {/* UPDATED STYLE BLOCK */}
       <style>
         {`
           html {
@@ -1088,10 +1090,13 @@ color: '#ffffff',
             }
           }
 
-          @media (max-width: 768px) {
+          @media (max-width: 1024px) {
             .nav-visible {
               display: none !important;
             }
+          }
+
+          @media (max-width: 768px) {
             .overview-grid-lg {
               grid-template-columns: 1fr !important;
             }

@@ -230,16 +230,12 @@ export default function Header() {
 
             {/* Right Actions */}
             <div className="right-actions">
-              <button className="search-icon focus-ring" aria-label="Search">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                  <circle cx="8" cy="8" r="7" stroke="#FFFFFF" strokeWidth="1.5" />
-                  <path d="m15 15 3 3" stroke="#FFFFFF" strokeWidth="1.5" />
-                </svg>
-              </button>
-                {/* ✅ UPDATED: Link points to the correct /contactus route */}
+
+                {/* ✅ UPDATED: Link points to the correct /contactus route and underline is removed */}
               <Link
                 to="/contactus"
                 className="contact-btn focus-ring"
+                style={{ textDecoration: 'none' }}
               >
                 Apply Now
               </Link>

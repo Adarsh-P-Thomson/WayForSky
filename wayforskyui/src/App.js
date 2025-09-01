@@ -18,6 +18,8 @@ import WhyUs from "./pages/WhyUs.js"
 import Zerotohero from "./pages/Zerotohero.js" 
 import Southafricacpl from "./pages/Southafricacpl.js" 
 import Privatepilot from "./pages/Privatepilot.js" 
+import FlightInstructor from "./pages/FlightInstructor.js" 
+import Typerating from "./pages/Typerating.js" 
 import Cabincrew from "./pages/Cabincrew.js" 
 import NotFoundPage from "./pages/static/NotFoundPage"
 import DGCAGroundClassesPage from "./pages/DGCAGroundClassesPage.js"
@@ -68,6 +70,11 @@ Cabincrew.js
           <Route path="/commercial-pilot-license" element={<Southafricacpl />} />
 
           <Route path="/private-pilot-license" element={<Privatepilot />} />
+
+                    <Route path="/flight-instructor-rating" element={<FlightInstructor />} />
+
+
+          <Route path="/type-rating" element={<Typerating />} />
 
           <Route path="/cabin-crew" element={<Cabincrew />} />
 
