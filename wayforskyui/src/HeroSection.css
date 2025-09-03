@@ -1,14 +1,16 @@
 /* HeroSection.css - Standard CSS without Tailwind */
 
+
 .hero-container {
     min-height: 100vh;
     position: relative;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-                      url('https://images.pexels.com/photos/912050/pexels-photo-912050.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.7)), 
+                      url('/src/assets/Hero.JPG');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-  }
+}
+
   
   .hero-overlay {
     position: absolute;
@@ -93,7 +95,7 @@
     font-size: 1.125rem;
     color: white;
     line-height: 1.6;
-    font-weight: 300;
+    font-weight: 500;
     max-width: 672px;
     margin: 0;
   }

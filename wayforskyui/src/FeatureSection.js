@@ -1,4 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import img31 from './assets/Whywfs/3.1.JPG';
+import img32 from './assets/Whywfs/3.2.JPG';
+import img33 from './assets/Whywfs/3.3.JPG';
+import img34 from './assets/Whywfs/3.4.JPG';
+import img35 from './assets/Whywfs/3.5.JPG';
+import img36 from './assets/Whywfs/3.6.JPG';
 
 // Component's CSS Styles - Scoped with 'wfs-' prefix
 const WhywayforskyStyles = () => (
@@ -184,56 +190,56 @@ const WhywayforskyStyles = () => (
 const Whywayforsky = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const cardData = [
-    {
-      id: 1,
-      image: "https://images.pexels.com/photos/3762800/pexels-photo-3762800.jpeg?auto=compress&cs=tinysrgb&w=800",
-      title: "Pilot-Led Counselling",
-      description: "Gain invaluable insights and clear your doubts by speaking directly with seasoned airline pilots before you even begin your training. Get firsthand knowledge about the life of a pilot and what it takes to succeed.",
-      subtitle: "Start your journey with confidence. Your questions, answered by professionals who've flown the path.",
-      buttonText: "Speak to a Pilot"
-    },
-    {
-      id: 2,
-      image: "https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg?auto=compress&cs=tinysrgb&w=800",
-      title: "Global Training Options",
-      description: "Choose from our premier flight schools located in diverse and exciting locations. We offer comprehensive training programs in South Africa, Hungary, and India to suit your preferences and career goals.",
-      subtitle: "Your cockpit has a global view. Train in the skies of your choice.",
-      buttonText: "Explore Locations"
-    },
-    {
-      id: 3,
-      image: "https://images.pexels.com/photos/7947707/pexels-photo-7947707.jpeg?auto=compress&cs=tinysrgb&w=800",
-      title: "Complete Support System",
-      description: "We're with you every step of the way. Our dedicated support system covers everything from the initial admission process and documentation to preparing you for your very first airline interview.",
-      subtitle: "From day one to the flight deck. We're your co-pilot for your entire career journey.",
-      buttonText: "Learn About Support"
-    },
-    {
-      id: 4,
-      image: "https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=800",
-      title: "Transparent Guidance",
-      description: "No hidden surprises. We believe in complete transparency, providing you with clear fee structures, a detailed student contract, realistic timelines, and a full understanding of what to expect from your training.",
-      subtitle: "Clarity from the ground up. Know exactly where you're headed and what it takes to get there.",
-      buttonText: "View Fee Structure"
-    },
-    {
-      id: 5,
-      image: "https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=800",
-      title: "Trusted Partnerships",
-      description: "Train with the best in the industry. Our strong partnerships with renowned flight schools like Accolade Flying Wings & PharmaFlight ensure you receive world-class training and recognized certifications.",
-      subtitle: "Powered by excellence. Our collaborations are your gateway to top-tier aviation education.",
-      buttonText: "Our Partners"
-    },
-    {
-      id: 6,
-      image: "https://images.pexels.com/photos/1004584/pexels-photo-1004584.jpeg?auto=compress&cs=tinysrgb&w=800",
-      title: "Career-Driven Approach",
-      description: "Our focus extends beyond just getting you a pilot's license. We are committed to preparing you for a long and successful career in aviation, equipping you with the skills and confidence needed to excel.",
-      subtitle: "We don't just create pilots; we build future airline captains. Your career take-off starts here.",
-      buttonText: "Launch Your Career"
-    }
-  ];
+const cardData = [
+  {
+    id: 1,
+    image: img31,
+    title: "Pilot-Led Counselling",
+    description: "Gain invaluable insights and clear your doubts by speaking directly with seasoned airline pilots before you even begin your training. Get firsthand knowledge about the life of a pilot and what it takes to succeed.",
+    subtitle: "Start your journey with confidence. Your questions, answered by professionals who've flown the path.",
+    buttonText: "Speak to a Pilot"
+  },
+  {
+    id: 2,
+    image: img32,
+    title: "Global Training Options",
+    description: "Choose from our premier flight schools located in diverse and exciting locations. We offer comprehensive training programs in South Africa, Hungary, and India to suit your preferences and career goals.",
+    subtitle: "Your cockpit has a global view. Train in the skies of your choice.",
+    buttonText: "Explore Locations"
+  },
+  {
+    id: 3,
+    image: img33,
+    title: "Complete Support System",
+    description: "We're with you every step of the way. Our dedicated support system covers everything from the initial admission process and documentation to preparing you for your very first airline interview.",
+    subtitle: "From day one to the flight deck. We're your co-pilot for your entire career journey.",
+    buttonText: "Learn About Support"
+  },
+  {
+    id: 4,
+    image: img34,
+    title: "Transparent Guidance",
+    description: "No hidden surprises. We believe in complete transparency, providing you with clear fee structures, a detailed student contract, realistic timelines, and a full understanding of what to expect from your training.",
+    subtitle: "Clarity from the ground up. Know exactly where you're headed and what it takes to get there.",
+    buttonText: "View Fee Structure"
+  },
+  {
+    id: 5,
+    image: img35,
+    title: "Trusted Partnerships",
+    description: "Train with the best in the industry. Our strong partnerships with renowned flight schools like Accolade Flying Wings & PharmaFlight ensure you receive world-class training and recognized certifications.",
+    subtitle: "Powered by excellence. Our collaborations are your gateway to top-tier aviation education.",
+    buttonText: "Our Partners"
+  },
+  {
+    id: 6,
+    image: img36,
+    title: "Career-Driven Approach",
+    description: "Our focus extends beyond just getting you a pilot's license. We are committed to preparing you for a long and successful career in aviation, equipping you with the skills and confidence needed to excel.",
+    subtitle: "We don't just create pilots; we build future airline captains. Your career take-off starts here.",
+    buttonText: "Launch Your Career"
+  }
+];
 
   const nextCard = () => {
     setCurrentIndex((prev) => (prev + 1) % cardData.length);

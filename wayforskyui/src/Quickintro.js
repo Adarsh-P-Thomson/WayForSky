@@ -1,6 +1,14 @@
 import React from "react"
 import styled from "styled-components"
 import { Link } from "react-router-dom";
+
+import img21 from './assets/Aboutwfs/2.1.JPG';
+import img22 from './assets/Aboutwfs/2.2.JPG';
+import img23 from './assets/Aboutwfs/2.3.JPG';
+import img24 from './assets/Aboutwfs/2.4.JPG';
+import img25 from './assets/Aboutwfs/2.5.JPG';
+import img26 from './assets/Aboutwfs/2.6.JPG';
+
 // Declare the BenefitImage variable
 const BenefitImage = styled.img`
   width: 100%;
@@ -15,8 +23,7 @@ const benefitsData = [
     title: "Career Counseling",
     description:
       "Personalized guidance to help you choose the right aviation career path, from commercial pilot to specialized aviation roles, ensuring your goals align with industry opportunities.",
-    image:
-      "https://images.pexels.com/photos/912050/pexels-photo-912050.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop",
+    image: img21,
   },
   {
     id: 2,
@@ -24,8 +31,7 @@ const benefitsData = [
     title: "Document Handling",
     description:
       "Complete assistance with all aviation documentation, from medical certificates to license applications, ensuring every requirement is met accurately and on time.",
-    image:
-      "https://images.pexels.com/photos/7464720/pexels-photo-7464720.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop",
+    image: img22,
   },
   {
     id: 3,
@@ -33,8 +39,7 @@ const benefitsData = [
     title: "Visa & Immigration",
     description:
       "Expert support for student visas, work permits, and immigration processes across multiple countries, making your international aviation training seamless.",
-    image:
-      "https://images.pexels.com/photos/8849295/pexels-photo-8849295.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop",
+    image: img23,
   },
   {
     id: 4,
@@ -42,8 +47,7 @@ const benefitsData = [
     title: "Logistics Support",
     description:
       "Comprehensive assistance with accommodation, transportation, and daily logistics, so you can focus entirely on your aviation training without distractions.",
-    image:
-      "https://images.pexels.com/photos/280221/pexels-photo-280221.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop",
+    image: img24,
   },
   {
     id: 5,
@@ -51,8 +55,7 @@ const benefitsData = [
     title: "Parent & Guardian Support",
     description:
       "Dedicated support for families throughout the aviation training journey, providing regular updates and addressing concerns to ensure peace of mind.",
-    image:
-      "https://images.pexels.com/photos/9800029/pexels-photo-9800029.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop",
+    image: img25,
   },
   {
     id: 6,
@@ -60,10 +63,9 @@ const benefitsData = [
     title: "After Departure Services",
     description:
       "Continued support even after training completion, including job placement assistance, career advancement guidance, and ongoing professional development.",
-    image:
-      "https://images.pexels.com/photos/164527/pexels-photo-164527.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop",
+    image: img26,
   },
-]
+];
 
 // Main section container with white background and padding
 const SectionContainer = styled.section`

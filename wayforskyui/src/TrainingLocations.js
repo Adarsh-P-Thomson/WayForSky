@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowRight, X } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
+import img41 from './assets/Traininglocation/4.1.JPG';
+
+
 
 // All component styles, including base styles, hover effects, and media queries, are defined here.
 const componentStyles = `
@@ -150,14 +153,15 @@ const componentStyles = `
     align-items: center;
     justify-content: center;
   }
-  .training-locations-card-img {
-    width: clamp(140px, 20vw, 200px); 
-    height: clamp(140px, 20vw, 200px);
-    object-fit: cover;
-    border-radius: clamp(12px, 2.5vw, 20px);
-    filter: grayscale(100%) contrast(1.2);
-    opacity: 0.85;
-  }
+.training-locations-card-img {
+  width: clamp(140px, 20vw, 200px); 
+  height: clamp(140px, 20vw, 200px);
+  object-fit: cover;
+  border-radius: clamp(12px, 2.5vw, 20px);
+  filter: none;   /* remove black/grey effect */
+  opacity: 1;     /* make image fully visible */
+}
+
   .training-locations-card-number {
     width: clamp(40px, 7vw, 56px);
     height: clamp(40px, 7vw, 56px);
@@ -468,13 +472,13 @@ const navigate = useNavigate();
 
   // Array of feature card data
   const featureCards = [
-    {
-      id: 1,
-      number: "01",
-      title: "South Africa 🇿🇦",
-      imageUrl: "https://images.pexels.com/photos/1029604/pexels-photo-1029604.jpeg?auto=compress&cs=tinysrgb&w=200&h=200",
-      cornerPosition: { number: "top-left", text: "bottom-left" }
-    },
+  {
+    id: 1,
+    number: "01",
+    title: "South Africa 🇿🇦",
+    imageUrl: img41,
+    cornerPosition: { number: "top-left", text: "bottom-left" }
+  },
     {
       id: 2,
       number: "02",
