@@ -1,0 +1,237 @@
+/* HeroSection.css - Standard CSS without Tailwind */
+
+
+.hero-container {
+    min-height: 100vh;
+    position: relative;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.7)), 
+                      url('/src/assets/Hero.JPG');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+  
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .hero-content {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 64px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
+  
+  .top-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-bottom: 32px;
+  }
+  
+  .headline-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .main-headline {
+    font-size: 3rem;
+    font-weight: 300;
+    line-height: 0.9;
+    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+  }
+  
+  .image-focal-point {
+    display: none;
+  }
+  
+  .section-divider {
+    width: 100%;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.3);
+    margin: 32px 0;
+  }
+  
+  .bottom-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  
+  .mission-label-container {
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .mission-label {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: white;
+    font-weight: 500;
+  }
+  
+  .content-container {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  
+  .subheadline {
+    font-size: 1.125rem;
+    color: white;
+    line-height: 1.6;
+    font-weight: 500;
+    max-width: 672px;
+    margin: 0;
+  }
+  
+  .cta-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+
+  
+  .secondary-cta {
+    padding: 16px 32px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.125rem;
+  }
+  
+  .secondary-cta:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: white;
+  }
+  
+  /* Large screens (1024px and up) */
+  @media (min-width: 1024px) {
+    .top-section {
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+    }
+    
+    .image-focal-point {
+      display: block;
+    }
+    
+    .bottom-section {
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+    }
+    
+    .main-headline {
+      font-size: 4.5rem;
+    }
+    
+    .subheadline {
+      font-size: 1.25rem;
+    }
+  }
+  
+  /* Extra large screens (1280px and up) */
+  @media (min-width: 1280px) {
+    .main-headline {
+      font-size: 6rem;
+    }
+    
+    .subheadline {
+      font-size: 1.5rem;
+    }
+  }
+  
+  /* Very large screens (1536px and up) */
+  @media (min-width: 1536px) {
+    .main-headline {
+      font-size: 8rem;
+    }
+  }
+  
+  /* Medium screens (768px and up) */
+  @media (min-width: 768px) {
+    .main-headline {
+      font-size: 3.75rem;
+    }
+    
+    .subheadline {
+      font-size: 1.25rem;
+    }
+  }
+  
+  /* Small screens adjustments */
+  @media (max-width: 1023px) {
+    .top-section {
+      text-align: center;
+    }
+    
+    .bottom-section {
+      text-align: center;
+    }
+    
+    .mission-label-container {
+      justify-content: center;
+    }
+    
+    .subheadline {
+      margin: 0 auto;
+    }
+  }
+  
+  /* Mobile screens (639px and below) */
+  @media (max-width: 639px) {
+    .hero-content {
+      padding: 48px 16px;
+    }
+    
+    .main-headline {
+      font-size: 3rem;
+    }
+    
+    .subheadline {
+      font-size: 1rem;
+    }
+    
+    .cta-buttons {
+      width: 100%;
+    }
+
+  }
+  
+  /* Small mobile screens (480px and below) */
+  @media (max-width: 480px) {
+    .main-headline {
+      font-size: 2.5rem;
+    }
+    
+    .cta-buttons {
+      flex-direction: column;
+    }
+  }
+  
+  /* Tablet landscape and small desktop */
+  @media (min-width: 640px) {
+    .cta-buttons {
+      flex-direction: row;
+    }
+  }
