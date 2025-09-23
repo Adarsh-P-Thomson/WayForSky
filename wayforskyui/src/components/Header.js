@@ -139,7 +139,13 @@ export default function Header() {
               </div>
 
               <div className="dropdown-container">
-                <Link to="/zero-to-hero" className="nav-link focus-ring dropdown-trigger">
+                {/* The "Courses" text is now a direct link to the main courses page */}
+                <Link
+                  to="/courses"
+                  className={`nav-link focus-ring dropdown-trigger ${
+                    location.pathname.startsWith("/courses") || location.pathname.startsWith("/zero-to-hero") || location.pathname.startsWith("/commercial-pilot-license") ? "active" : ""
+                  }`}
+                >
                   Courses
                   <DropdownArrow />
                 </Link>
@@ -173,21 +179,10 @@ export default function Header() {
                     location.pathname === "/fleet" ? "active" : ""
                   }`}
                 >
-                  Events
-                  <DropdownArrow />
+                  Fleet
+                  
                 </Link>
-                <div className="dropdown-menu">
-                  <Link
-                    to="/fleet"
-                    className="dropdown-item"
-                  >
-                    Fleets
-                  </Link>
-
-                  <Link to="/testimonials" className="dropdown-item">
-                    Testimonials
-                  </Link>
-                </div>
+                
               </div>
 
               <div className="dropdown-container">
@@ -289,11 +284,14 @@ export default function Header() {
 
             <div className="mobile-dropdown-container">
               <button
-                className={`mobile-nav-link mobile-dropdown-trigger focus-ring ${activeDropdown === "courses" ? "active" : ""}`}
-                onClick={() => toggleMobileDropdown("courses")}
+                className={`mobile-nav-link mobile-dropdown-trigger focus-ring ${
+                  location.pathname.startsWith("/courses") || activeDropdown === "courses" ? "active" : ""
+                }`}
               >
-                Courses
-                <MobileDropdownArrow />
+                <Link to="/courses" style={{ color: 'inherit', textDecoration: 'none' }} onClick={closeMobileMenu}>
+                  Courses
+                </Link>
+                <MobileDropdownArrow onClick={() => toggleMobileDropdown("courses")} />
               </button>
               <div className={`mobile-dropdown-menu ${activeDropdown === "courses" ? "open" : ""}`}>
                 <Link to="/zero-to-hero" className="mobile-dropdown-item" onClick={closeMobileMenu}>

@@ -8,7 +8,6 @@ import img3 from '../assets/Whywfs/3.3.JPG';
 import img4 from '../assets/Whywfs/3.4.JPG';
 import img5 from '../assets/Whywfs/3.5.JPG';
 import img6 from '../assets/Whywfs/3.6.JPG';
-import CallToAction from '../components/CallToAction';
 
 // --- SVG Icons for this page ---
 const TieIcon = () => (
@@ -120,6 +119,52 @@ const WhyCard = styled.div`
   }
 `;
 
+const SupportSection = styled.section`
+  max-width: 1200px;
+  margin: 80px auto;
+  padding: 0 20px;
+
+  h2 {
+    font-size: clamp(2.2rem, 5vw, 3rem);
+    color: #001f3f;
+    text-align: center;
+    margin-bottom: 60px;
+    font-weight: 700;
+  }
+`;
+
+const SupportSteps = styled.div`
+  position: relative;
+  max-width: 800px;
+  margin: 40px auto 0;
+`;
+
+const Step = styled.div`
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 40px;
+  gap: 25px;
+`;
+
+const StepNumber = styled.div`
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #0056b3;
+  line-height: 1;
+`;
+
+const StepContent = styled.div`
+  h5 {
+    font-size: 1.4rem;
+    margin: 0 0 8px;
+    color: #001f3f;
+  }
+  p {
+    margin: 0;
+    color: #555;
+  }
+`;
+
 const ClosingSection = styled.section`
   text-align: center;
   padding: 80px 20px;
@@ -211,12 +256,23 @@ const WhyUs = () => {
                 </WhyCard>
             ))}
         </WhyUsGrid>
+
+        <SupportSection id="support">
+            <h2>Our Student-First Approach</h2>
+            <SupportSteps>
+                <Step><StepNumber>01</StepNumber><StepContent><h5>Personalised Counselling</h5><p>Every student speaks with professional counsellors and pilots to clear all their doubts.</p></StepContent></Step>
+                <Step><StepNumber>02</StepNumber><StepContent><h5>Panel Sessions with Pilots</h5><p>Students hear directly from experienced pilots who have been through the journey themselves.</p></StepContent></Step>
+                <Step><StepNumber>03</StepNumber><StepContent><h5>Academy Selection</h5><p>We help students find the right fit based on their goals, budget, and career plans.</p></StepContent></Step>
+                <Step><StepNumber>04</StepNumber><StepContent><h5>Admissions & Visa Assistance</h5><p>We provide complete, end-to-end support for documentation, applications, and approvals.</p></StepContent></Step>
+                <Step><StepNumber>05</StepNumber><StepContent><h5>Training Mentorship</h5><p>Our team stays connected, offering mentorship and support throughout their training abroad.</p></StepContent></Step>
+                <Step><StepNumber>06</StepNumber><StepContent><h5>Career Support</h5><p>We provide guidance for type ratings and airline entrance preparation for long-term success.</p></StepContent></Step>
+            </SupportSteps>
+        </SupportSection>
         
         <ClosingSection>
             <p>Ready to experience the difference?</p>
-            <a href="/contact" className="cta-button">Consult with a Pilot Today</a>
+            <a href="/contactus" className="cta-button">Consult with a Pilot Today</a>
         </ClosingSection>
-        <CallToAction/>
       </WhyUsPage>
   );
 };

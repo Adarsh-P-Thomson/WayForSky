@@ -20,6 +20,7 @@ import HomePage from "./pages/static/home_page/HomePage.js"
 import ContactUs from "./pages/ContactUs.js"
 import ELPClassesPage from "./pages/ELPClassesPage.js"
 import NIOSPrepPage from "./pages/NIOSPrepPage.js"
+import CoursesPage from "./pages/CoursesPage.js" // Import the new courses page
 import WebinarPage from "./pages/WebinarPage.js" // Import the new webinar page
 
 function App() {
@@ -35,6 +36,9 @@ function App() {
 
           {/* Fleet Page */}
           <Route path="/fleet" element={<FleetPage />} />
+
+          {/* Courses Page */}
+          <Route path="/courses" element={<CoursesPage />} />
 
           {/* Contact Page */}
         
