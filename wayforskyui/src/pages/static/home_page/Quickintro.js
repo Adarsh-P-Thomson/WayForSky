@@ -2,12 +2,12 @@ import React from "react"
 import styled from "styled-components"
 import { Link } from "react-router-dom";
 
-import img21 from './assets/Aboutwfs/2.1.JPG';
-import img22 from './assets/Aboutwfs/2.2.JPG';
-import img23 from './assets/Aboutwfs/2.3.JPG';
-import img24 from './assets/Aboutwfs/2.4.JPG';
-import img25 from './assets/Aboutwfs/2.5.JPG';
-import img26 from './assets/Aboutwfs/2.6.JPG';
+import img21 from '../../../assets/Aboutwfs/2.1.JPG';
+import img22 from '../../../assets/Aboutwfs/2.2.JPG';
+import img23 from '../../../assets/Aboutwfs/2.3.JPG';
+import img24 from '../../../assets/Aboutwfs/2.4.JPG';
+import img25 from '../../../assets/Aboutwfs/2.5.JPG';
+import img26 from '../../../assets/Aboutwfs/2.6.JPG';
 
 // Declare the BenefitImage variable
 const BenefitImage = styled.img`

@@ -2,16 +2,8 @@
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import ScrollToTop from "./ScrollToTop"   // ✅ import it here
-import Header from "./components/Header"
-import HeroSection from "./HeroSection"
-import Quickintro from "./Quickintro"
-import FeatureSection from "./FeatureSection"
-import TrainingLocations from "./TrainingLocations"
-import Fleet from "./Fleet" 
+import Header from "./components/Header" 
 import FleetPage from "./fleetpage.js" 
-import Programoverview from "./Programoverview"
-import Blog from "./Blog"
-import CTA from "./CTA"
 import Footer from "./components/Footer"
 import Aboutus from "./pages/Aboutus"
 import WhyUs from "./pages/WhyUs.js" 
@@ -24,25 +16,10 @@ import Cabincrew from "./pages/Cabincrew.js"
 import NotFoundPage from "./pages/static/NotFoundPage"
 import DGCAGroundClassesPage from "./pages/DGCAGroundClassesPage.js"
 import "./App.css"
+import HomePage from "./pages/static/home_page/HomePage.js"
 import ContactUs from "./pages/ContactUs.js"
 import ELPClassesPage from "./pages/ELPClassesPage.js"
 import NIOSPrepPage from "./pages/NIOSPrepPage.js"
-
-// ✅ HomePage is grouped as one component
-function HomePage() {
-  return (
-    <>
-      <HeroSection />
-      <Quickintro />
-      <FeatureSection />
-      <TrainingLocations />
-      <Fleet />
-      <Programoverview />
-      <Blog />
-      <CTA />
-    </>
-  )
-}
 
 function App() {
   return (
@@ -115,4 +92,3 @@ Cabincrew.js
 }
 
 export default App
-

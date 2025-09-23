@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import img31 from './assets/Whywfs/3.1.JPG';
-import img32 from './assets/Whywfs/3.2.JPG';
-import img33 from './assets/Whywfs/3.3.JPG';
-import img34 from './assets/Whywfs/3.4.JPG';
-import img35 from './assets/Whywfs/3.5.JPG';
-import img36 from './assets/Whywfs/3.6.JPG';
+import img31 from '../../../assets/Whywfs/3.1.JPG';
+import img32 from '../../../assets/Whywfs/3.2.JPG';
+import img33 from '../../../assets/Whywfs/3.3.JPG';
+import img34 from '../../../assets/Whywfs/3.4.JPG';
+import img35 from '../../../assets/Whywfs/3.5.JPG';
+import img36 from '../../../assets/Whywfs/3.6.JPG';
 
 // Component's CSS Styles - Scoped with 'wfs-' prefix
 const WhywayforskyStyles = () => (

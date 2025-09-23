@@ -425,4 +425,3 @@ const FleetPage = () => {
 };
 
 export default FleetPage;
-

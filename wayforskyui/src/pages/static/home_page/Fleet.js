@@ -1,22 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
+import cessna172 from '../../../assets/Cessna 172.jpeg';
+import tecnam2008 from '../../../assets/Tecnam 2008 JC.jpg';
+import piperArcher from '../../../assets/Piper 28 181 Archer III.jpg';
+import diamondDA42 from '../../../assets/Diamond DA42.jpeg';
+import beechcraftBaron from '../../../assets/Beechcraft Baron.jpeg';
+import piperSeneca from '../../../assets/Piper Seneca.jpg';
+import tecnam2006 from '../../../assets/Tecnam 2006T.jpg';
+import fnptII from '../../../assets/FNPT II.jpg';
+import a320_b737_sim from '../../../assets/A320 Simulator.jpeg'; // Assuming this is the correct file for A320/B737
+import alsim from '../../../assets/Alsim.jpeg';
+import redbird from '../../../assets/Redbird.jpg';
+
 import './Fleet.css';
 
 const Fleet = () => {
   // MODIFIED: Updated the master list of all aircraft and simulators
   const aircrafts = [
-    { name: "Cessna 172", category: "Single Engine", image: "/cessna-172-side.png" },
-    { name: "Tecnam 2008JC", category: "Single Engine", image: "/tecnam-2008jc.png" },
-    { name: "Piper 28 181 Archer III", category: "Single Engine", image: "/piper-archer-iii.png" },
-    { name: "Diamond DA42", category: "Multi-Engine", image: "/diamond-da42-side.png" },
-    { name: "Beechcraft Baron", category: "Multi-Engine", image: "/beechcraft-baron-side.png" },
-    { name: "Piper Seneca II", category: "Multi-Engine", image: "/piper-seneca-ii.png" },
-    { name: "Tecnam 2006T", category: "Multi-Engine", image: "/tecnam-2006t.png" },
-    { name: "FNPT II", category: "Simulators", image: "/fnpt-ii.png" },
-    { name: "A320 / B737", category: "Simulators", image: "/a320-b737-sim.png" },
-    { name: "ALSIM", category: "Simulators", image: "/alsim-simulator.png" },
-    { name: "Redbird", category: "Simulators", image: "/redbird-simulator.png" },
+    { name: "Cessna 172", category: "Single Engine", image: cessna172 },
+    { name: "Tecnam 2008JC", category: "Single Engine", image: tecnam2008 },
+    { name: "Piper 28 181 Archer III", category: "Single Engine", image: piperArcher },
+    { name: "Diamond DA42", category: "Multi-Engine", image: diamondDA42 },
+    { name: "Beechcraft Baron", category: "Multi-Engine", image: beechcraftBaron },
+    { name: "Piper Seneca II", category: "Multi-Engine", image: piperSeneca },
+    { name: "Tecnam 2006T", category: "Multi-Engine", image: tecnam2006 },
+    { name: "FNPT II", category: "Simulators", image: fnptII },
+    { name: "A320 / B737", category: "Simulators", image: a320_b737_sim },
+    { name: "ALSIM", category: "Simulators", image: alsim },
+    { name: "Redbird", category: "Simulators", image: redbird },
   ];
 
   // State to track the index in the master 'aircrafts' list
