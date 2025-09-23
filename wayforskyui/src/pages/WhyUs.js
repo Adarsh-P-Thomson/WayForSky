@@ -1,4 +1,14 @@
 import React from 'react';
+import styled from 'styled-components';
+
+// Import images for the feature cards
+import img1 from '../assets/Whywfs/3.1.JPG';
+import img2 from '../assets/Whywfs/3.2.JPG';
+import img3 from '../assets/Whywfs/3.3.JPG';
+import img4 from '../assets/Whywfs/3.4.JPG';
+import img5 from '../assets/Whywfs/3.5.JPG';
+import img6 from '../assets/Whywfs/3.6.JPG';
+import CallToAction from '../components/CallToAction';
 
 // --- SVG Icons for this page ---
 const TieIcon = () => (
@@ -23,6 +33,123 @@ const BriefcaseIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
 );
 
+// --- Styled Components ---
+const WhyUsPage = styled.div`
+  font-family: 'Inter', sans-serif;
+  color: #333;
+  background-color: #f8f9fa;
+`;
+
+const WhyUsHero = styled.section`
+  text-align: center;
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #001f3f 0%, #003d82 100%);
+  color: white;
+
+  h1 {
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    font-weight: 800;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+
+  p {
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    max-width: 800px;
+    margin: 10px auto 0;
+    opacity: 0.9;
+  }
+`;
+
+const WhyUsGrid = styled.section`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 30px;
+  max-width: 1400px;
+  margin: 80px auto;
+  padding: 0 20px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    padding: 0 15px;
+  }
+`;
+
+const WhyCard = styled.div`
+  background-color: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  }
+
+  .card-image {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .card-content {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .icon-container {
+    color: #0056b3;
+    margin-bottom: 16px;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    margin: 0 0 12px;
+    color: #001f3f;
+  }
+
+  p {
+    margin: 0;
+    color: #555;
+    line-height: 1.6;
+    flex-grow: 1;
+  }
+`;
+
+const ClosingSection = styled.section`
+  text-align: center;
+  padding: 80px 20px;
+  background-color: #fff;
+
+  p {
+    font-size: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto 30px;
+    color: #003d82;
+    font-weight: 500;
+  }
+
+  .cta-button {
+    background-color: #0056b3;
+    color: #fff;
+    padding: 16px 35px;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 86, 179, 0.2);
+
+    &:hover {
+      background-color: #003d82;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 86, 179, 0.3);
+    }
+  }
+`;
 
 // --- Main Why Us Component ---
 const WhyUs = () => {
@@ -30,152 +157,67 @@ const WhyUs = () => {
         {
             icon: <TieIcon />,
             title: "Exclusive Academy Tie-Ups",
-            description: "We only send students to academies where we hold exclusive rights, guaranteeing safety and quality."
+            description: "We only send students to academies where we hold exclusive rights, guaranteeing safety and quality.",
+            image: img1
         },
         {
             icon: <PackageIcon />,
             title: "End-to-End Services",
-            description: "From medicals and visas to accommodation and ticketing, everything is handled under one roof."
+            description: "From medicals and visas to accommodation and ticketing, everything is handled under one roof.",
+            image: img2
         },
         {
             icon: <UserCheckIcon />,
             title: "Expert Guidance",
-            description: "In-house DGCA doctors, CPL ground instructors, and real pilots mentor students."
+            description: "In-house DGCA doctors, CPL ground instructors, and real pilots mentor students.",
+            image: img3
         },
         {
             icon: <UsersGroupIcon />,
             title: "Parent Engagement",
-            description: "Regular Parents-Instructor Meetings (PIMs) keep families informed and assured."
+            description: "Regular Parents-Instructor Meetings (PIMs) keep families informed and assured.",
+            image: img4
         },
         {
             icon: <FastForwardIcon />,
             title: "Fast-Track Training",
-            description: "Special MOUs help students complete CPL in shorter durations without compromising quality."
+            description: "Special MOUs help students complete CPL in shorter durations without compromising quality.",
+            image: img5
         },
         {
             icon: <FileTextIcon />,
             title: "Transparent & Assured",
-            description: "Every commitment is written, so there are no hidden conditions."
-        },
-        {
-            icon: <BriefcaseIcon />,
-            title: "Career Support",
-            description: "Assistance with license conversion and job opportunities based on skills and performance."
+            description: "Every commitment is written, so there are no hidden conditions.",
+            image: img6
         },
     ];
 
   return (
-    <>
-      <style>{`
-        .why-us-page {
-            font-family: 'Inter', sans-serif;
-            color: #333;
-        }
-
-        .why-us-hero {
-            text-align: center;
-            padding: 80px 20px;
-            background-color: #001f3f;
-            color: white;
-        }
-        .why-us-hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-        }
-        .why-us-hero p {
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 10px auto 0;
-            opacity: 0.9;
-        }
-
-        .why-us-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 80px auto;
-            padding: 0 20px;
-        }
-
-        .why-card {
-            display: flex;
-            align-items: flex-start;
-            gap: 20px;
-            background: #f9f9f9;
-            padding: 30px;
-            border-radius: 12px;
-            border: 1px solid #eee;
-        }
-        
-        .why-card .icon-container {
-            color: #0056b3;
-            flex-shrink: 0;
-        }
-
-        .why-card h3 {
-            font-size: 1.4rem;
-            margin: 0 0 8px;
-            color: #001f3f;
-        }
-
-        .why-card p {
-            margin: 0;
-            color: #555;
-            line-height: 1.6;
-        }
-
-        .closing-section {
-            text-align: center;
-            padding: 60px 20px;
-            background-color: #e6f7ff;
-        }
-        .closing-section p {
-            font-size: 1.3rem;
-            max-width: 800px;
-            margin: 0 auto 25px;
-            color: #003d82;
-            font-weight: 500;
-        }
-        .cta-button {
-            background-color: #0056b3;
-            color: #fff;
-            padding: 14px 30px;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-        .cta-button:hover {
-            background-color: #003d82;
-            transform: translateY(-2px);
-        }
-      `}</style>
-      <div className="why-us-page">
-        <section className="why-us-hero">
+      <WhyUsPage>
+        <WhyUsHero>
             <h1>The WayForSky Advantage</h1>
             <p>With WayForSky, both students and parents find confidence in a future that is safe, structured, and full of opportunities.</p>
-        </section>
+        </WhyUsHero>
 
-        <section className="why-us-grid">
+        <WhyUsGrid>
             {whyPoints.map(point => (
-                <div key={point.title} className="why-card">
-                    <div className="icon-container">{point.icon}</div>
-                    <div>
+                <WhyCard key={point.title}>
+                    <img src={point.image} alt={point.title} className="card-image" />
+                    <div className="card-content">
+                        <div className="icon-container">{point.icon}</div>
                         <h3>{point.title}</h3>
                         <p>{point.description}</p>
                     </div>
-                </div>
+                </WhyCard>
             ))}
-        </section>
+        </WhyUsGrid>
         
-        <section className="closing-section">
+        <ClosingSection>
             <p>Ready to experience the difference?</p>
             <a href="/contact" className="cta-button">Consult with a Pilot Today</a>
-        </section>
-
-      </div>
-    </>
+        </ClosingSection>
+        <CallToAction/>
+      </WhyUsPage>
   );
 };
 

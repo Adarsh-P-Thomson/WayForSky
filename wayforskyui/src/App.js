@@ -20,6 +20,7 @@ import HomePage from "./pages/static/home_page/HomePage.js"
 import ContactUs from "./pages/ContactUs.js"
 import ELPClassesPage from "./pages/ELPClassesPage.js"
 import NIOSPrepPage from "./pages/NIOSPrepPage.js"
+import WebinarPage from "./pages/WebinarPage.js" // Import the new webinar page
 
 function App() {
   return (
@@ -63,6 +64,9 @@ Cabincrew.js
         <Route path="/elp-classes" element={<ELPClassesPage />} />
 
         <Route path="/nios-classes" element={<NIOSPrepPage />} />
+
+        {/* Webinar Page */}
+        <Route path="/webinar" element={<WebinarPage />} />
 
 
 
