@@ -2,6 +2,10 @@
 
 import { useEffect, useRef, useState } from "react"
 
+import cplSa from "../../../assets/Traininglocation/cpl-sa.JPG";
+import cplHungary from "../../../assets/Traininglocation/cpl-hungary.JPG";
+import typeRating from "../../../assets/Traininglocation/type-rating.JPG";
+
 const ProgramOverview = () => {
   const [activeSection, setActiveSection] = useState(0)
   const featureTourRef = useRef(null)
@@ -700,25 +704,11 @@ const ProgramOverview = () => {
 
                 <div style={finalStyles.productShowcase}>
                   <div style={finalStyles.productImage}>
-                    <div
-                      style={{
-                        width: "180px",
-                        height: "100px",
-                        background: "linear-gradient(135deg, #4a90e2, #357abd)",
-                        borderRadius: "20px 40px 20px 40px",
-                        position: "relative",
-                        transform: "rotate(-5deg)",
-                        boxShadow: "0 8px 20px rgba(0, 0, 0, 0.2)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        color: "white",
-                        fontWeight: "bold",
-                        fontSize: "14px",
-                      }}
-                    >
-                      ✈️ CPL Training
-                    </div>
+                    <img
+                      src={cplSa}
+                      alt="CPL Training in South Africa"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
                   </div>
                   <div style={finalStyles.navigationArrows}>
                     <button style={finalStyles.navArrow} aria-label="Previous program" onClick={handleArrowClick}>
@@ -802,22 +792,11 @@ const ProgramOverview = () => {
 
                 <div style={finalStyles.productShowcase}>
                   <div style={finalStyles.productImage}>
-                    <div
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        background: "rgba(255,255,255,0.2)",
-                        borderRadius: "8px",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        color: "white",
-                        fontWeight: 600,
-                        fontSize: "18px",
-                      }}
-                    >
-                      🛩️ Airline Ready
-                    </div>
+                    <img
+                      src={cplHungary}
+                      alt="CPL Training in Hungary"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
                   </div>
                 </div>
 
@@ -897,22 +876,11 @@ const ProgramOverview = () => {
 
                 <div style={finalStyles.productShowcase}>
                   <div style={finalStyles.productImage}>
-                    <div
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        background: "rgba(255,255,255,0.2)",
-                        borderRadius: "8px",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        color: "white",
-                        fontWeight: 600,
-                        fontSize: "18px",
-                      }}
-                    >
-                      👨‍✈️ Specialized Training
-                    </div>
+                    <img
+                      src={typeRating}
+                      alt="Specialized Aviation Training"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
                   </div>
                 </div>
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowRight, X } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
-import img41 from '../../../assets/Traininglocation/4.1.JPG'; // Assuming this path is correct or will be moved to a central assets folder. If moved, this will need updating.
+import img41 from '../../../assets/Traininglocation/cpl-sa.JPG'; // Assuming this path is correct or will be moved to a central assets folder. If moved, this will need updating.
 
 
 
