@@ -1,5 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
 
+// --- Import Local Assets ---
+// South Africa
+import saHero from '../assets/Fleets/HER0SA.JPG';
+import saCampus from '../assets/Fleets/CampusF.JPG';
+import cessna172 from '../assets/Fleets/cessna.png';
+import diamondDA42 from '../assets/Fleets/diamond.png';
+import fnptSimulatorSA from '../assets/Fleets/fnpt.png';
+
+import hungaryHero from '../assets/Fleets/HEROHU.JPG';
+import hungaryCampus from '../assets/Fleets/CampusF.JPG';
+import tecnam2008jc from '../assets/Fleets/tecnam.jpg';
+import tecnam2006t from '../assets/Fleets/tecnam2006.jpg';
+import fnptSimulatorHungary from '../assets/Fleets/fnpt.png';
+import redbirdSimulator from '../assets/Fleets/redbird.jpg';
+
+
 // Pure CSS Icons as React Components
 const PlaneIcon = ({ size = 24, color = "#000", style = {} }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" style={style}>
@@ -80,6 +96,12 @@ const XIcon = ({ size = 24, color = "#000" }) => (
     <line x1="18" y1="6" x2="6" y2="18" stroke={color} strokeWidth="2"/>
     <line x1="6" y1="6" x2="18" y2="18" stroke={color} strokeWidth="2"/>
   </svg>
+);
+
+const ChevronLeftIcon = ({ size = 24, color = "#000", style={} }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={style}>
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
 );
 
 export default function PrivatePilotPage() {
@@ -174,8 +196,8 @@ export default function PrivatePilotPage() {
       flag: '🇿🇦',
       tagline: 'Clear Skies, Expert Training',
       heroImage: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      heroImageUrl: 'https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
-      campusImage: 'https://images.pexels.com/photos/1098365/pexels-photo-1098365.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
+      heroImageUrl: saHero,
+      campusImage: saCampus,
       duration: '3-4 Months',
       partner: 'Accolade Flying Wings',
       flyingDays: '300+',
@@ -192,17 +214,17 @@ export default function PrivatePilotPage() {
         { 
           name: 'Cessna 172', 
           type: 'Primary Training',
-          image: 'https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop'
+          image: cessna172
         },
         { 
           name: 'Diamond DA42', 
           type: 'Advanced Multi-Engine',
-          image: 'https://images.pexels.com/photos/1098365/pexels-photo-1098365.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop'
+          image: diamondDA42
         },
         { 
           name: 'FNPT II Simulator', 
           type: 'Instrument Training',
-          image: 'https://images.pexels.com/photos/1098365/pexels-photo-1098365.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop'
+          image: fnptSimulatorSA
         }
       ],
       facilities: [
@@ -233,8 +255,8 @@ export default function PrivatePilotPage() {
       flag: '🇭🇺',
       tagline: 'European Excellence, Global Recognition',
       heroImage: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-      heroImageUrl: 'https://images.pexels.com/photos/1098365/pexels-photo-1098365.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
-      campusImage: 'https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
+      heroImageUrl: hungaryHero,
+      campusImage: hungaryCampus,
       duration: '4-6 Months',
       partner: 'PharmaFlight Academy',
       flyingDays: 'Year-Round',
@@ -251,22 +273,22 @@ export default function PrivatePilotPage() {
         { 
           name: 'Tecnam 2008JC', 
           type: 'Modern Training Aircraft',
-          image: 'https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop'
+          image: tecnam2008jc
         },
         { 
           name: 'Tecnam 2006T', 
           type: 'Twin-Engine Training',
-          image: 'https://images.pexels.com/photos/1098365/pexels-photo-1098365.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop'
+          image: tecnam2006t
         },
         { 
           name: 'FNPT II Simulator', 
           type: 'Advanced Simulation',
-          image: 'https://images.pexels.com/photos/1098365/pexels-photo-1098365.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop'
+          image: fnptSimulatorHungary
         },
         { 
           name: 'Redbird Simulators', 
           type: 'Professional Training',
-          image: 'https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop'
+          image: redbirdSimulator
         }
       ],
       facilities: [
@@ -625,6 +647,10 @@ export default function PrivatePilotPage() {
       background-repeat: no-repeat;
       background-size: cover;
     }
+
+    .mobile-nav {
+      display: none;
+    }
     
     .nav-link-hover:hover::after {
       content: '';
@@ -637,22 +663,37 @@ export default function PrivatePilotPage() {
       border-radius: 1px;
       animation: fadeInUp 0.3s ease-out;
     }
-    
+
+    /* --- MOBILE STYLES --- */
     @media (max-width: 768px) {
       .responsive-grid {
         grid-template-columns: 1fr !important;
       }
+
+      .stats-grid-mobile {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
       
       .responsive-text {
-        font-size: 3rem !important;
+        font-size: 3.5rem !important;
+        line-height: 1.1 !important;
       }
       
       .responsive-flex {
         flex-direction: column !important;
+        gap: 16px !important;
       }
       
       .parallax-bg {
         background-attachment: scroll;
+      }
+
+      .desktop-nav {
+        display: none !important;
+      }
+      
+      .mobile-nav {
+        display: flex !important;
       }
     }
     
@@ -711,26 +752,27 @@ export default function PrivatePilotPage() {
       justifyContent: 'space-between',
       height: '64px'
     },
+    headerSide: {
+      display: 'flex',
+      alignItems: 'center',
+      flex: '1',
+    },
+    backButton: {
+        background: 'transparent',
+        border: 'none',
+        cursor: 'pointer',
+        padding: '0',
+    },
     logo: {
       display: 'flex',
       alignItems: 'center',
-      gap: '12px'
-    },
-    logoIcon: {
-      width: '32px',
-      height: '32px',
-      backgroundColor: '#000',
-      borderRadius: '8px',
-      display: 'flex',
-      alignItems: 'center',
+      gap: '12px',
       justifyContent: 'center',
-      boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
-      animation: 'float 3s ease-in-out infinite',
+      flex: '1',
     },
     logoText: {
       fontSize: '1.25rem',
       fontWeight: '600',
-      color: '#000'
     },
     nav: {
       display: 'flex',
@@ -738,7 +780,6 @@ export default function PrivatePilotPage() {
       gap: '32px'
     },
     navLink: {
-      color: '#374151',
       textDecoration: 'none',
       fontSize: '0.875rem',
       fontWeight: '500',
@@ -764,7 +805,6 @@ export default function PrivatePilotPage() {
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
       backgroundImage: `url(${currentLocation.heroImageUrl})`,
-      backgroundAttachment: 'fixed',
     },
     heroOverlay: {
       position: 'absolute',
@@ -773,6 +813,7 @@ export default function PrivatePilotPage() {
     },
     heroContent: {
       maxWidth: '1280px',
+      width: '100%',
       margin: '0 auto',
       padding: '0 24px',
       textAlign: 'center',
@@ -852,11 +893,11 @@ export default function PrivatePilotPage() {
       borderRadius: '24px',
       overflow: 'hidden',
       boxShadow: '0 25px 50px rgba(0, 0, 0, 0.4)',
-      height: '384px',
+      minHeight: '250px',
       display: 'flex',
       alignItems: 'flex-end',
       justifyContent: 'flex-start',
-      padding: '48px',
+      padding: '32px',
       color: '#fff',
       background: currentLocation.heroImage
     },
@@ -876,12 +917,12 @@ export default function PrivatePilotPage() {
       marginBottom: '16px'
     },
     heroCardTitle: {
-      fontSize: '2.5rem',
+      fontSize: '2rem',
       fontWeight: 'bold',
       textAlign: 'left'
     },
     heroCardTagline: {
-      fontSize: '1.25rem',
+      fontSize: '1rem',
       opacity: 0.9,
       textAlign: 'left'
     },
@@ -1119,7 +1160,7 @@ export default function PrivatePilotPage() {
     ctaCard: {
       background: 'linear-gradient(135deg, #000 0%, #1f2937 100%)',
       borderRadius: '24px',
-      padding: '48px',
+      padding: '48px 24px',
       color: '#fff',
       maxWidth: '1024px',
       margin: '0 auto',
@@ -1133,9 +1174,10 @@ export default function PrivatePilotPage() {
       marginBottom: '16px'
     },
     ctaSubtitle: {
-      fontSize: '1.25rem',
+      fontSize: '1.125rem',
       marginBottom: '32px',
-      opacity: 0.9
+      opacity: 0.9,
+      padding: '0 16px',
     },
     ctaButtons: {
       display: 'flex',
@@ -1232,17 +1274,23 @@ export default function PrivatePilotPage() {
         {/* Header */}
         <header style={styles.header}>
           <div style={styles.headerContent}>
+            <div style={{...styles.headerSide, justifyContent: 'flex-start'}}>
+                <button onClick={() => window.history.back()} style={styles.backButton} aria-label="Go back">
+                    <ChevronLeftIcon size={28} color={isScrolled ? '#000' : '#fff'} />
+                </button>
+            </div>
             <div style={styles.logo}>
-              <div style={styles.logoIcon}>
-                <PlaneIcon size={16} color="white" />
-              </div>
-              <span style={styles.logoText}>WayForSky</span>
+              <span style={{...styles.logoText, color: isScrolled ? '#000' : '#fff' }}>WayForSky</span>
             </div>
 
-            <nav style={styles.nav}>
-              <a href="#programs" style={styles.navLink} className="nav-link-hover">Programs</a>
-              <a href="#locations" style={styles.navLink} className="nav-link-hover">Locations</a>
-            </nav>
+            <div style={{...styles.headerSide, justifyContent: 'flex-end'}}>
+                <nav style={styles.nav} className="desktop-nav">
+                  <a href="#programs" style={{...styles.navLink, color: isScrolled ? '#374151' : '#fff'}} className="nav-link-hover">Programs</a>
+                  <a href="#locations" style={{...styles.navLink, color: isScrolled ? '#374151' : '#fff'}} className="nav-link-hover">Locations</a>
+                </nav>
+                <nav style={{...styles.nav, gap: '1rem'}} className="mobile-nav">
+                </nav>
+            </div>
           </div>
         </header>
 
@@ -1275,7 +1323,7 @@ export default function PrivatePilotPage() {
               className={`${visibleElements.has('hero-title') ? 'animate-fadeInUp' : ''} responsive-text`}
             >
               Private Pilot<br />
-              <span style={{ color: '#6b7280' }}>License</span>
+              <span style={{ color: '#d1d5db' }}>License</span>
             </h1>
             
             <p 
@@ -1309,7 +1357,7 @@ export default function PrivatePilotPage() {
                     style={{
                       ...styles.switcherButton,
                       background: activeLocation === key ? '#fff' : 'transparent',
-                      color: activeLocation === key ? '#000' : '#6b7280',
+                      color: activeLocation === key ? '#000' : '#d1d5db',
                       boxShadow: activeLocation === key ? '0 4px 20px rgba(0, 0, 0, 0.1)' : 'none',
                       transform: activeLocation === key ? 'scale(1.05)' : 'scale(1)',
                     }}
@@ -1335,7 +1383,7 @@ export default function PrivatePilotPage() {
                 <div style={styles.heroCardOverlay}></div>
                 <div style={styles.heroCardContent}>
                   <div style={styles.heroCardInfo}>
-                    <span style={{ fontSize: '4rem', animation: 'float 3s ease-in-out infinite' }}>
+                    <span style={{ fontSize: '3rem', animation: 'float 3s ease-in-out infinite' }}>
                       {currentLocation.flag}
                     </span>
                     <div>
@@ -1348,7 +1396,7 @@ export default function PrivatePilotPage() {
             </div>
 
             {/* Quick Stats */}
-            <div style={styles.statsGrid} className="responsive-grid">
+            <div style={styles.statsGrid} className="stats-grid-mobile">
               {[
                 { icon: ClockIcon, label: 'Duration', value: currentLocation.duration, counterId: 'duration' },
                 { icon: CalendarIcon, label: 'Flying Days', value: currentLocation.flyingDays, counterId: 'flying-days' },
@@ -1796,3 +1844,4 @@ export default function PrivatePilotPage() {
     </>
   );
 }
+

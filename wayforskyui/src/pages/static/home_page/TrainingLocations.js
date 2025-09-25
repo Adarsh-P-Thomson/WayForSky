@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowRight, X } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
-import img41 from '../../../assets/Traininglocation/cpl-sa.JPG'; // Assuming this path is correct or will be moved to a central assets folder. If moved, this will need updating.
+import img41 from '../../../assets/Traininglocation/cpl-sa.JPG';
+import img42 from '../../../assets/Traininglocation/type-rating.JPG';
+import img43 from '../../../assets/Traininglocation/cpl-hungary.JPG';
 
 
 
@@ -398,19 +400,31 @@ const componentStyles = `
       padding-top: clamp(35px, 5vh, 50px);
       padding-bottom: clamp(35px, 5vh, 50px);
     }
-    /* UPDATED: Added 0.5cm gap on left and right */
+    /* UPDATED: Container now uses flexbox to reorder elements */
     .training-locations-container {
-      gap: clamp(28px, 5vw, 40px);
+      display: flex; /* Use flexbox for reordering */
+      flex-direction: column-reverse; /* Puts button column on top */
+      gap: clamp(20px, 4vw, 28px); /* Adjusted gap for new layout */
       padding-left: 0.5cm;
       padding-right: 0.5cm;
     }
+
+    /* NEW: Align button container to the left */
+.training-locations-cta-button {
+  display: none; /* hide button on mobile */
+}
+
+
+    /* NEW: Reduce button size for a more compact mobile view */
+    .training-locations-cta-button {
+      padding: clamp(10px, 2vw, 12px) clamp(18px, 4vw, 24px);
+      font-size: clamp(14px, 2.5vw, 15px);
+      gap: 8px;
+    }
+
     .training-locations-left-column {
       align-items: center;
       text-align: center;
-    }
-    .training-locations-header-container {
-        flex-direction: column;
-        align-items: center;
     }
     .training-locations-sub-headline {
       padding-left: 0 !important;
@@ -449,19 +463,74 @@ const componentStyles = `
       max-width: unset;
     }
 
-    /* Mobile Modal Styles */
-    .training-locations-modal {
-      padding: 32px 24px;
-      margin: 20px;
-      max-height: 85vh;
+    /* Mobile Modal Styles - Optimized for perfect mobile experience */
+    .training-locations-modal-overlay {
+      padding: 12px; /* Minimal gap on sides */
+      align-items: center;
+      justify-content: center;
     }
 
-    .training-locations-modal-title {
-      font-size: 28px;
+    .training-locations-modal {
+      width: calc(100vw - 24px); /* Full width minus small gaps */
+      max-width: none;
+      margin: 0;
+      padding: 28px 20px 32px 20px; /* Compact padding */
+      border-radius: 20px; /* Slightly smaller radius for mobile */
+      max-height: calc(100vh - 40px); /* Almost full height */
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .training-locations-modal-close {
+      top: 16px;
+      right: 16px;
+      width: 36px;
+      height: 36px;
+      background: #f9fafb;
+    }
+
+    .training-locations-modal-close:hover {
+      background: #f3f4f6;
+    }
+
+    .training-locations-modal-header {
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      gap: 12px;
     }
 
     .training-locations-modal-flag {
-      font-size: 40px;
+      font-size: 36px;
+    }
+
+    .training-locations-modal-title {
+      font-size: 26px;
+      line-height: 1.1;
+    }
+
+    .training-locations-modal-subtitle {
+      font-size: 15px;
+      margin-top: 2px;
+    }
+
+    .training-locations-modal-content {
+      gap: 16px;
+    }
+
+    .training-locations-modal-feature {
+      padding: 12px 0;
+      gap: 14px;
+    }
+
+    .training-locations-modal-feature-icon {
+      width: 6px;
+      height: 6px;
+      margin-top: 6px;
+    }
+
+    .training-locations-modal-feature-text {
+      font-size: 15px;
+      line-height: 1.5;
+      font-weight: 400;
     }
   }
 `;
@@ -483,15 +552,14 @@ const navigate = useNavigate();
       id: 2,
       number: "02",
       title: "Hungary 🇭🇺",
-      imageUrl: "https://images.pexels.com/photos/1148820/pexels-photo-1148820.jpeg?auto=compress&cs=tinysrgb&w=200&h=200",
-      cornerPosition: { text: "top-left", number: "bottom-left" }
+    imageUrl: img42,      cornerPosition: { text: "top-left", number: "bottom-left" }
     },
     {
       id: 3,
       number: "03",
       title: "India 🇮🇳",
-      imageUrl: "https://images.pexels.com/photos/1029141/pexels-photo-1029141.jpeg?auto=compress&cs=tinysrgb&w=200&h=200",
-      cornerPosition: { number: "top-right", text: "bottom-right" }
+    imageUrl: img43,
+          cornerPosition: { number: "top-right", text: "bottom-right" }
     }
   ];
 

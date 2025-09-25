@@ -701,9 +701,9 @@ const CPLHungaryPage = () => {
   return (
     <div style={styles.container}>
       {/* Header with Back Navigation */}
-      <div style={styles.stickyHeader}>
-        <div style={styles.headerContent}>
-          <div style={styles.headerFlex}>
+      <div style={styles.stickyHeader} className="mobile-header">
+        <div style={styles.headerContent} className="mobile-header-content">
+          <div style={styles.headerFlex} className="mobile-header-flex">
             <div style={styles.headerLeft}>
               <button 
                 style={styles.backButton}
@@ -713,12 +713,9 @@ const CPLHungaryPage = () => {
               >
                 <ArrowLeft style={{ width: '20px', height: '20px', color: '#6b7280' }} />
               </button>
-              <div style={styles.iconContainer}>
-                <Plane style={{ width: '24px', height: '24px' }} />
-              </div>
               <div>
-                <h1 style={styles.headerTitle}>CPL – Hungary</h1>
-                <p style={styles.headerSubtitle}>Commercial Pilot License</p>
+                <h1 style={styles.headerTitle} className="mobile-header-title">CPL – Hungary</h1>
+                <p style={styles.headerSubtitle} className="mobile-header-subtitle">Commercial Pilot License</p>
               </div>
             </div>
             {/* UPDATED NAV ELEMENT */}
@@ -741,49 +738,64 @@ const CPLHungaryPage = () => {
       </div>
 
       {/* Hero Section */}
-      <div id="hero" data-section style={styles.hero}>
+      <div id="hero" data-section style={styles.hero} className="mobile-hero">
         <div style={styles.heroOverlay}></div>
-        <div style={styles.heroContent}>
-          <div style={styles.heroCenter}>
-            <div style={styles.badge}>
+        <div style={styles.heroContent} className="mobile-hero-content">
+          <div style={styles.heroCenter} className="mobile-hero-center">
+            <div style={styles.badge} className="mobile-hero-badge">
               <Globe style={{ width: '16px', height: '16px', marginRight: '8px' }} />
               EASA Certified in Europe
             </div>
-            <h1 style={styles.heroTitle}>
+            <h1 style={styles.heroTitle} className="mobile-hero-title">
               Commercial Pilot License <br />
               <span style={styles.heroTitleGradient}>
                 Hungary
               </span>
             </h1>
-            <p style={styles.heroDescription}>
+            <p style={styles.heroDescription} className="mobile-hero-description">
               Earn your Commercial Pilot License in Hungary with EASA standards training. Experience European aviation excellence 
               while building your path to a successful airline career.
             </p>
             
             {/* Key Stats */}
-            <div style={styles.statsGrid}>
-              <div style={styles.statItem}>
-                <div style={styles.statNumber}>16-18</div>
-                <div style={styles.statLabel}>Months Duration</div>
+            <div style={styles.statsGrid} className="mobile-stats-grid">
+              <div style={styles.statItem} className="mobile-stat-card">
+                <div style={styles.statNumber} className="mobile-stat-number">16-18</div>
+                <div style={styles.statLabel} className="mobile-stat-label">Months Duration</div>
               </div>
-              <div style={styles.statItem}>
-                <div style={styles.statNumber}>₹46,50,000</div>
-                <div style={styles.statLabel}>All Inclusive Fees</div>
-              </div>
-              <div style={styles.statItem}>
-                <div style={styles.statNumber}>EASA</div>
-                <div style={styles.statLabel}>European Standards</div>
+              <div style={styles.statItem} className="mobile-stat-card">
+                <div style={styles.statNumber} className="mobile-stat-number">₹46L</div>
+                <div style={styles.statLabel} className="mobile-stat-label">All Inclusive Fees</div>
               </div>
             </div>
+            <div style={styles.statsGrid} className="mobile-stats-grid">
+              <div style={styles.statItem} className="mobile-stat-card">
+                <div style={styles.statNumber} className="mobile-stat-number">EASA</div>
+                <div style={styles.statLabel} className="mobile-stat-label">European Standards</div>
+              </div>
+              <div style={styles.statItem} className="mobile-stat-card">
+                <div style={styles.statNumber} className="mobile-stat-number">EU</div>
+                <div style={styles.statLabel} className="mobile-stat-label">Training Location</div>
+              </div>
+            </div>
+            
+            <button 
+              style={styles.ctaButton}
+              className="mobile-cta-button"
+              onMouseEnter={(e) => e.target.style.backgroundColor = styles.ctaButtonHover.backgroundColor}
+              onMouseLeave={(e) => e.target.style.backgroundColor = 'white'}
+            >
+              Start Application
+            </button>
           </div>
         </div>
       </div>
 
       {/* Program Overview Section */}
-      <div id="overview" data-section style={styles.section}>
-        <div style={styles.sectionCenter}>
-          <h2 style={styles.sectionTitle}>Program Overview</h2>
-          <p style={styles.sectionDescription}>
+      <div id="overview" data-section style={styles.section} className="mobile-section">
+        <div style={styles.sectionCenter} className="mobile-section-center">
+          <h2 style={styles.sectionTitle} className="mobile-section-title">Program Overview</h2>
+          <p style={styles.sectionDescription} className="mobile-section-description">
             Our CPL Hungary program provides comprehensive commercial pilot training under EASA regulations, 
             preparing you for a successful career in European and international aviation.
           </p>
@@ -791,28 +803,28 @@ const CPLHungaryPage = () => {
 
         <div style={{...styles.overviewGrid, ...styles.overviewGridLg}} className="overview-grid-lg">
           <div style={styles.cardSpace}>
-            <div style={styles.card}>
-              <div style={styles.cardHeader}>
-                <Clock style={{...styles.cardIcon, color: '#9333ea'}} />
+            <div style={styles.card} className="mobile-card">
+              <div style={styles.cardHeader} className="mobile-card-header">
+                <Clock style={{...styles.cardIcon, color: '#9333ea'}} className="mobile-card-icon" />
                 <div>
-                  <h3 style={styles.cardTitle}>Duration</h3>
-                  <p style={styles.cardSubtitle}>Flexible timeline based on conditions</p>
+                  <h3 style={styles.cardTitle} className="mobile-card-title">Duration</h3>
+                  <p style={styles.cardSubtitle} className="mobile-card-subtitle">Flexible timeline based on conditions</p>
                 </div>
               </div>
-              <p style={styles.cardMainText}>16–18 months</p>
-              <p style={styles.cardDescription}>Duration depends on weather conditions and individual student pace, ensuring quality training</p>
+              <p style={styles.cardMainText} className="mobile-card-main-text">16–18 months</p>
+              <p style={styles.cardDescription} className="mobile-card-description">Duration depends on weather conditions and individual student pace, ensuring quality training</p>
             </div>
 
-            <div style={styles.card}>
-              <div style={styles.cardHeader}>
-                <DollarSign style={{...styles.cardIcon, color: '#059669'}} />
+            <div style={styles.card} className="mobile-card">
+              <div style={styles.cardHeader} className="mobile-card-header">
+                <DollarSign style={{...styles.cardIcon, color: '#059669'}} className="mobile-card-icon" />
                 <div>
-                  <h3 style={styles.cardTitle}>Investment</h3>
-                  <p style={styles.cardSubtitle}>Complete program cost</p>
+                  <h3 style={styles.cardTitle} className="mobile-card-title">Investment</h3>
+                  <p style={styles.cardSubtitle} className="mobile-card-subtitle">Complete program cost</p>
                 </div>
               </div>
-              <p style={styles.cardMainText}>₹46,50,000 INR</p>
-              <p style={styles.cardDescription}>All inclusive fees with no hidden costs - covers training, certification, and support</p>
+              <p style={styles.cardMainText} className="mobile-card-main-text">₹46,50,000 INR</p>
+              <p style={styles.cardDescription} className="mobile-card-description">All inclusive fees with no hidden costs - covers training, certification, and support</p>
             </div>
           </div>
 
@@ -846,16 +858,16 @@ const CPLHungaryPage = () => {
       </div>
 
       {/* Key Benefits Section */}
-      <div id="benefits" data-section style={styles.whiteSection}>
-        <div style={styles.section}>
-          <div style={styles.sectionCenter}>
-            <h2 style={styles.sectionTitle}>Key Benefits</h2>
-            <p style={styles.sectionDescription}>
+      <div id="benefits" data-section style={styles.whiteSection} className="mobile-white-section">
+        <div style={styles.section} className="mobile-section">
+          <div style={styles.sectionCenter} className="mobile-section-center">
+            <h2 style={styles.sectionTitle} className="mobile-section-title">Key Benefits</h2>
+            <p style={styles.sectionDescription} className="mobile-section-description">
               Experience world-class aviation training with comprehensive benefits designed for your success.
             </p>
           </div>
 
-          <div style={styles.benefitsGrid}>
+          <div style={styles.benefitsGrid} className="mobile-benefits-grid">
             {benefits.map((benefit, index) => (
               <div
                 key={index}
@@ -863,14 +875,15 @@ const CPLHungaryPage = () => {
                   ...styles.benefitCard,
                   background: benefit.color
                 }}
+                className="mobile-benefit-card"
                 onMouseEnter={(e) => e.target.style.transform = 'scale(1.05)'}
                 onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
               >
-                <div style={styles.benefitCardIcon}>
+                <div style={styles.benefitCardIcon} className="mobile-benefit-icon">
                   {benefit.icon}
                 </div>
-                <h3 style={styles.benefitCardTitle}>{benefit.title}</h3>
-                <p style={styles.benefitCardDesc}>{benefit.description}</p>
+                <h3 style={styles.benefitCardTitle} className="mobile-benefit-title">{benefit.title}</h3>
+                <p style={styles.benefitCardDesc} className="mobile-benefit-desc">{benefit.description}</p>
               </div>
             ))}
           </div>
@@ -878,69 +891,70 @@ const CPLHungaryPage = () => {
       </div>
 
       {/* Campus & Fleet Section */}
-      <div id="campus" data-section style={styles.section}>
-        <div style={styles.sectionCenter}>
-          <h2 style={styles.sectionTitle}>Campus & Fleet</h2>
-          <p style={styles.sectionDescription}>
+      <div id="campus" data-section style={styles.section} className="mobile-section">
+        <div style={styles.sectionCenter} className="mobile-section-center">
+          <h2 style={styles.sectionTitle} className="mobile-section-title">Campus & Fleet</h2>
+          <p style={styles.sectionDescription} className="mobile-section-description">
             Train at PharmaFlight's advanced facilities with state-of-the-art aircraft and simulation technology.
           </p>
         </div>
 
         {/* Partner Information */}
-        <div style={styles.campusCard}>
-          <div style={styles.campusHeader}>
-            <div style={styles.campusIcon}>
+        <div style={styles.campusCard} className="mobile-campus-card">
+          <div style={styles.campusHeader} className="mobile-campus-header">
+            <div style={styles.campusIcon} className="mobile-campus-icon">
               <MapPin style={{ width: '40px', height: '40px' }} />
             </div>
             <div>
-              <h3 style={styles.campusTitle}>PharmaFlight Academy</h3>
-              <p style={styles.campusSubtitle}>Premium Training Partner in Hungary</p>
+              <h3 style={styles.campusTitle} className="mobile-campus-title">PharmaFlight Academy</h3>
+              <p style={styles.campusSubtitle} className="mobile-campus-subtitle">Premium Training Partner in Hungary</p>
             </div>
           </div>
 
           <div style={{...styles.campusGrid, ...styles.campusGridLg}} className="campus-grid-lg">
             <div>
-              <h4 style={styles.facilitiesTitle}>Advanced Facilities</h4>
+              <h4 style={styles.facilitiesTitle} className="mobile-facilities-title">Advanced Facilities</h4>
               <div>
-                <div style={styles.facilityItem}>
-                  <CheckCircle style={styles.facilityIcon} />
+                <div style={styles.facilityItem} className="mobile-facility-item">
+                  <CheckCircle style={styles.facilityIcon} className="mobile-facility-icon" />
                   <div>
-                    <h5 style={styles.facilityTitle}>Advanced Simulators</h5>
-                    <p style={styles.facilityDesc}>Full flight + procedural simulators for comprehensive pilot training</p>
+                    <h5 style={styles.facilityTitle} className="mobile-facility-title">Advanced Simulators</h5>
+                    <p style={styles.facilityDesc} className="mobile-facility-desc">Full flight + procedural simulators for comprehensive pilot training</p>
                   </div>
                 </div>
-                <div style={styles.facilityItem}>
-                  <CheckCircle style={styles.facilityIcon} />
+                <div style={styles.facilityItem} className="mobile-facility-item">
+                  <CheckCircle style={styles.facilityIcon} className="mobile-facility-icon" />
                   <div>
-                    <h5 style={styles.facilityTitle}>Medical & Performance Labs</h5>
-                    <p style={styles.facilityDesc}>Integrated medical and human performance laboratories for aviation medicine</p>
+                    <h5 style={styles.facilityTitle} className="mobile-facility-title">Medical & Performance Labs</h5>
+                    <p style={styles.facilityDesc} className="mobile-facility-desc">Integrated medical and human performance laboratories for aviation medicine</p>
                   </div>
                 </div>
-                <div style={styles.facilityItem}>
-                  <CheckCircle style={styles.facilityIcon} />
+                <div style={styles.facilityItem} className="mobile-facility-item">
+                  <CheckCircle style={styles.facilityIcon} className="mobile-facility-icon" />
                   <div>
-                    <h5 style={styles.facilityTitle}>Modern Classrooms</h5>
-                    <p style={styles.facilityDesc}>State-of-the-art learning environments with latest aviation technology</p>
+                    <h5 style={styles.facilityTitle} className="mobile-facility-title">Modern Classrooms</h5>
+                    <p style={styles.facilityDesc} className="mobile-facility-desc">State-of-the-art learning environments with latest aviation technology</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div style={styles.fleetContainer}>
-              <h4 style={styles.facilitiesTitle}>Training Fleet</h4>
-              <div style={styles.fleetGrid}>
+            <div style={styles.fleetContainer} className="mobile-fleet-container">
+              <h4 style={styles.facilitiesTitle} className="mobile-facilities-title">Training Fleet</h4>
+              <div style={styles.fleetGrid} className="mobile-fleet-grid">
                 {fleetDetails.map((aircraft, index) => (
                   <div 
                     key={index} 
                     style={styles.fleetItem}
+                    className="mobile-fleet-item"
                     onMouseEnter={(e) => e.target.style.boxShadow = styles.fleetItemHover.boxShadow}
                     onMouseLeave={(e) => e.target.style.boxShadow = 'none'}
                   >
                     <div style={styles.fleetHeader}>
-                      <h5 style={styles.fleetName}>{aircraft.name}</h5>
-                      <span style={styles.fleetType}>{aircraft.type}</span>
+                      <h5 style={styles.fleetName} className="mobile-fleet-name">{aircraft.name}</h5>
+                      <span style={styles.fleetType} className="mobile-fleet-type">{aircraft.type}</span>
                     </div>
-                    <p style={styles.fleetDesc}>{aircraft.description}</p>
+                    <p style={styles.fleetDesc} className="mobile-fleet-desc">{aircraft.description}</p>
                   </div>
                 ))}
               </div>
@@ -950,55 +964,55 @@ const CPLHungaryPage = () => {
       </div>
 
       {/* Student Life Section */}
-      <div id="student-life" data-section style={styles.whiteSection}>
-        <div style={styles.section}>
-          <div style={styles.sectionCenter}>
-            <h2 style={styles.sectionTitle}>Student Life & Environment</h2>
-            <p style={styles.sectionDescription}>
+      <div id="student-life" data-section style={styles.whiteSection} className="mobile-white-section">
+        <div style={styles.section} className="mobile-section">
+          <div style={styles.sectionCenter} className="mobile-section-center">
+            <h2 style={styles.sectionTitle} className="mobile-section-title">Student Life & Environment</h2>
+            <p style={styles.sectionDescription} className="mobile-section-description">
               Immerse yourself in European culture while pursuing your aviation dreams in a safe, professional environment.
             </p>
           </div>
 
           <div style={{...styles.studentLifeGrid, ...styles.studentLifeGridLg}} className="student-life-grid-lg">
             <div style={styles.lifeCardSpace}>
-              <div style={{...styles.lifeCard, ...styles.blueCard}}>
-                <div style={styles.lifeCardHeader}>
-                  <Users style={{...styles.lifeCardIcon, ...styles.blueIcon}} />
-                  <h3 style={styles.lifeCardTitle}>Safe EU Environment</h3>
+              <div style={{...styles.lifeCard, ...styles.blueCard}} className="mobile-life-card">
+                <div style={styles.lifeCardHeader} className="mobile-life-card-header">
+                  <Users style={{...styles.lifeCardIcon, ...styles.blueIcon}} className="mobile-life-card-icon" />
+                  <h3 style={styles.lifeCardTitle} className="mobile-life-card-title">Safe EU Environment</h3>
                 </div>
-                <p style={styles.lifeCardText}>
+                <p style={styles.lifeCardText} className="mobile-life-card-text">
                   Train in a safe European Union environment with cultural diversity, exposure to international aviation standards and practices.
                 </p>
               </div>
 
-              <div style={{...styles.lifeCard, ...styles.purpleCard}}>
-                <div style={styles.lifeCardHeader}>
-                  <Globe style={{...styles.lifeCardIcon, ...styles.purpleIcon}} />
-                  <h3 style={styles.lifeCardTitle}>European Lifestyle</h3>
+              <div style={{...styles.lifeCard, ...styles.purpleCard}} className="mobile-life-card">
+                <div style={styles.lifeCardHeader} className="mobile-life-card-header">
+                  <Globe style={{...styles.lifeCardIcon, ...styles.purpleIcon}} className="mobile-life-card-icon" />
+                  <h3 style={styles.lifeCardTitle} className="mobile-life-card-title">European Lifestyle</h3>
                 </div>
-                <p style={styles.lifeCardText}>
+                <p style={styles.lifeCardText} className="mobile-life-card-text">
                   Experience European lifestyle and travel opportunities across the Schengen zone, broadening your cultural and professional horizons.
                 </p>
               </div>
             </div>
 
             <div style={styles.lifeCardSpace}>
-              <div style={{...styles.lifeCard, ...styles.greenCard}}>
-                <div style={styles.lifeCardHeader}>
-                  <Award style={{...styles.lifeCardIcon, ...styles.greenIcon}} />
-                  <h3 style={styles.lifeCardTitle}>Professional Excellence</h3>
+              <div style={{...styles.lifeCard, ...styles.greenCard}} className="mobile-life-card">
+                <div style={styles.lifeCardHeader} className="mobile-life-card-header">
+                  <Award style={{...styles.lifeCardIcon, ...styles.greenIcon}} className="mobile-life-card-icon" />
+                  <h3 style={styles.lifeCardTitle} className="mobile-life-card-title">Professional Excellence</h3>
                 </div>
-                <p style={styles.lifeCardText}>
+                <p style={styles.lifeCardText} className="mobile-life-card-text">
                   Strong emphasis on discipline and professionalism in training, preparing you for the highest standards of the aviation industry.
                 </p>
               </div>
 
-              <div style={{...styles.lifeCard, ...styles.yellowCard}}>
-                <div style={styles.lifeCardHeader}>
-                  <MapPin style={{...styles.lifeCardIcon, ...styles.yellowIcon}} />
-                  <h3 style={styles.lifeCardTitle}>Campus Accommodation</h3>
+              <div style={{...styles.lifeCard, ...styles.yellowCard}} className="mobile-life-card">
+                <div style={styles.lifeCardHeader} className="mobile-life-card-header">
+                  <MapPin style={{...styles.lifeCardIcon, ...styles.yellowIcon}} className="mobile-life-card-icon" />
+                  <h3 style={styles.lifeCardTitle} className="mobile-life-card-title">Campus Accommodation</h3>
                 </div>
-                <p style={styles.lifeCardText}>
+                <p style={styles.lifeCardText} className="mobile-life-card-text">
                   Student accommodations available near campus, ensuring convenience and community with fellow international aviation students.
                 </p>
               </div>
@@ -1008,19 +1022,20 @@ const CPLHungaryPage = () => {
       </div>
 
       {/* Admission Process Section */}
-      <div id="admission" data-section style={styles.section}>
-        <div style={styles.sectionCenter}>
-          <h2 style={styles.sectionTitle}>Admission Process</h2>
-          <p style={styles.sectionDescription}>
+      <div id="admission" data-section style={styles.section} className="mobile-section">
+        <div style={styles.sectionCenter} className="mobile-section-center">
+          <h2 style={styles.sectionTitle} className="mobile-section-title">Admission Process</h2>
+          <p style={styles.sectionDescription} className="mobile-section-description">
             Your journey to becoming a commercial pilot starts here. Follow our streamlined admission process designed for your success.
           </p>
         </div>
 
-        <div style={styles.admissionSteps}>
+        <div style={styles.admissionSteps} className="mobile-admission-steps">
           {admissionSteps.map((step, index) => (
             <div
               key={index}
               style={styles.stepCard}
+              className="mobile-step-card"
               onMouseEnter={(e) => {
                 e.currentTarget.style.boxShadow = styles.stepCardHover.boxShadow;
                 const arrow = e.currentTarget.querySelector('.step-arrow-dynamic');
@@ -1035,15 +1050,15 @@ const CPLHungaryPage = () => {
                 }
               }}
             >
-              <div style={styles.stepContent}>
-                <div style={{...styles.stepFlex, ...styles.stepFlexLg}} className="step-flex-lg">
-                  <div style={styles.stepNumber}>
+              <div style={styles.stepContent} className="mobile-step-content">
+                <div style={{...styles.stepFlex, ...styles.stepFlexLg}} className="step-flex-lg mobile-step-flex">
+                  <div style={styles.stepNumber} className="mobile-step-number">
                     {step.number}
                   </div>
                   <div style={styles.stepDetails}>
-                    <h3 style={styles.stepTitle}>{step.title}</h3>
-                    <p style={styles.stepDescription}>{step.description}</p>
-                    <p style={styles.stepDetail}>{step.detail}</p>
+                    <h3 style={styles.stepTitle} className="mobile-step-title">{step.title}</h3>
+                    <p style={styles.stepDescription} className="mobile-step-description">{step.description}</p>
+                    <p style={styles.stepDetail} className="mobile-step-detail">{step.detail}</p>
                   </div>
                   <div style={{...styles.stepArrow, ...styles.stepArrowLg}} className="step-arrow-dynamic step-arrow-lg">
                     <ChevronRight style={{ width: '32px', height: '32px' }} />
@@ -1055,14 +1070,15 @@ const CPLHungaryPage = () => {
         </div>
 
         {/* Call to Action */}
-        <div style={styles.ctaSection}>
-          <div style={styles.ctaCard}>
-            <h3 style={styles.ctaTitle}>Ready to Begin Your CPL Journey?</h3>
-            <p style={styles.ctaDescription}>
+        <div style={styles.ctaSection} className="mobile-cta-section">
+          <div style={styles.ctaCard} className="mobile-cta-card">
+            <h3 style={styles.ctaTitle} className="mobile-cta-title">Ready to Begin Your CPL Journey?</h3>
+            <p style={styles.ctaDescription} className="mobile-cta-description">
               Take the first step towards your commercial pilot career in Hungary. Our admission team is ready to guide you through the entire process.
             </p>
             <button 
               style={styles.ctaButton}
+              className="mobile-cta-button"
               onMouseEnter={(e) => e.target.style.backgroundColor = styles.ctaButtonHover.backgroundColor}
               onMouseLeave={(e) => e.target.style.backgroundColor = 'white'}
             >
@@ -1097,6 +1113,363 @@ const CPLHungaryPage = () => {
           }
 
           @media (max-width: 768px) {
+            /* Mobile Header Optimization */
+            .mobile-header {
+              padding: 12px 16px !important;
+            }
+            
+            .mobile-header-content {
+              padding: 0 !important;
+            }
+            
+            .mobile-header-flex {
+              padding: 8px 0 !important;
+            }
+            
+            .mobile-header-title {
+              font-size: 16px !important;
+              font-weight: 600 !important;
+            }
+            
+            .mobile-header-subtitle {
+              font-size: 12px !important;
+              margin-top: 2px !important;
+            }
+            
+            /* Mobile Hero Section */
+            .mobile-hero {
+              padding: 32px 16px 48px !important;
+              background: linear-gradient(135deg, #9333ea, #ec4899) !important;
+              color: white !important;
+            }
+            
+            .mobile-hero-badge {
+              background: rgba(255, 255, 255, 0.2) !important;
+              color: white !important;
+              padding: 6px 12px !important;
+              font-size: 12px !important;
+              margin-bottom: 20px !important;
+            }
+            
+            .mobile-hero-title {
+              font-size: 2.5rem !important;
+              font-weight: 700 !important;
+              line-height: 1.1 !important;
+              margin-bottom: 16px !important;
+              text-align: left !important;
+            }
+            
+            .mobile-hero-description {
+              font-size: 16px !important;
+              line-height: 1.5 !important;
+              margin-bottom: 32px !important;
+              color: rgba(255, 255, 255, 0.9) !important;
+              text-align: left !important;
+            }
+            
+            .mobile-stats-grid {
+              grid-template-columns: 1fr 1fr !important;
+              gap: 16px !important;
+              margin-bottom: 32px !important;
+            }
+            
+            .mobile-stat-card {
+              background: rgba(255, 255, 255, 0.1) !important;
+              backdrop-filter: blur(10px) !important;
+              border-radius: 16px !important;
+              padding: 20px 16px !important;
+              text-align: center !important;
+              border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            }
+            
+            .mobile-stat-number {
+              font-size: 24px !important;
+              font-weight: 700 !important;
+              margin-bottom: 4px !important;
+              color: white !important;
+            }
+            
+            .mobile-stat-label {
+              font-size: 12px !important;
+              color: rgba(255, 255, 255, 0.8) !important;
+              font-weight: 500 !important;
+            }
+            
+            .mobile-cta-button {
+              width: 100% !important;
+              background: white !important;
+              color: #9333ea !important;
+              padding: 16px 24px !important;
+              border-radius: 12px !important;
+              font-weight: 600 !important;
+              font-size: 16px !important;
+              border: none !important;
+              cursor: pointer !important;
+              transition: all 0.3s !important;
+            }
+            
+            /* Mobile Sections */
+            .mobile-section {
+              padding: 48px 16px !important;
+            }
+            
+            .mobile-section-title {
+              font-size: 2.25rem !important;
+              font-weight: 700 !important;
+              text-align: left !important;
+              margin-bottom: 16px !important;
+            }
+            
+            .mobile-section-description {
+              font-size: 16px !important;
+              text-align: left !important;
+              margin-bottom: 32px !important;
+            }
+            
+            /* Mobile Cards */
+            .mobile-card {
+              border-radius: 20px !important;
+              padding: 24px !important;
+              margin-bottom: 16px !important;
+              box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+            }
+            
+            .mobile-card-header {
+              margin-bottom: 16px !important;
+            }
+            
+            .mobile-card-icon {
+              width: 24px !important;
+              height: 24px !important;
+              margin-right: 12px !important;
+            }
+            
+            .mobile-card-title {
+              font-size: 18px !important;
+              font-weight: 600 !important;
+            }
+            
+            .mobile-card-subtitle {
+              font-size: 14px !important;
+              margin-top: 2px !important;
+            }
+            
+            .mobile-card-main-text {
+              font-size: 28px !important;
+              font-weight: 700 !important;
+              margin-bottom: 8px !important;
+            }
+            
+            .mobile-card-description {
+              font-size: 14px !important;
+              line-height: 1.5 !important;
+            }
+            
+            /* Mobile Benefits Grid */
+            .mobile-benefits-grid {
+              grid-template-columns: 1fr !important;
+              gap: 16px !important;
+            }
+            
+            .mobile-benefit-card {
+              padding: 24px !important;
+              border-radius: 20px !important;
+            }
+            
+            .mobile-benefit-icon {
+              margin-bottom: 16px !important;
+            }
+            
+            .mobile-benefit-title {
+              font-size: 18px !important;
+              font-weight: 600 !important;
+              margin-bottom: 12px !important;
+            }
+            
+            .mobile-benefit-desc {
+              font-size: 14px !important;
+              line-height: 1.5 !important;
+            }
+            
+            /* Mobile Campus Section */
+            .mobile-campus-card {
+              border-radius: 20px !important;
+              padding: 24px !important;
+              margin-bottom: 32px !important;
+            }
+            
+            .mobile-campus-header {
+              flex-direction: column !important;
+              align-items: flex-start !important;
+              text-align: left !important;
+              margin-bottom: 24px !important;
+            }
+            
+            .mobile-campus-icon {
+              width: 60px !important;
+              height: 60px !important;
+              margin-right: 0 !important;
+              margin-bottom: 16px !important;
+            }
+            
+            .mobile-campus-title {
+              font-size: 24px !important;
+              font-weight: 700 !important;
+              margin-bottom: 4px !important;
+            }
+            
+            .mobile-campus-subtitle {
+              font-size: 14px !important;
+            }
+            
+            .mobile-facilities-title {
+              font-size: 18px !important;
+              font-weight: 600 !important;
+              margin-bottom: 16px !important;
+            }
+            
+            .mobile-facility-item {
+              margin-bottom: 12px !important;
+            }
+            
+            .mobile-facility-icon {
+              width: 20px !important;
+              height: 20px !important;
+              margin-right: 12px !important;
+            }
+            
+            .mobile-facility-title {
+              font-size: 14px !important;
+              font-weight: 600 !important;
+            }
+            
+            .mobile-facility-desc {
+              font-size: 13px !important;
+              line-height: 1.4 !important;
+            }
+            
+            .mobile-fleet-container {
+              border-radius: 16px !important;
+              padding: 20px !important;
+              margin-top: 24px !important;
+            }
+            
+            .mobile-fleet-item {
+              border-radius: 12px !important;
+              padding: 16px !important;
+              margin-bottom: 12px !important;
+            }
+            
+            .mobile-fleet-name {
+              font-size: 14px !important;
+              font-weight: 600 !important;
+            }
+            
+            .mobile-fleet-type {
+              font-size: 10px !important;
+              padding: 2px 6px !important;
+            }
+            
+            .mobile-fleet-desc {
+              font-size: 12px !important;
+              line-height: 1.4 !important;
+            }
+            
+            /* Mobile Student Life */
+            .mobile-life-card {
+              border-radius: 20px !important;
+              padding: 24px !important;
+              margin-bottom: 16px !important;
+            }
+            
+            .mobile-life-card-header {
+              margin-bottom: 16px !important;
+            }
+            
+            .mobile-life-card-icon {
+              width: 24px !important;
+              height: 24px !important;
+              margin-right: 12px !important;
+            }
+            
+            .mobile-life-card-title {
+              font-size: 18px !important;
+              font-weight: 600 !important;
+            }
+            
+            .mobile-life-card-text {
+              font-size: 14px !important;
+              line-height: 1.5 !important;
+            }
+            
+            /* Mobile Admission Steps */
+            .mobile-step-card {
+              border-radius: 20px !important;
+              margin-bottom: 16px !important;
+            }
+            
+            .mobile-step-content {
+              padding: 24px !important;
+            }
+            
+            .mobile-step-number {
+              width: 60px !important;
+              height: 60px !important;
+              border-radius: 12px !important;
+              font-size: 18px !important;
+              margin-right: 16px !important;
+              margin-bottom: 16px !important;
+            }
+            
+            .mobile-step-title {
+              font-size: 20px !important;
+              font-weight: 600 !important;
+              margin-bottom: 8px !important;
+            }
+            
+            .mobile-step-description {
+              font-size: 14px !important;
+              margin-bottom: 8px !important;
+            }
+            
+            .mobile-step-detail {
+              font-size: 13px !important;
+              line-height: 1.4 !important;
+            }
+            
+            /* Mobile CTA */
+            .mobile-cta-card {
+              border-radius: 20px !important;
+              padding: 32px 24px !important;
+            }
+            
+            .mobile-cta-title {
+              font-size: 24px !important;
+              font-weight: 700 !important;
+              margin-bottom: 16px !important;
+              text-align: left !important;
+            }
+            
+            .mobile-cta-description {
+              font-size: 14px !important;
+              margin-bottom: 24px !important;
+              text-align: left !important;
+            }
+            
+            .mobile-cta-button {
+              width: 100% !important;
+              padding: 16px 24px !important;
+              font-size: 16px !important;
+              font-weight: 600 !important;
+              border-radius: 12px !important;
+            }
+            
+            /* Mobile Step Flex */
+            .mobile-step-flex {
+              flex-direction: column !important;
+              align-items: flex-start !important;
+            }
+            
             .overview-grid-lg {
               grid-template-columns: 1fr !important;
             }

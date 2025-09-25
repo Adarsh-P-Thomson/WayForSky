@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import flightInstructor from '../assets/Fleets/FIRATING.JPG';
 
 const App = () => {
   const [isVisible, setIsVisible] = useState({});
@@ -459,17 +460,17 @@ const App = () => {
     const [isHovered, setIsHovered] = useState(false);
     
     return (
-      <img 
-        src="https://images.pexels.com/photos/8000412/pexels-photo-8000412.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
-        alt="Flight instructor with student pilot"
-        style={{
-          ...styles.overviewImage,
-          ...(isHovered ? styles.overviewImageHover : {}),
-          className: 'overview-image'
-        }}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      />
+<img 
+  src={flightInstructor}
+  alt="Flight instructor with student pilot"
+  style={{
+    ...styles.overviewImage,
+    ...(isHovered ? styles.overviewImageHover : {})
+  }}
+  onMouseEnter={() => setIsHovered(true)}
+  onMouseLeave={() => setIsHovered(false)}
+/>
+
     );
   };
 

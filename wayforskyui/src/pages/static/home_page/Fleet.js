@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
-import cessna172 from '../../../assets/Cessna 172.jpeg';
-import tecnam2008 from '../../../assets/Tecnam 2008 JC.jpg';
-import piperArcher from '../../../assets/Piper 28 181 Archer III.jpg';
-import diamondDA42 from '../../../assets/Diamond DA42.jpeg';
-import beechcraftBaron from '../../../assets/Beechcraft Baron.jpeg';
-import piperSeneca from '../../../assets/Piper Seneca.jpg';
-import tecnam2006 from '../../../assets/Tecnam 2006T.jpg';
-import fnptII from '../../../assets/FNPT II.jpg';
-import a320_b737_sim from '../../../assets/A320 Simulator.jpeg'; // Assuming this is the correct file for A320/B737
-import alsim from '../../../assets/Alsim.jpeg';
-import redbird from '../../../assets/Redbird.jpg';
+import cessna172 from '../../../assets/Fleets/cessna.png';
+import tecnam2008 from '../../../assets/Fleets/tecnam.jpg';
+import piperArcher from '../../../assets/Fleets/piper28.jpg';
+import diamondDA42 from '../../../assets/Fleets/diamond.png';
+import beechcraftBaron from '../../../assets/Fleets/beechcraft.jpg';
+import piperSeneca from '../../../assets/Fleets/piperseneca.jpg';
+import tecnam2006 from '../../../assets/Fleets/tecnam2006.jpg';
+import fnptII from '../../../assets/Fleets/fnpt.png';
+import a320 from '../../../assets/Fleets/a320simulator.jpg';
+import alsim from '../../../assets/Fleets/alsim.jpg';
+import redbird from '../../../assets/Fleets/redbird.jpg';
+
 
 import './Fleet.css';
 
 const Fleet = () => {
-  // MODIFIED: Updated the master list of all aircraft and simulators
+  // ✅ Display names remain proper, only imports are simplified
   const aircrafts = [
     { name: "Cessna 172", category: "Single Engine", image: cessna172 },
     { name: "Tecnam 2008JC", category: "Single Engine", image: tecnam2008 },
@@ -26,10 +27,11 @@ const Fleet = () => {
     { name: "Piper Seneca II", category: "Multi-Engine", image: piperSeneca },
     { name: "Tecnam 2006T", category: "Multi-Engine", image: tecnam2006 },
     { name: "FNPT II", category: "Simulators", image: fnptII },
-    { name: "A320 / B737", category: "Simulators", image: a320_b737_sim },
+    { name: "A320 / B737", category: "Simulators", image: a320 },
     { name: "ALSIM", category: "Simulators", image: alsim },
     { name: "Redbird", category: "Simulators", image: redbird },
   ];
+
 
   // State to track the index in the master 'aircrafts' list
   const [masterIndex, setMasterIndex] = useState(0);

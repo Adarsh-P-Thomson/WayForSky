@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import img61 from '../../../assets/CTA/6.1.JPG';
+
 
 // Add these Google Fonts imports to your global CSS or index.html:
 // <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500;1,600&display=swap" rel="stylesheet">
@@ -168,12 +170,13 @@ const SecondaryButton = styled(motion.button)`
 const RightColumn = styled(motion.div)`
   position: relative;
   overflow: hidden;
-background: url('https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2') center/cover no-repeat;
+  background: url(${img61}) center/cover no-repeat;
   border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
+
 
 // Framer Motion variants for animations
 const containerVariants = {

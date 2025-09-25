@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect } from "react"
-// ✅ Import useLocation to read the current URL
 import { Link, useLocation } from "react-router-dom"
 import HeaderLogo from "../assets/Headerlogo.jpeg"; 
 
@@ -40,9 +39,8 @@ const MobileDropdownArrow = ({ className }) => (
   </svg>
 );
 
-// ✅ Removed 'currentPage' prop, as the component now handles this internally
 export default function Header() {
-  const location = useLocation(); // ✅ Get current location from React Router
+  const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState(null)
   const [isHeaderHidden, setIsHeaderHidden] = useState(false)
@@ -94,25 +92,68 @@ export default function Header() {
 
   return (
     <>
+      {/* ✨ NEW: CSS styles are now included directly in this file */}
+      <style>
+        {`
+          /* ===== Default Styles (For Desktop) ===== */
+          
+          .logo img {
+            height: 50px;
+            width: auto;
+            display: block; /* Prevents extra space below the image */
+          }
+          
+          .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+          
+          .right-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem; /* Adds space between the button and hamburger icon */
+          }
+          
+          
+          /* ===== Mobile Header Adjustments ===== */
+          
+          /* This @media query applies styles ONLY to screens 991px wide or smaller */
+          @media (max-width: 991px) {
+          
+            /* Make the header bar shorter (more compact) */
+            .header .container {
+              padding-top: 8px;
+              padding-bottom: 8px;
+            }
+          
+            /* Reduce the logo size on mobile */
+            .logo img {
+              height: 40px; 
+            }
+          
+            /* Make the 'Apply Now' button smaller and more compact on mobile */
+            .right-actions .contact-btn {
+              padding: 6px 12px;
+              font-size: 14px;
+            }
+          }
+        `}
+      </style>
+
       <header className={`header ${isHeaderHidden ? "header-hidden" : ""}`}>
         <div className="container">
           <div className="header-content">
             {/* Logo */}
-<div className="logo">
-  <Link to="/">
-    <img 
-      src={HeaderLogo} 
-      alt="WayForSky Logo" 
-      style={{
-        height: "50px",
-        width: "auto",
-        display: "block"
-      }}
-    />
-  </Link>
-</div>
-
-
+            <div className="logo">
+              <Link to="/">
+                {/* MODIFICATION: Removed inline styles to control via CSS */}
+                <img 
+                  src={HeaderLogo} 
+                  alt="WayForSky Logo" 
+                />
+              </Link>
+            </div>
 
             {/* Desktop Navigation */}
             <nav className="desktop-nav">
@@ -139,7 +180,6 @@ export default function Header() {
               </div>
 
               <div className="dropdown-container">
-                {/* The "Courses" text is now a direct link to the main courses page */}
                 <Link
                   to="/courses"
                   className={`nav-link focus-ring dropdown-trigger ${
@@ -172,7 +212,6 @@ export default function Header() {
               </div>
 
               <div className="dropdown-container">
-                {/* ✅ UPDATED: Events is active when on the /fleet page */}
                 <Link
                   to="/fleet"
                   className={`nav-link focus-ring dropdown-trigger ${
@@ -180,13 +219,16 @@ export default function Header() {
                   }`}
                 >
                   Fleet
-                  
                 </Link>
-                
               </div>
 
               <div className="dropdown-container">
-                <Link to="/dgca-classes" className="nav-link focus-ring dropdown-trigger">
+                <Link
+                  to="/dgca-classes"
+                  className={`nav-link focus-ring dropdown-trigger ${
+                    ["/dgca-classes", "/elp-classes", "/nios-classes"].includes(location.pathname) ? "active" : ""
+                  }`}
+                >
                   Classes
                   <DropdownArrow />
                 </Link>
@@ -203,10 +245,12 @@ export default function Header() {
                 </div>
               </div>
 
-              <Link to="/webinar" className="nav-link focus-ring">
+              <Link
+                to="/webinar"
+                className={`nav-link focus-ring ${location.pathname === "/webinar" ? "active" : ""}`}
+              >
                 Join the Webinar
               </Link>
-               {/* ✅ UPDATED: Contact Us is active on the /contactus page */}
               <Link
                 to="/contactus"
                 className={`nav-link focus-ring ${location.pathname === "/contactus" ? "active" : ""}`}
@@ -217,8 +261,6 @@ export default function Header() {
 
             {/* Right Actions */}
             <div className="right-actions">
-
-                {/* ✅ UPDATED: Link points to the correct /contactus route and underline is removed */}
               <Link
                 to="/contactus"
                 className="contact-btn focus-ring"
@@ -316,7 +358,6 @@ export default function Header() {
             </div>
 
             <div className="mobile-dropdown-container">
-               {/* ✅ UPDATED: Events is active when on the /fleet page */}
               <button
                 className={`mobile-nav-link mobile-dropdown-trigger focus-ring ${
                   activeDropdown === "events" || location.pathname === "/fleet"
@@ -342,7 +383,6 @@ export default function Header() {
                 </Link>
               </div>
             </div>
-             {/* ✅ UPDATED: Mobile Contact Us link is active and points to the correct route */}
             <Link
                 to="/contactus"
                 className={`mobile-nav-link focus-ring ${location.pathname === "/contactus" ? "active" : ""}`}
@@ -352,7 +392,9 @@ export default function Header() {
 
             <div className="mobile-dropdown-container">
               <button
-                className={`mobile-nav-link mobile-dropdown-trigger focus-ring ${activeDropdown === "classes" ? "active" : ""}`}
+                className={`mobile-nav-link mobile-dropdown-trigger focus-ring ${
+                  activeDropdown === "classes" || ["/dgca-classes", "/rtr-classes", "/nios-classes"].includes(location.pathname) ? "active" : ""
+                }`}
                 onClick={() => toggleMobileDropdown("classes")}
               >
                 Classes
@@ -371,7 +413,11 @@ export default function Header() {
               </div>
             </div>
 
-            <Link to="/webinar" className="mobile-nav-link focus-ring" onClick={closeMobileMenu}>
+            <Link
+              to="/webinar"
+              className={`mobile-nav-link focus-ring ${location.pathname === "/webinar" ? "active" : ""}`}
+              onClick={closeMobileMenu}
+            >
               Join the Webinar
             </Link>
           </nav>

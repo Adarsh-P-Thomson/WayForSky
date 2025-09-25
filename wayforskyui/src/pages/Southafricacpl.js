@@ -700,9 +700,9 @@ const CPLSouthAfricaPage = () => {
     <div style={styles.container}>
       {/* Header with Back Navigation */}
       <div style={styles.stickyHeader}>
-        <div style={styles.headerContent}>
-          <div style={styles.headerFlex}>
-            <div style={styles.headerLeft}>
+        <div style={styles.headerContent} className="mobile-header">
+          <div style={styles.headerFlex} className="mobile-header-flex">
+            <div style={styles.headerLeft} className="mobile-header-left">
               <button 
                 style={styles.backButton}
                 onMouseEnter={(e) => e.target.style.backgroundColor = styles.backButtonHover.backgroundColor}
@@ -711,12 +711,9 @@ const CPLSouthAfricaPage = () => {
               >
                 <ArrowLeft style={{ width: '20px', height: '20px', color: '#6b7280' }} />
               </button>
-              <div style={styles.iconContainer}>
-                <Plane style={{ width: '24px', height: '24px' }} />
-              </div>
               <div>
-                <h1 style={styles.headerTitle}>CPL – South Africa</h1>
-                <p style={styles.headerSubtitle}>Commercial Pilot License</p>
+                <h1 style={styles.headerTitle} className="mobile-header-title">CPL – South Africa</h1>
+                <p style={styles.headerSubtitle} className="mobile-header-subtitle">Commercial Pilot License</p>
               </div>
             </div>
             <nav style={{...styles.nav, ...styles.navVisible}} className="nav-visible">
@@ -740,35 +737,35 @@ const CPLSouthAfricaPage = () => {
       {/* Hero Section */}
       <div id="hero" data-section style={styles.hero}>
         <div style={styles.heroOverlay}></div>
-        <div style={styles.heroContent}>
+        <div style={styles.heroContent} className="mobile-hero">
           <div style={styles.heroCenter}>
-            <div style={styles.badge}>
+            <div style={styles.badge} className="mobile-hero-badge">
               <Sun style={{ width: '16px', height: '16px', marginRight: '8px' }} />
               Over 300 Flying Days Annually
             </div>
-            <h1 style={styles.heroTitle}>
+            <h1 style={styles.heroTitle} className="mobile-hero-title">
               Commercial Pilot License <br />
               <span style={styles.heroTitleGradient}>
                 South Africa
               </span>
             </h1>
-            <p style={styles.heroDescription}>
+            <p style={styles.heroDescription} className="mobile-hero-description">
               Earn your internationally recognized Commercial Pilot License in South Africa. Benefit from incredible weather, affordable costs, and diverse flying conditions to launch your airline career.
             </p>
             
             {/* Key Stats */}
-            <div style={styles.statsGrid}>
+            <div style={styles.statsGrid} className="mobile-stats-grid">
               <div style={styles.statItem}>
-                <div style={styles.statNumber}>12-14</div>
-                <div style={styles.statLabel}>Months Duration</div>
+                <div style={styles.statNumber} className="mobile-stat-number">12-14</div>
+                <div style={styles.statLabel} className="mobile-stat-label">Months Duration</div>
               </div>
               <div style={styles.statItem}>
-                <div style={styles.statNumber}>₹35,75,000</div>
-                <div style={styles.statLabel}>All Inclusive Fees</div>
+                <div style={styles.statNumber} className="mobile-stat-number">₹35,75,000</div>
+                <div style={styles.statLabel} className="mobile-stat-label">All Inclusive Fees</div>
               </div>
               <div style={styles.statItem}>
-                <div style={styles.statNumber}>Globally</div>
-                <div style={styles.statLabel}>Internationally Recognized</div>
+                <div style={styles.statNumber} className="mobile-stat-number">Globally</div>
+                <div style={styles.statLabel} className="mobile-stat-label">Internationally Recognized</div>
               </div>
             </div>
           </div>
@@ -776,38 +773,38 @@ const CPLSouthAfricaPage = () => {
       </div>
 
       {/* Program Overview Section */}
-      <div id="overview" data-section style={styles.section}>
+      <div id="overview" data-section style={styles.section} className="mobile-section">
         <div style={styles.sectionCenter}>
-          <h2 style={styles.sectionTitle}>Program Overview</h2>
-          <p style={styles.sectionDescription}>
+          <h2 style={styles.sectionTitle} className="mobile-section-title">Program Overview</h2>
+          <p style={styles.sectionDescription} className="mobile-section-description">
             Our CPL South Africa program offers a fast-tracked, affordable, and comprehensive training experience, preparing you for a successful career in international aviation.
           </p>
         </div>
 
         <div style={{...styles.overviewGrid, ...styles.overviewGridLg}} className="overview-grid-lg">
           <div style={styles.cardSpace}>
-            <div style={styles.card}>
+            <div style={styles.card} className="mobile-card">
               <div style={styles.cardHeader}>
                 <Clock style={{...styles.cardIcon, color: '#0ea5e9'}} />
                 <div>
-                  <h3 style={styles.cardTitle}>Duration</h3>
-                  <p style={styles.cardSubtitle}>Based on weather and student pace</p>
+                  <h3 style={styles.cardTitle} className="mobile-card-title">Duration</h3>
+                  <p style={styles.cardSubtitle} className="mobile-card-subtitle">Based on weather and student pace</p>
                 </div>
               </div>
-              <p style={styles.cardMainText}>12–14 months</p>
-              <p style={styles.cardDescription}>An efficient timeline, taking advantage of the excellent local weather conditions.</p>
+              <p style={styles.cardMainText} className="mobile-card-main-text">12–14 months</p>
+              <p style={styles.cardDescription} className="mobile-card-description">An efficient timeline, taking advantage of the excellent local weather conditions.</p>
             </div>
 
-            <div style={styles.card}>
+            <div style={styles.card} className="mobile-card">
               <div style={styles.cardHeader}>
                 <DollarSign style={{...styles.cardIcon, color: '#10b981'}} />
                 <div>
-                  <h3 style={styles.cardTitle}>Investment</h3>
-                  <p style={styles.cardSubtitle}>Complete program cost</p>
+                  <h3 style={styles.cardTitle} className="mobile-card-title">Investment</h3>
+                  <p style={styles.cardSubtitle} className="mobile-card-subtitle">Complete program cost</p>
                 </div>
               </div>
-              <p style={styles.cardMainText}>₹35,75,000 INR</p>
-              <p style={styles.cardDescription}>All-inclusive fees with no hidden costs, covering all your training needs.</p>
+              <p style={styles.cardMainText} className="mobile-card-main-text">₹35,75,000 INR</p>
+              <p style={styles.cardDescription} className="mobile-card-description">All-inclusive fees with no hidden costs, covering all your training needs.</p>
             </div>
           </div>
 
@@ -842,15 +839,15 @@ const CPLSouthAfricaPage = () => {
 
       {/* Key Benefits Section */}
       <div id="benefits" data-section style={styles.whiteSection}>
-        <div style={styles.section}>
+        <div style={styles.section} className="mobile-section">
           <div style={styles.sectionCenter}>
-            <h2 style={styles.sectionTitle}>Key Benefits</h2>
-            <p style={styles.sectionDescription}>
+            <h2 style={styles.sectionTitle} className="mobile-section-title">Key Benefits</h2>
+            <p style={styles.sectionDescription} className="mobile-section-description">
               Discover the advantages of training in South Africa, from ideal weather to globally recognized certification.
             </p>
           </div>
 
-          <div style={styles.benefitsGrid}>
+          <div style={styles.benefitsGrid} className="mobile-benefits-grid">
             {benefits.map((benefit, index) => (
               <div
                 key={index}
@@ -858,14 +855,15 @@ const CPLSouthAfricaPage = () => {
                   ...styles.benefitCard,
                   background: benefit.color
                 }}
+                className="mobile-benefit-card"
                 onMouseEnter={(e) => e.target.style.transform = 'scale(1.05)'}
                 onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
               >
                 <div style={styles.benefitCardIcon}>
                   {benefit.icon}
                 </div>
-                <h3 style={styles.benefitCardTitle}>{benefit.title}</h3>
-                <p style={styles.benefitCardDesc}>{benefit.description}</p>
+                <h3 style={styles.benefitCardTitle} className="mobile-benefit-title">{benefit.title}</h3>
+                <p style={styles.benefitCardDesc} className="mobile-benefit-desc">{benefit.description}</p>
               </div>
             ))}
           </div>
@@ -873,76 +871,77 @@ const CPLSouthAfricaPage = () => {
       </div>
 
       {/* Campus & Fleet Section */}
-      <div id="campus" data-section style={styles.section}>
+      <div id="campus" data-section style={styles.section} className="mobile-section">
         <div style={styles.sectionCenter}>
-          <h2 style={styles.sectionTitle}>Campus & Fleet</h2>
-          <p style={styles.sectionDescription}>
+          <h2 style={styles.sectionTitle} className="mobile-section-title">Campus & Fleet</h2>
+          <p style={styles.sectionDescription} className="mobile-section-description">
             Train at our partner's modern facilities, equipped with a versatile fleet to cover all aspects of your CPL training.
           </p>
         </div>
 
         {/* Partner Information */}
-        <div style={styles.campusCard}>
-          <div style={styles.campusHeader}>
-            <div style={styles.campusIcon}>
+        <div style={styles.campusCard} className="mobile-campus-card">
+          <div style={styles.campusHeader} className="mobile-campus-header">
+            <div style={styles.campusIcon} className="mobile-campus-icon">
               <MapPin style={{ width: '40px', height: '40px' }} />
             </div>
             <div>
-              <h3 style={styles.campusTitle}>Accolade Flying Wings</h3>
-              <p style={styles.campusSubtitle}>Premium Training Partner in South Africa</p>
+              <h3 style={styles.campusTitle} className="mobile-campus-title">Accolade Flying Wings</h3>
+              <p style={styles.campusSubtitle} className="mobile-campus-subtitle">Premium Training Partner in South Africa</p>
             </div>
           </div>
 
           <div style={{...styles.campusGrid, ...styles.campusGridLg}} className="campus-grid-lg">
             <div>
-              <h4 style={styles.facilitiesTitle}>Campus Facilities</h4>
+              <h4 style={styles.facilitiesTitle} className="mobile-facilities-title">Campus Facilities</h4>
               <div>
-                <div style={styles.facilityItem}>
+                <div style={styles.facilityItem} className="mobile-facility-item">
                   <CheckCircle style={styles.facilityIcon} />
                   <div>
-                    <h5 style={styles.facilityTitle}>Modern Classrooms</h5>
-                    <p style={styles.facilityDesc}>Equipped with the latest tools for effective ground school learning.</p>
+                    <h5 style={styles.facilityTitle} className="mobile-facility-title">Modern Classrooms</h5>
+                    <p style={styles.facilityDesc} className="mobile-facility-desc">Equipped with the latest tools for effective ground school learning.</p>
                   </div>
                 </div>
-                <div style={styles.facilityItem}>
+                <div style={styles.facilityItem} className="mobile-facility-item">
                   <CheckCircle style={styles.facilityIcon} />
                   <div>
-                    <h5 style={styles.facilityTitle}>Dedicated Simulator Center</h5>
-                    <p style={styles.facilityDesc}>Hone your skills in a controlled environment with advanced simulators.</p>
+                    <h5 style={styles.facilityTitle} className="mobile-facility-title">Dedicated Simulator Center</h5>
+                    <p style={styles.facilityDesc} className="mobile-facility-desc">Hone your skills in a controlled environment with advanced simulators.</p>
                   </div>
                 </div>
-                 <div style={styles.facilityItem}>
+                 <div style={styles.facilityItem} className="mobile-facility-item">
                   <CheckCircle style={styles.facilityIcon} />
                   <div>
-                    <h5 style={styles.facilityTitle}>Consistent Flying Schedule</h5>
-                    <p style={styles.facilityDesc}>Benefit from a schedule of five flying days a week.</p>
+                    <h5 style={styles.facilityTitle} className="mobile-facility-title">Consistent Flying Schedule</h5>
+                    <p style={styles.facilityDesc} className="mobile-facility-desc">Benefit from a schedule of five flying days a week.</p>
                   </div>
                 </div>
-                <div style={styles.facilityItem}>
+                <div style={styles.facilityItem} className="mobile-facility-item">
                   <CheckCircle style={styles.facilityIcon} />
                   <div>
-                    <h5 style={styles.facilityTitle}>Student Accommodations</h5>
-                    <p style={styles.facilityDesc}>Comfortable and convenient housing located nearby the campus.</p>
+                    <h5 style={styles.facilityTitle} className="mobile-facility-title">Student Accommodations</h5>
+                    <p style={styles.facilityDesc} className="mobile-facility-desc">Comfortable and convenient housing located nearby the campus.</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div style={styles.fleetContainer}>
-              <h4 style={styles.facilitiesTitle}>Training Fleet</h4>
+            <div style={styles.fleetContainer} className="mobile-fleet-container">
+              <h4 style={styles.facilitiesTitle} className="mobile-facilities-title">Training Fleet</h4>
               <div style={styles.fleetGrid}>
                 {fleetDetails.map((aircraft, index) => (
                   <div 
                     key={index} 
                     style={styles.fleetItem}
+                    className="mobile-fleet-item"
                     onMouseEnter={(e) => e.target.style.boxShadow = styles.fleetItemHover.boxShadow}
                     onMouseLeave={(e) => e.target.style.boxShadow = 'none'}
                   >
                     <div style={styles.fleetHeader}>
-                      <h5 style={styles.fleetName}>{aircraft.name}</h5>
-                      <span style={styles.fleetType}>{aircraft.type}</span>
+                      <h5 style={styles.fleetName} className="mobile-fleet-name">{aircraft.name}</h5>
+                      <span style={styles.fleetType} className="mobile-fleet-type">{aircraft.type}</span>
                     </div>
-                    <p style={styles.fleetDesc}>{aircraft.description}</p>
+                    <p style={styles.fleetDesc} className="mobile-fleet-desc">{aircraft.description}</p>
                   </div>
                 ))}
               </div>
@@ -953,54 +952,54 @@ const CPLSouthAfricaPage = () => {
 
       {/* Student Life Section */}
       <div id="student-life" data-section style={styles.whiteSection}>
-        <div style={styles.section}>
+        <div style={styles.section} className="mobile-section">
           <div style={styles.sectionCenter}>
-            <h2 style={styles.sectionTitle}>Student Life & Environment</h2>
-            <p style={styles.sectionDescription}>
+            <h2 style={styles.sectionTitle} className="mobile-section-title">Student Life & Environment</h2>
+            <p style={styles.sectionDescription} className="mobile-section-description">
               Experience a vibrant student life in a safe and welcoming environment, with a strong community and exciting recreational opportunities.
             </p>
           </div>
 
           <div style={{...styles.studentLifeGrid, ...styles.studentLifeGridLg}} className="student-life-grid-lg">
             <div style={styles.lifeCardSpace}>
-              <div style={{...styles.lifeCard, ...styles.blueCard}}>
+              <div style={{...styles.lifeCard, ...styles.blueCard}} className="mobile-life-card">
                 <div style={styles.lifeCardHeader}>
                   <Shield style={{...styles.lifeCardIcon, ...styles.blueIcon}} />
-                  <h3 style={styles.lifeCardTitle}>Safe & Friendly Environment</h3>
+                  <h3 style={styles.lifeCardTitle} className="mobile-life-card-title">Safe & Friendly Environment</h3>
                 </div>
-                <p style={styles.lifeCardText}>
+                <p style={styles.lifeCardText} className="mobile-life-card-text">
                   Enjoy a secure and student-friendly atmosphere, perfect for focusing on your training and personal growth.
                 </p>
               </div>
 
-              <div style={{...styles.lifeCard, ...styles.purpleCard}}>
+              <div style={{...styles.lifeCard, ...styles.purpleCard}} className="mobile-life-card">
                 <div style={styles.lifeCardHeader}>
                   <Users style={{...styles.lifeCardIcon, ...styles.purpleIcon}} />
-                  <h3 style={styles.lifeCardTitle}>Active Indian Community</h3>
+                  <h3 style={styles.lifeCardTitle} className="mobile-life-card-title">Active Indian Community</h3>
                 </div>
-                <p style={styles.lifeCardText}>
+                <p style={styles.lifeCardText} className="mobile-life-card-text">
                   Connect with a lively community of Indian students, providing cultural familiarity and a strong support network.
                 </p>
               </div>
             </div>
 
             <div style={styles.lifeCardSpace}>
-              <div style={{...styles.lifeCard, ...styles.greenCard}}>
+              <div style={{...styles.lifeCard, ...styles.greenCard}} className="mobile-life-card">
                 <div style={styles.lifeCardHeader}>
                   <MapPin style={{...styles.lifeCardIcon, ...styles.greenIcon}} />
-                  <h3 style={styles.lifeCardTitle}>Recreational Activities</h3>
+                  <h3 style={styles.lifeCardTitle} className="mobile-life-card-title">Recreational Activities</h3>
                 </div>
-                <p style={styles.lifeCardText}>
+                <p style={styles.lifeCardText} className="mobile-life-card-text">
                   Explore South Africa's stunning landscapes with access to wildlife safaris, beautiful beaches, and vibrant city life.
                 </p>
               </div>
 
-              <div style={{...styles.lifeCard, ...styles.yellowCard}}>
+              <div style={{...styles.lifeCard, ...styles.yellowCard}} className="mobile-life-card">
                 <div style={styles.lifeCardHeader}>
                   <PiggyBank style={{...styles.lifeCardIcon, ...styles.yellowIcon}} />
-                  <h3 style={styles.lifeCardTitle}>Affordable Living</h3>
+                  <h3 style={styles.lifeCardTitle} className="mobile-life-card-title">Affordable Living</h3>
                 </div>
-                <p style={styles.lifeCardText}>
+                <p style={styles.lifeCardText} className="mobile-life-card-text">
                   Benefit from an affordable cost of living, with reasonable prices for housing, food, and transport.
                 </p>
               </div>
@@ -1010,10 +1009,10 @@ const CPLSouthAfricaPage = () => {
       </div>
 
       {/* Admission Process Section */}
-      <div id="admission" data-section style={styles.section}>
+      <div id="admission" data-section style={styles.section} className="mobile-section">
         <div style={styles.sectionCenter}>
-          <h2 style={styles.sectionTitle}>Admission Process</h2>
-          <p style={styles.sectionDescription}>
+          <h2 style={styles.sectionTitle} className="mobile-section-title">Admission Process</h2>
+          <p style={styles.sectionDescription} className="mobile-section-description">
             Your journey to the cockpit starts here. Our streamlined admission process is designed to guide you every step of the way.
           </p>
         </div>
@@ -1023,6 +1022,7 @@ const CPLSouthAfricaPage = () => {
             <div
               key={index}
               style={styles.stepCard}
+              className="mobile-step-card"
               onMouseEnter={(e) => {
                 e.currentTarget.style.boxShadow = styles.stepCardHover.boxShadow;
                 const arrow = e.currentTarget.querySelector('.step-arrow-dynamic');
@@ -1037,15 +1037,15 @@ const CPLSouthAfricaPage = () => {
                 }
               }}
             >
-              <div style={styles.stepContent}>
-                <div style={{...styles.stepFlex, ...styles.stepFlexLg}} className="step-flex-lg">
-                  <div style={styles.stepNumber}>
+              <div style={styles.stepContent} className="mobile-step-content">
+                <div style={{...styles.stepFlex, ...styles.stepFlexLg}} className="step-flex-lg mobile-step-flex">
+                  <div style={styles.stepNumber} className="mobile-step-number">
                     {step.number}
                   </div>
                   <div style={styles.stepDetails}>
-                    <h3 style={styles.stepTitle}>{step.title}</h3>
-                    <p style={styles.stepDescription}>{step.description}</p>
-                    <p style={styles.stepDetail}>{step.detail}</p>
+                    <h3 style={styles.stepTitle} className="mobile-step-title">{step.title}</h3>
+                    <p style={styles.stepDescription} className="mobile-step-description">{step.description}</p>
+                    <p style={styles.stepDetail} className="mobile-step-detail">{step.detail}</p>
                   </div>
                   <div style={{...styles.stepArrow, ...styles.stepArrowLg}} className="step-arrow-dynamic step-arrow-lg">
                     <ChevronRight style={{ width: '32px', height: '32px' }} />
@@ -1058,13 +1058,14 @@ const CPLSouthAfricaPage = () => {
 
         {/* Call to Action */}
         <div style={styles.ctaSection}>
-          <div style={styles.ctaCard}>
-            <h3 style={styles.ctaTitle}>Ready to Take Flight in South Africa?</h3>
-            <p style={styles.ctaDescription}>
+          <div style={styles.ctaCard} className="mobile-cta-card">
+            <h3 style={styles.ctaTitle} className="mobile-cta-title">Ready to Take Flight in South Africa?</h3>
+            <p style={styles.ctaDescription} className="mobile-cta-description">
               Begin your adventure and take the first step towards your career as a commercial pilot. Our admissions team is excited to help you get started.
             </p>
             <button 
               style={styles.ctaButton}
+              className="mobile-cta-button"
               onMouseEnter={(e) => e.target.style.backgroundColor = styles.ctaButtonHover.backgroundColor}
               onMouseLeave={(e) => e.target.style.backgroundColor = 'white'}
             >
@@ -1088,6 +1089,302 @@ const CPLSouthAfricaPage = () => {
             to {
               opacity: 1;
               transform: translateY(0);
+            }
+          }
+
+          /* Mobile-First Responsive Design */
+          @media (max-width: 768px) {
+            /* Header Mobile Optimization */
+            .mobile-header {
+              padding: 12px 16px !important;
+            }
+            
+            .mobile-header-flex {
+              flex-direction: column !important;
+              align-items: flex-start !important;
+              gap: 16px !important;
+            }
+            
+            .mobile-header-left {
+              display: flex !important;
+              align-items: center !important;
+              gap: 12px !important;
+              width: 100% !important;
+            }
+            
+            .mobile-header-title {
+              font-size: 20px !important;
+              font-weight: 600 !important;
+            }
+            
+            .mobile-header-subtitle {
+              font-size: 13px !important;
+              color: #0ea5e9 !important;
+              font-weight: 500 !important;
+            }
+            
+            /* Hero Mobile Optimization */
+            .mobile-hero {
+              padding: 40px 16px 60px !important;
+            }
+            
+            .mobile-hero-badge {
+              font-size: 12px !important;
+              padding: 6px 12px !important;
+              margin-bottom: 24px !important;
+            }
+            
+            .mobile-hero-title {
+              font-size: 2.5rem !important;
+              line-height: 1.1 !important;
+              margin-bottom: 24px !important;
+              font-weight: 400 !important;
+            }
+            
+            .mobile-hero-description {
+              font-size: 18px !important;
+              line-height: 1.5 !important;
+              margin-bottom: 40px !important;
+              padding: 0 8px !important;
+            }
+            
+            .mobile-stats-grid {
+              grid-template-columns: 1fr 1fr !important;
+              gap: 24px !important;
+              margin-top: 40px !important;
+            }
+            
+            .mobile-stat-number {
+              font-size: 28px !important;
+              font-weight: 400 !important;
+            }
+            
+            .mobile-stat-label {
+              font-size: 13px !important;
+              font-weight: 500 !important;
+            }
+            
+            /* Section Mobile Optimization */
+            .mobile-section {
+              padding: 48px 16px !important;
+            }
+            
+            .mobile-section-title {
+              font-size: 2.25rem !important;
+              margin-bottom: 16px !important;
+              font-weight: 400 !important;
+            }
+            
+            .mobile-section-description {
+              font-size: 16px !important;
+              line-height: 1.5 !important;
+              padding: 0 8px !important;
+            }
+            
+            /* Cards Mobile Optimization */
+            .mobile-card {
+              padding: 24px !important;
+              border-radius: 16px !important;
+              margin-bottom: 16px !important;
+            }
+            
+            .mobile-card-title {
+              font-size: 18px !important;
+              margin-bottom: 8px !important;
+            }
+            
+            .mobile-card-subtitle {
+              font-size: 13px !important;
+            }
+            
+            .mobile-card-main-text {
+              font-size: 28px !important;
+              margin-bottom: 8px !important;
+            }
+            
+            .mobile-card-description {
+              font-size: 14px !important;
+              line-height: 1.4 !important;
+            }
+            
+            /* Benefits Mobile Optimization */
+            .mobile-benefits-grid {
+              grid-template-columns: 1fr !important;
+              gap: 20px !important;
+            }
+            
+            .mobile-benefit-card {
+              padding: 24px !important;
+              border-radius: 16px !important;
+            }
+            
+            .mobile-benefit-title {
+              font-size: 20px !important;
+              margin-bottom: 12px !important;
+            }
+            
+            .mobile-benefit-desc {
+              font-size: 14px !important;
+              line-height: 1.5 !important;
+            }
+            
+            /* Campus Mobile Optimization */
+            .mobile-campus-card {
+              padding: 24px !important;
+              border-radius: 16px !important;
+              margin-bottom: 32px !important;
+            }
+            
+            .mobile-campus-header {
+              flex-direction: column !important;
+              align-items: flex-start !important;
+              text-align: left !important;
+              gap: 16px !important;
+            }
+            
+            .mobile-campus-icon {
+              width: 60px !important;
+              height: 60px !important;
+              border-radius: 12px !important;
+            }
+            
+            .mobile-campus-title {
+              font-size: 24px !important;
+              margin-bottom: 4px !important;
+            }
+            
+            .mobile-campus-subtitle {
+              font-size: 14px !important;
+            }
+            
+            .mobile-facilities-title {
+              font-size: 20px !important;
+              margin-bottom: 20px !important;
+            }
+            
+            .mobile-facility-item {
+              margin-bottom: 20px !important;
+            }
+            
+            .mobile-facility-title {
+              font-size: 16px !important;
+              margin-bottom: 4px !important;
+            }
+            
+            .mobile-facility-desc {
+              font-size: 14px !important;
+              line-height: 1.4 !important;
+            }
+            
+            /* Fleet Mobile Optimization */
+            .mobile-fleet-container {
+              padding: 20px !important;
+              border-radius: 12px !important;
+              margin-top: 24px !important;
+            }
+            
+            .mobile-fleet-item {
+              padding: 16px !important;
+              border-radius: 8px !important;
+              margin-bottom: 12px !important;
+            }
+            
+            .mobile-fleet-name {
+              font-size: 16px !important;
+            }
+            
+            .mobile-fleet-type {
+              font-size: 11px !important;
+              padding: 3px 6px !important;
+            }
+            
+            .mobile-fleet-desc {
+              font-size: 13px !important;
+              line-height: 1.4 !important;
+            }
+            
+            /* Student Life Mobile Optimization */
+            .mobile-life-card {
+              padding: 20px !important;
+              border-radius: 16px !important;
+              margin-bottom: 16px !important;
+            }
+            
+            .mobile-life-card-title {
+              font-size: 18px !important;
+            }
+            
+            .mobile-life-card-text {
+              font-size: 14px !important;
+              line-height: 1.5 !important;
+            }
+            
+            /* Admission Steps Mobile Optimization */
+            .mobile-step-card {
+              border-radius: 16px !important;
+              margin-bottom: 20px !important;
+            }
+            
+            .mobile-step-content {
+              padding: 24px !important;
+            }
+            
+            .mobile-step-flex {
+              flex-direction: column !important;
+              align-items: flex-start !important;
+              text-align: left !important;
+            }
+            
+            .mobile-step-number {
+              width: 60px !important;
+              height: 60px !important;
+              border-radius: 12px !important;
+              font-size: 20px !important;
+              margin-bottom: 20px !important;
+              margin-right: 0 !important;
+            }
+            
+            .mobile-step-title {
+              font-size: 22px !important;
+              margin-bottom: 12px !important;
+            }
+            
+            .mobile-step-description {
+              font-size: 16px !important;
+              margin-bottom: 12px !important;
+            }
+            
+            .mobile-step-detail {
+              font-size: 14px !important;
+              line-height: 1.5 !important;
+            }
+            
+            /* CTA Mobile Optimization */
+            .mobile-cta-card {
+              padding: 32px 20px !important;
+              border-radius: 16px !important;
+              margin-top: 48px !important;
+            }
+            
+            .mobile-cta-title {
+              font-size: 24px !important;
+              margin-bottom: 16px !important;
+              line-height: 1.2 !important;
+            }
+            
+            .mobile-cta-description {
+              font-size: 16px !important;
+              margin-bottom: 24px !important;
+              line-height: 1.5 !important;
+              padding: 0 !important;
+            }
+            
+            .mobile-cta-button {
+              padding: 14px 24px !important;
+              font-size: 16px !important;
+              border-radius: 8px !important;
+              width: 100% !important;
+              max-width: 280px !important;
             }
           }
 

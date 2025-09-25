@@ -1,13 +1,14 @@
 "use client"
+import cplTrainingImg from "../../../assets/Program/CPLSA.JPG";
+import airlineReadyImg from "../../../assets/Program/CPLHU.JPG";
+import specializedTrainingImg from "../../../assets/Program/CPLOTHER.JPG";
+
 
 import { useEffect, useRef, useState } from "react"
 
-import cplSa from "../../../assets/Traininglocation/cpl-sa.JPG";
-import cplHungary from "../../../assets/Traininglocation/cpl-hungary.JPG";
-import typeRating from "../../../assets/Traininglocation/type-rating.JPG";
-
 const ProgramOverview = () => {
   const [activeSection, setActiveSection] = useState(0)
+  const [expandedCard, setExpandedCard] = useState(null)
   const featureTourRef = useRef(null)
 
   useEffect(() => {
@@ -63,24 +64,7 @@ const ProgramOverview = () => {
   }
 
   const handleCardClick = (program) => {
-    console.log(`${program} card clicked`)
-    // You can customize these navigation actions as needed
-    switch (program) {
-      case "CPL South Africa":
-        // Navigate to CPL South Africa page
-        window.location.href = "/programs/cpl-south-africa"
-        break
-      case "CPL Hungary":
-        // Navigate to CPL Hungary page
-        window.location.href = "/programs/cpl-hungary"
-        break
-      case "Other Training":
-        // Navigate to other training programs page
-        window.location.href = "/programs/other-training"
-        break
-      default:
-        break
-    }
+    setExpandedCard(expandedCard === program ? null : program)
   }
 
   const styles = {
@@ -400,26 +384,96 @@ const ProgramOverview = () => {
       gap: "16px",
     },
     mobileCard: {
-      background: "#f8f9fa",
+      background: "white",
       borderRadius: "16px",
-      padding: "6vw",
-      marginBottom: "5vw",
-      boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+      padding: "0",
+      marginBottom: "20px",
+      boxShadow: "0 8px 24px rgba(0, 0, 0, 0.12)",
       width: "100%",
       boxSizing: "border-box",
       cursor: "pointer",
+      overflow: "hidden",
+      transition: "all 0.3s ease",
+    },
+    mobileCardImage: {
+      width: "100%",
+      height: "200px",
+      objectFit: "cover",
+      display: "block",
+    },
+    mobileCardContent: {
+      padding: "20px",
+    },
+    mobileCardHeader: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      marginBottom: "12px",
     },
     mobileCardTitle: {
-      fontSize: "clamp(18px, 5vw, 24px)",
+      fontSize: "20px",
       fontWeight: 700,
-      marginBottom: "3vw",
+      margin: "0",
       color: "#000",
       lineHeight: 1.2,
+      flex: 1,
+    },
+    expandIcon: {
+      width: "24px",
+      height: "24px",
+      color: "#666",
+      transition: "transform 0.3s ease",
+      flexShrink: 0,
+    },
+    expandIconRotated: {
+      transform: "rotate(180deg)",
     },
     mobileCardDescription: {
-      fontSize: "clamp(14px, 4vw, 16px)",
+      fontSize: "14px",
       color: "#666",
       lineHeight: 1.5,
+      marginBottom: "0",
+    },
+    expandedContent: {
+      maxHeight: "0",
+      overflow: "hidden",
+      transition: "max-height 0.3s ease",
+      borderTop: "1px solid #f0f0f0",
+    },
+    expandedContentOpen: {
+      maxHeight: "500px",
+    },
+    expandedDetails: {
+      padding: "20px",
+      background: "#f8f9fa",
+    },
+    detailItem: {
+      display: "flex",
+      alignItems: "flex-start",
+      marginBottom: "16px",
+      fontSize: "14px",
+    },
+    detailIcon: {
+      width: "16px",
+      height: "16px",
+      color: "#4f46e5",
+      marginRight: "12px",
+      marginTop: "2px",
+      flexShrink: 0,
+    },
+    detailText: {
+      color: "#333",
+      lineHeight: 1.4,
+    },
+    programBadge: {
+      display: "inline-block",
+      background: "#4f46e5",
+      color: "white",
+      padding: "4px 12px",
+      borderRadius: "20px",
+      fontSize: "12px",
+      fontWeight: 500,
+      marginBottom: "16px",
     },
     mobileViewAllButton: {
       background: "#000",
@@ -465,6 +519,48 @@ const ProgramOverview = () => {
 
   const finalStyles = isMobile ? { ...styles, ...mobileStyles } : styles
 
+  const programData = {
+    "CPL South Africa": {
+      image: cplTrainingImg,
+      badge: "12-14 Months",
+      description: "Affordable commercial pilot training with 300+ flying days per year.",
+      shortDesc: "12–14 months program with affordable training featuring 300+ flying days a year. Multi-engine & IR included for comprehensive pilot preparation.",
+      details: [
+        "12-14 months duration with flexible scheduling",
+        "300+ flying days per year - excellent weather conditions",
+        "Multi-engine and Instrument Rating included",
+        "Most affordable CPL program globally",
+        "Training locations across South Africa"
+      ]
+    },
+    "CPL Hungary": {
+      image: airlineReadyImg,
+      badge: "16-18 Months",
+      description: "Zero to Hero Airline Ready Program with comprehensive training.",
+      shortDesc: "16 - 18 months Zero to Hero Airline Ready Program. Multi-engine, IR, MCC, UPRT included for complete commercial pilot certification.",
+      details: [
+        "Complete Zero to Hero airline preparation",
+        "Multi-engine, IR, MCC, and UPRT included",
+        "European training standards and certification",
+        "Multi-Crew Cooperation (MCC) training",
+        "Upset Prevention & Recovery Training (UPRT)"
+      ]
+    },
+    "Other Training": {
+      image: specializedTrainingImg,
+      badge: "Various",
+      description: "Specialized aviation training programs.",
+      shortDesc: "Specialized aviation training including Cabin Crew Training, Flight Instructor Rating, and Type Rating for A320 & B737 aircraft.",
+      details: [
+        "Cabin Crew Training programs",
+        "Flight Instructor Rating (FI)",
+        "Type Rating for A320 aircraft",
+        "Type Rating for B737 aircraft",
+        "Customized training solutions"
+      ]
+    }
+  }
+
   // Mobile version - simple cards layout
   if (isMobile) {
     return (
@@ -472,78 +568,162 @@ const ProgramOverview = () => {
         <div style={finalStyles.mobileContainer}>
           <div style={finalStyles.mobileHeaderContainer}>
             <h1 style={finalStyles.mainHeading}>Programs Overview</h1>
-            <button
-              style={finalStyles.mobileViewAllButton}
-              onClick={handleViewAllClick}
-              onMouseEnter={(e) => {
-                e.target.style.background = "#333"
-                e.target.style.transform = "translateY(-2px)"
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.background = "#000"
-                e.target.style.transform = "translateY(0)"
-              }}
-            >
-              View All Programs
-            </button>
+
           </div>
 
-          <div
-            style={finalStyles.mobileCard}
-            onClick={() => handleCardClick("CPL South Africa")}
-            onMouseEnter={(e) => {
-              e.target.style.transform = "translateY(-4px)"
-              e.target.style.boxShadow = "0 8px 20px rgba(0, 0, 0, 0.15)"
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = "translateY(0)"
-              e.target.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.1)"
-            }}
-          >
-            <h3 style={finalStyles.mobileCardTitle}>CPL in South Africa</h3>
-            <p style={finalStyles.mobileCardDescription}>
-              12–14 months program with affordable training featuring 300+ flying days a year. Multi-engine & IR
-              included for comprehensive pilot preparation.
-            </p>
-          </div>
+          {Object.entries(programData).map(([programKey, program]) => (
+            <div key={programKey} style={{
+              ...finalStyles.mobileCard,
+              marginBottom: expandedCard === programKey ? "30px" : "20px",
+              transform: expandedCard === programKey ? "scale(1.02)" : "scale(1)",
+              boxShadow: expandedCard === programKey 
+                ? "0 12px 32px rgba(0, 0, 0, 0.18)" 
+                : "0 8px 24px rgba(0, 0, 0, 0.12)"
+            }}>
+              {/* Card Header with Image */}
+              <div style={{ position: "relative" }}>
+                <img
+                  src={program.image}
+                  alt={programKey}
+                  style={{
+                    width: "100%",
+                    height: "200px",
+                    objectFit: "cover",
+                    display: "block"
+                  }}
+                />
+                <div style={{
+                  position: "absolute",
+                  top: "16px",
+                  left: "16px",
+                  background: "rgba(0, 0, 0, 0.8)",
+                  color: "white",
+                  padding: "6px 12px",
+                  borderRadius: "20px",
+                  fontSize: "12px",
+                  fontWeight: "600"
+                }}>
+                  {program.badge}
+                </div>
+              </div>
 
-          <div
-            style={finalStyles.mobileCard}
-            onClick={() => handleCardClick("CPL Hungary")}
-            onMouseEnter={(e) => {
-              e.target.style.transform = "translateY(-4px)"
-              e.target.style.boxShadow = "0 8px 20px rgba(0, 0, 0, 0.15)"
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = "translateY(0)"
-              e.target.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.1)"
-            }}
-          >
-            <h3 style={finalStyles.mobileCardTitle}>CPL in Hungary</h3>
-            <p style={finalStyles.mobileCardDescription}>
-              16 - 18 months Zero to Hero Airline Ready Program. Multi-engine, IR, MCC, UPRT included for complete
-              commercial pilot certification.
-            </p>
-          </div>
+              {/* Card Content */}
+              <div 
+                style={{ padding: "20px" }}
+                onClick={() => handleCardClick(programKey)}
+              >
+                <div style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  marginBottom: "12px"
+                }}>
+                  <h3 style={{
+                    fontSize: "20px",
+                    fontWeight: "700",
+                    margin: "0",
+                    color: "#000",
+                    lineHeight: 1.2,
+                    flex: 1
+                  }}>
+                    {programKey}
+                  </h3>
+                  <svg 
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                      color: "#666",
+                      transition: "transform 0.3s ease",
+                      transform: expandedCard === programKey ? "rotate(180deg)" : "rotate(0deg)"
+                    }}
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2"
+                  >
+                    <path d="M6 9l6 6 6-6"/>
+                  </svg>
+                </div>
+                
+                <p style={{
+                  fontSize: "14px",
+                  color: "#666",
+                  lineHeight: 1.5,
+                  margin: "0"
+                }}>
+                  {program.shortDesc}
+                </p>
+              </div>
 
-          <div
-            style={finalStyles.mobileCard}
-            onClick={() => handleCardClick("Other Training")}
-            onMouseEnter={(e) => {
-              e.target.style.transform = "translateY(-4px)"
-              e.target.style.boxShadow = "0 8px 20px rgba(0, 0, 0, 0.15)"
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = "translateY(0)"
-              e.target.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.1)"
-            }}
-          >
-            <h3 style={finalStyles.mobileCardTitle}>Other Training Programs</h3>
-            <p style={finalStyles.mobileCardDescription}>
-              Cabin Crew Training, Flight Instructor Rating, and Type Rating programs for A320 & B737 aircraft.
-              Specialized training for aviation career advancement.
-            </p>
-          </div>
+              {/* Expandable Details */}
+              <div style={{
+                maxHeight: expandedCard === programKey ? "400px" : "0",
+                overflow: "hidden",
+                transition: "max-height 0.4s ease",
+                borderTop: expandedCard === programKey ? "1px solid #f0f0f0" : "none"
+              }}>
+                <div style={{
+                  padding: "20px",
+                  background: "#f8f9fa"
+                }}>
+                  <h4 style={{
+                    fontSize: "16px",
+                    fontWeight: "600",
+                    color: "#000",
+                    marginBottom: "16px",
+                    margin: "0 0 16px 0"
+                  }}>
+                    Program Details
+                  </h4>
+                  
+                  {program.details.map((detail, index) => (
+                    <div key={index} style={{
+                      display: "flex",
+                      alignItems: "flex-start",
+                      marginBottom: "12px",
+                      fontSize: "14px"
+                    }}>
+                      <div style={{
+                        width: "6px",
+                        height: "6px",
+                        background: "#4f46e5",
+                        borderRadius: "50%",
+                        marginRight: "12px",
+                        marginTop: "6px",
+                        flexShrink: 0
+                      }}></div>
+                      <span style={{
+                        color: "#333",
+                        lineHeight: 1.4
+                      }}>
+                        {detail}
+                      </span>
+                    </div>
+                  ))}
+                  
+                  <button style={{
+                    width: "100%",
+                    background: "#4f46e5",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "8px",
+                    padding: "12px",
+                    fontSize: "14px",
+                    fontWeight: "600",
+                    marginTop: "16px",
+                    cursor: "pointer",
+                    transition: "background 0.3s ease"
+                  }}
+                  onMouseDown={(e) => e.target.style.background = "#3730a3"}
+                  onMouseUp={(e) => e.target.style.background = "#4f46e5"}
+                  onMouseLeave={(e) => e.target.style.background = "#4f46e5"}
+                  >
+                    Learn More About This Program
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
     )
@@ -705,16 +885,29 @@ const ProgramOverview = () => {
                 <div style={finalStyles.productShowcase}>
                   <div style={finalStyles.productImage}>
                     <img
-                      src={cplSa}
-                      alt="CPL Training in South Africa"
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      src={cplTrainingImg}
+                      alt="CPL Training"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        borderRadius: "8px",
+                        objectFit: "cover",
+                      }}
                     />
                   </div>
                   <div style={finalStyles.navigationArrows}>
-                    <button style={finalStyles.navArrow} aria-label="Previous program" onClick={handleArrowClick}>
+                    <button
+                      style={finalStyles.navArrow}
+                      aria-label="Previous program"
+                      onClick={handleArrowClick}
+                    >
                       ‹
                     </button>
-                    <button style={finalStyles.navArrow} aria-label="Next program" onClick={handleArrowClick}>
+                    <button
+                      style={finalStyles.navArrow}
+                      aria-label="Next program"
+                      onClick={handleArrowClick}
+                    >
                       ›
                     </button>
                   </div>
@@ -793,9 +986,14 @@ const ProgramOverview = () => {
                 <div style={finalStyles.productShowcase}>
                   <div style={finalStyles.productImage}>
                     <img
-                      src={cplHungary}
-                      alt="CPL Training in Hungary"
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      src={airlineReadyImg}
+                      alt="Airline Ready"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        borderRadius: "8px",
+                        objectFit: "cover",
+                      }}
                     />
                   </div>
                 </div>
@@ -803,10 +1001,16 @@ const ProgramOverview = () => {
                 <div style={finalStyles.progressSection}>
                   <div style={finalStyles.progressBar}>
                     <div
-                      style={{ ...finalStyles.progressFill, width: "80%", background: "rgba(255,255,255,0.8)" }}
+                      style={{
+                        ...finalStyles.progressFill,
+                        width: "80%",
+                        background: "rgba(255,255,255,0.8)",
+                      }}
                     ></div>
                   </div>
-                  <div style={{ ...finalStyles.progressText, color: "rgba(255,255,255,0.8)" }}>
+                  <div
+                    style={{ ...finalStyles.progressText, color: "rgba(255,255,255,0.8)" }}
+                  >
                     16-18 Months Program
                   </div>
                 </div>
@@ -839,7 +1043,6 @@ const ProgramOverview = () => {
               >
                 <div style={finalStyles.siteHeader}>
                   <div style={finalStyles.logo}>
-
                     WayForSky
                   </div>
                   <nav style={finalStyles.navMenu}>
@@ -877,9 +1080,15 @@ const ProgramOverview = () => {
                 <div style={finalStyles.productShowcase}>
                   <div style={finalStyles.productImage}>
                     <img
-                      src={typeRating}
-                      alt="Specialized Aviation Training"
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      src={specializedTrainingImg}
+                      alt="Specialized Training"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        borderRadius: "8px",
+                        objectFit: "cover",
+                        display: "block",
+                      }}
                     />
                   </div>
                 </div>

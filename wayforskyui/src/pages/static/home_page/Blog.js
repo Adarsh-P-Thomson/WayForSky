@@ -1,3 +1,9 @@
+import img51 from '../../../assets/Blogs/5.1.JPG';
+import img52 from '../../../assets/Blogs/5.2.PNG';
+import img53 from '../../../assets/Blogs/5.3.JPG';
+import img54 from '../../../assets/Blogs/5.4.PNG';
+
+
 const App = () => {
   return (
     <div>
@@ -310,73 +316,75 @@ const App = () => {
         <div className="max-w-7xl mx-auto">
           {/* MODIFIED: The button has been moved, so its old container is removed */}
           <div className="relative mb-8">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 justify-items-center mobile-grid">
-              {/* Blog Post 1 */}
-              <article className="group cursor-pointer w-full max-w-8cm">
-                <div className="blog-card mobile-responsive-card bg-white rounded-xl overflow-hidden shadow-sm w-full">
-                  <img
-                    src="https://images.pexels.com/photos/2026324/pexels-photo-2026324.jpeg?auto=compress&cs=tinysrgb&w=800"
-                    alt="Top 5 Reasons to Train in South Africa as a Pilot"
-                    className="blog-image w-full h-full object-cover"
-                  />
-                </div>
-                <div className="text-content mobile-text-content">
-                  <p className="text-gray-400 text-sm font-normal mb-2 tracking-wide">Aug 20, 2025</p>
-                  <h2 className="text-gray-900 text-sm font-medium leading-tight">
-                    Top 5 Reasons to Train in South Africa as a Pilot
-                  </h2>
-                </div>
-              </article>
+<div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 justify-items-center mobile-grid">
+  {/* Blog Post 1 */}
+  <article className="group cursor-pointer w-full max-w-8cm">
+    <div className="blog-card mobile-responsive-card bg-white rounded-xl overflow-hidden shadow-sm w-full">
+      <img
+        src={img51}
+        alt="Top 5 Reasons to Train in South Africa as a Pilot"
+        className="blog-image w-full h-full object-cover"
+      />
+    </div>
+    <div className="text-content mobile-text-content">
+      <p className="text-gray-400 text-sm font-normal mb-2 tracking-wide">Aug 20, 2025</p>
+      <h2 className="text-gray-900 text-sm font-medium leading-tight">
+        Top 5 Reasons to Train in South Africa as a Pilot
+      </h2>
+    </div>
+  </article>
 
-              {/* Blog Post 2 */}
-              <article className="group cursor-pointer w-full max-w-8cm">
-                <div className="blog-card mobile-responsive-card bg-white rounded-xl overflow-hidden shadow-sm w-full">
-                  <img
-                    src="https://images.pexels.com/photos/912050/pexels-photo-912050.jpeg?auto=compress&cs=tinysrgb&w=800"
-                    alt="Hungary vs. South Africa – Which Training Path is Right for You?"
-                    className="blog-image w-full h-full object-cover"
-                  />
-                </div>
-                <div className="text-content mobile-text-content">
-                  <p className="text-gray-400 text-sm font-normal mb-2 tracking-wide">Aug 20, 2025</p>
-                  <h2 className="text-gray-900 text-sm font-medium leading-tight">
-                    Hungary vs. South Africa – Which Training Path is Right for You?
-                  </h2>
-                </div>
-              </article>
+  {/* Blog Post 2 */}
+  <article className="group cursor-pointer w-full max-w-8cm">
+    <div className="blog-card mobile-responsive-card bg-white rounded-xl overflow-hidden shadow-sm w-full">
+      <img
+        src={img52}
+        alt="Hungary vs. South Africa – Which Training Path is Right for You?"
+        className="blog-image w-full h-full object-cover"
+      />
+    </div>
+    <div className="text-content mobile-text-content">
+      <p className="text-gray-400 text-sm font-normal mb-2 tracking-wide">Aug 20, 2025</p>
+      <h2 className="text-gray-900 text-sm font-medium leading-tight">
+        Hungary vs. South Africa – Which Training Path is Right for You?
+      </h2>
+    </div>
+  </article>
 
-              {/* Blog Post 3 */}
-              <article className="group cursor-pointer w-full max-w-8cm">
-                <div className="blog-card mobile-responsive-card bg-white rounded-xl overflow-hidden shadow-sm w-full">
-                  <img
-                    src="https://images.pexels.com/photos/1078850/pexels-photo-1078850.jpeg?auto=compress&cs=tinysrgb&w=800"
-                    alt="Visa Tips for Pilot Students"
-                    className="blog-image w-full h-full object-cover"
-                  />
-                </div>
-                <div className="text-content mobile-text-content">
-                  <p className="text-gray-400 text-sm font-normal mb-2 tracking-wide">Aug 20, 2025</p>
-                  <h2 className="text-gray-900 text-sm font-medium leading-tight">Visa Tips for Pilot Students</h2>
-                </div>
-              </article>
+  {/* Blog Post 3 */}
+  <article className="group cursor-pointer w-full max-w-8cm">
+    <div className="blog-card mobile-responsive-card bg-white rounded-xl overflow-hidden shadow-sm w-full">
+      <img
+        src={img53}
+        alt="Visa Tips for Pilot Students"
+        className="blog-image w-full h-full object-cover"
+      />
+    </div>
+    <div className="text-content mobile-text-content">
+      <p className="text-gray-400 text-sm font-normal mb-2 tracking-wide">Aug 20, 2025</p>
+      <h2 className="text-gray-900 text-sm font-medium leading-tight">
+        Visa Tips for Pilot Students
+      </h2>
+    </div>
+  </article>
 
-              {/* Blog Post 4 */}
-              <article className="group cursor-pointer w-full max-w-8cm">
-                <div className="blog-card mobile-responsive-card bg-white rounded-xl overflow-hidden shadow-sm w-full">
-                  <img
-                    src="https://images.pexels.com/photos/416978/pexels-photo-416978.jpeg?auto=compress&cs=tinysrgb&w=800"
-                    alt="Life of a Pilot in Training: Student Stories"
-                    className="blog-image w-full h-full object-cover"
-                  />
-                </div>
-                <div className="text-content mobile-text-content">
-                  <p className="text-gray-400 text-sm font-normal mb-2 tracking-wide">Aug 20, 2025</p>
-                  <h2 className="text-gray-900 text-sm font-medium leading-tight">
-                    Life of a Pilot in Training: Student Stories
-                  </h2>
-                </div>
-              </article>
-            </div>
+  {/* Blog Post 4 */}
+  <article className="group cursor-pointer w-full max-w-8cm">
+    <div className="blog-card mobile-responsive-card bg-white rounded-xl overflow-hidden shadow-sm w-full">
+      <img
+        src={img54}
+        alt="Life of a Pilot in Training: Student Stories"
+        className="blog-image w-full h-full object-cover"
+      />
+    </div>
+    <div className="text-content mobile-text-content">
+      <p className="text-gray-400 text-sm font-normal mb-2 tracking-wide">Aug 20, 2025</p>
+      <h2 className="text-gray-900 text-sm font-medium leading-tight">
+        Life of a Pilot in Training: Student Stories
+      </h2>
+    </div>
+  </article>
+</div>
           </div>
         </div>
       </div>

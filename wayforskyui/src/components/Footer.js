@@ -48,17 +48,44 @@ const Footer = () => {
           <h3 style={styles.title}>Follow Us</h3>
           <div style={styles.socialContainer}>
             {/* ✅ 2. Replace the old <i> tags with the imported icon components */}
-            <a href="#" style={styles.social}><FaTwitter /></a>
-            <a href="#" style={styles.social}><FaFacebook /></a>
-            <a href="#" style={styles.social}><FaYoutube /></a>
-            <a href="#" style={styles.social}><FaInstagram /></a>
+{/* Social Section */}
+<div style={styles.section}>
+
+  <div style={styles.socialContainer}>
+    <a 
+      href="https://www.facebook.com/share/1AGxzRJJHz/" 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      style={styles.social}
+    >
+      <FaFacebook />
+    </a>
+    <a 
+      href="https://youtube.com/@wayforsky?si=53LfJr3Pp7hZjlt0" 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      style={styles.social}
+    >
+      <FaYoutube />
+    </a>
+    <a 
+      href="https://www.instagram.com/wayforskyofficial?igsh=bGJhY25jN3VvNWtr" 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      style={styles.social}
+    >
+      <FaInstagram />
+    </a>
+  </div>
+</div>
+
           </div>
         </div>
       </div>
 
       {/* Bottom Bar */}
       <div style={styles.bottomBar}>
-        <p>© {new Date().getFullYear()} WayForSky ✈️ | Lifting Dreams Beyond Horizons</p>
+        <p>© {new Date().getFullYear()} WayForSky  | Lifting Dreams Beyond Horizons</p>
       </div>
     </footer>
   )

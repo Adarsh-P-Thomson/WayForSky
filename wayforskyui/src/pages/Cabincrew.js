@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+// ✨ Added the local image import
+import flightInstructor from '../assets/Fleets/FIRATING.JPG';
 
 const App = () => {
   const [isVisible, setIsVisible] = useState({});
@@ -461,7 +463,8 @@ const App = () => {
     
     return (
       <img 
-        src="https://images.pexels.com/photos/6069112/pexels-photo-6069112.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
+        // ✨ Replaced the URL with the imported local image
+        src={flightInstructor}
         alt="Professional cabin crew training"
         style={{
           ...styles.overviewImage,

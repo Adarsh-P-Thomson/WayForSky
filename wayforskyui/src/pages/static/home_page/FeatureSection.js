@@ -6,6 +6,7 @@ import img34 from '../../../assets/Whywfs/3.4.JPG';
 import img35 from '../../../assets/Whywfs/3.5.JPG';
 import img36 from '../../../assets/Whywfs/3.6.JPG';
 
+
 // Component's CSS Styles - Scoped with 'wfs-' prefix
 const WhywayforskyStyles = () => (
   <style>{`
@@ -21,9 +22,10 @@ const WhywayforskyStyles = () => (
     .wfs-mainHeading {
       font-size: clamp(2.25rem, 5vw, 3rem);
       font-weight: 600;
-      color: #F5F5F5;
+      color: #1a1a1a;
       text-align: left;
       margin-bottom: 3rem;
+      line-height: 1.1;
     }
     .wfs-wrapper {
       position: relative;
@@ -59,7 +61,6 @@ const WhywayforskyStyles = () => (
     .wfs-cardContainer {
       overflow: hidden;
       border-radius: 1rem;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     }
     .wfs-card {
       height: 15cm;
@@ -166,11 +167,44 @@ const WhywayforskyStyles = () => (
     /* Responsive Styles for Mobile */
     @media (max-width: 767px) {
       .wfs-container {
-        padding: 4rem 1rem;
+        padding: 4rem 0.5rem;
+      }
+      .wfs-mainHeading {
+        font-size: 2.25rem;
+        line-height: 1.2;
+        margin-bottom: 3rem;
+      }
+      .wfs-navigationContainer {
+        display: none;
+      }
+      .wfs-wrapper {
+        overflow: hidden;
+      }
+      .wfs-scrollContainer {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        gap: 0.5rem;
+        padding: 0 0.25rem;
+      }
+      .wfs-scrollContainer::-webkit-scrollbar {
+        display: none;
+      }
+      .wfs-cardContainer {
+        flex: 0 0 100%;
+        scroll-snap-align: center;
+        scroll-snap-stop: always;
       }
       .wfs-card {
         flex-direction: column;
         height: auto;
+        width: 100%;
+        border-radius: 1rem;
+        overflow: hidden;
       }
       .wfs-imageContainer {
         width: 100%;
@@ -180,7 +214,26 @@ const WhywayforskyStyles = () => (
         width: 100%;
         padding: 2rem 1.5rem;
       }
+      .wfs-header {
+        margin-bottom: 1rem; /* Reduced gap below the header block */
+      }
+      .wfs-description {
+        margin-bottom: 0; /* Prevents this margin from interfering */
+      }
       .wfs-title {
+        font-size: 1.75rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .wfs-mainHeading {
+        font-size: 2rem;
+        line-height: 1.25;
+      }
+    }
+    
+    @media (max-width: 360px) {
+      .wfs-mainHeading {
         font-size: 1.75rem;
       }
     }
@@ -189,6 +242,18 @@ const WhywayforskyStyles = () => (
 
 const Whywayforsky = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 767);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
 const cardData = [
   {
@@ -248,6 +313,32 @@ const cardData = [
   const prevCard = () => {
     setCurrentIndex((prev) => (prev - 1 + cardData.length) % cardData.length);
   };
+
+  const handleScroll = (e) => {
+    if (!isMobile) return;
+    
+    const container = e.target;
+    const cardWidth = container.offsetWidth;
+    const scrollLeft = container.scrollLeft;
+    const newIndex = Math.round(scrollLeft / cardWidth);
+    
+    if (newIndex !== currentIndex) {
+      setCurrentIndex(newIndex);
+    }
+  };
+
+  const scrollToCard = (index) => {
+    if (!isMobile) return;
+    
+    const container = document.querySelector('.wfs-scrollContainer');
+    if (container) {
+      const cardWidth = container.offsetWidth;
+      container.scrollTo({
+        left: index * cardWidth,
+        behavior: 'smooth'
+      });
+    }
+  };
   
   const ChevronLeft = () => (
     <svg className="wfs-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -267,70 +358,129 @@ const cardData = [
     </svg>
   );
 
-  return (
-    <>
-      <WhywayforskyStyles />
-      <div className="wfs-container">
-        <h1 className="wfs-mainHeading">Why WayForSky?</h1>
-        <div className="wfs-wrapper">
-          {/* Navigation Arrows */}
-          <div className="wfs-navigationContainer">
-            <button onClick={prevCard} className="wfs-navButton">
-              <ChevronLeft />
-            </button>
-            <button onClick={nextCard} className="wfs-navButton">
-              <ChevronRight />
-            </button>
+  const renderDesktopView = () => (
+    <div className="wfs-wrapper">
+      {/* Navigation Arrows */}
+      <div className="wfs-navigationContainer">
+        <button onClick={prevCard} className="wfs-navButton">
+          <ChevronLeft />
+        </button>
+        <button onClick={nextCard} className="wfs-navButton">
+          <ChevronRight />
+        </button>
+      </div>
+
+      {/* Card Container */}
+      <div className="wfs-cardContainer">
+        <div className="wfs-card">
+          {/* Left Side - Image Container */}
+          <div className="wfs-imageContainer">
+            <img 
+              src={cardData[currentIndex].image}
+              alt={cardData[currentIndex].title}
+              className="wfs-image"
+            />
           </div>
 
-          {/* Card Container */}
-          <div className="wfs-cardContainer">
+          {/* Right Side - Content */}
+          <div className="wfs-contentContainer">
+            <div className="wfs-header">
+              <h1 className="wfs-title">
+                {cardData[currentIndex].title}
+              </h1>
+              <p className="wfs-description">
+                {cardData[currentIndex].description}
+              </p>
+            </div>
+            <div className="wfs-bottomSection">
+              <div>
+                <p className="wfs-subtitle">
+                  {cardData[currentIndex].subtitle}
+                </p>
+              </div>
+              <button className="wfs-button">
+                <span>{cardData[currentIndex].buttonText}</span>
+                <ArrowRight />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Dots Indicator */}
+      <div className="wfs-dotsContainer">
+        {cardData.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentIndex(index)}
+            className={`wfs-dot ${index === currentIndex ? 'wfs-dot-active' : 'wfs-dot-inactive'}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderMobileView = () => (
+    <div className="wfs-wrapper">
+      {/* Scrollable Cards Container */}
+      <div className="wfs-scrollContainer" onScroll={handleScroll}>
+        {cardData.map((card, index) => (
+          <div key={card.id} className="wfs-cardContainer">
             <div className="wfs-card">
-              {/* Left Side - Image Container */}
+              {/* Top - Image Container */}
               <div className="wfs-imageContainer">
                 <img 
-                  src={cardData[currentIndex].image}
-                  alt={cardData[currentIndex].title}
+                  src={card.image}
+                  alt={card.title}
                   className="wfs-image"
                 />
               </div>
 
-              {/* Right Side - Content */}
+              {/* Bottom - Content */}
               <div className="wfs-contentContainer">
                 <div className="wfs-header">
                   <h1 className="wfs-title">
-                    {cardData[currentIndex].title}
+                    {card.title}
                   </h1>
                   <p className="wfs-description">
-                    {cardData[currentIndex].description}
+                    {card.description}
                   </p>
                 </div>
                 <div className="wfs-bottomSection">
                   <div>
                     <p className="wfs-subtitle">
-                      {cardData[currentIndex].subtitle}
+                      {card.subtitle}
                     </p>
                   </div>
                   <button className="wfs-button">
-                    <span>{cardData[currentIndex].buttonText}</span>
+                    <span>{card.buttonText}</span>
                     <ArrowRight />
                   </button>
                 </div>
               </div>
             </div>
           </div>
+        ))}
+      </div>
 
-          {/* Dots Indicator */}
-          <div className="wfs-dotsContainer">
-            {cardData.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`wfs-dot ${index === currentIndex ? 'wfs-dot-active' : 'wfs-dot-inactive'}`}
-              />
-            ))}
-          </div>
-        </div>
+      {/* Dots Indicator */}
+      <div className="wfs-dotsContainer">
+        {cardData.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => scrollToCard(index)}
+            className={`wfs-dot ${index === currentIndex ? 'wfs-dot-active' : 'wfs-dot-inactive'}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+  return (
+    <>
+      <WhywayforskyStyles />
+      <div className="wfs-container">
+        <h1 className="wfs-mainHeading">Why WayForSky?</h1>
+        {isMobile ? renderMobileView() : renderDesktopView()}
       </div>
     </>
   );
