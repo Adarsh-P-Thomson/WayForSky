@@ -12,7 +12,7 @@ const WhywayforskyStyles = () => (
   <style>{`
     .wfs-container {
       min-height: 100vh;
-      background: linear-gradient(135deg, #c084fc 0%, #bfdbfe 50%, #c084fc 100%);
+      background: linear-gradient(180deg, #f0f7ff 0%, #e6f2ff 100%);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -45,8 +45,9 @@ const WhywayforskyStyles = () => (
       width: 3rem;
       height: 3rem;
       border-radius: 50%;
-      background-color: white;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      background-color: #ffffff;
+      border: 1px solid #e0efff;
+      box-shadow: 0 10px 15px -3px rgba(16, 24, 40, 0.08), 0 4px 6px -2px rgba(16, 24, 40, 0.04);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -55,19 +56,26 @@ const WhywayforskyStyles = () => (
       transition: all 0.2s ease;
     }
     .wfs-navButton:hover {
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-      transform: scale(1.05);
+      background-color: #007bff;
+      border-color: #0066d6;
+      box-shadow: 0 20px 25px -5px rgba(0, 123, 255, 0.35), 0 10px 10px -5px rgba(0, 102, 214, 0.25);
+      transform: translateY(-1px);
     }
     .wfs-cardContainer {
       overflow: hidden;
       border-radius: 1rem;
     }
     .wfs-card {
-      height: 15cm;
-      background-color: #fefefe;
+      min-height: 620px;
+      background-color: #ffffff;
       display: flex;
       flex-direction: row;
+      box-shadow: 0 16px 40px rgba(2, 6, 23, 0.08);
+      border: 1px solid #eaf2ff;
+      border-radius: 1rem;
     }
+    .wfs-anim-next { animation: wfs-slide-in-right 520ms cubic-bezier(.2,.8,.2,1) both; }
+    .wfs-anim-prev { animation: wfs-slide-in-left 520ms cubic-bezier(.2,.8,.2,1) both; }
     .wfs-imageContainer {
       width: 50%;
       height: 100%;
@@ -78,14 +86,18 @@ const WhywayforskyStyles = () => (
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transform: scale(1.02);
+      transition: transform 0.8s ease;
     }
+    .wfs-card:hover .wfs-image { transform: scale(1.06); }
     .wfs-contentContainer {
       width: 50%;
       display: flex;
       flex-direction: column;
       justify-content: center;
       padding: 3rem;
-      background: linear-gradient(135deg, #fefefe 0%, #fdfcf4 100%);
+      background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
+      border-left: 4px solid #007bff;
     }
     .wfs-header {
       margin-bottom: 2rem;
@@ -93,12 +105,12 @@ const WhywayforskyStyles = () => (
     .wfs-title {
       font-size: 2.25rem;
       font-weight: 300;
-      color: #1f2937;
+      color: #0f172a;
       margin-bottom: 1rem;
       letter-spacing: 0.025em;
     }
     .wfs-description {
-      color: #4b5563;
+      color: #334155;
       line-height: 1.625;
       font-size: 1rem;
       margin-bottom: 2rem;
@@ -111,28 +123,29 @@ const WhywayforskyStyles = () => (
     .wfs-subtitle {
       font-size: 0.875rem;
       font-weight: 500;
-      color: #374151;
+      color: #475569;
       font-style: italic;
     }
     .wfs-button {
       display: inline-flex;
       align-items: center;
       gap: 0.75rem;
-      background-color: #a3e635;
-      color: #1f2937;
-      font-weight: 500;
-      padding: 0.75rem 1.5rem;
+      background-color: #007bff;
+      color: #ffffff;
+      font-weight: 600;
+      padding: 0.75rem 1.25rem;
       border-radius: 0.5rem;
-      border: none;
+      border: 1px solid #0066d6;
       cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      transition: all 0.25s ease;
+      box-shadow: 0 10px 18px rgba(0, 123, 255, 0.25);
       width: fit-content;
     }
     .wfs-button:hover {
-      background-color: #84cc16;
-      transform: scale(1.05);
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      background-color: #0066d6;
+      border-color: #0052ad;
+      transform: translateY(-1px);
+      box-shadow: 0 16px 28px rgba(0, 102, 214, 0.35);
     }
     .wfs-dotsContainer {
       display: flex;
@@ -149,20 +162,47 @@ const WhywayforskyStyles = () => (
       transition: background-color 0.2s ease;
     }
     .wfs-dot-active {
-      background-color: white;
+      background-color: #007bff;
+      transform: scale(1.4);
     }
     .wfs-dot-inactive {
-      background-color: rgba(255, 255, 255, 0.4);
+      background-color: rgba(0, 123, 255, 0.25);
     }
     .wfs-arrow {
       width: 1.5rem;
       height: 1.5rem;
-      color: #4b5563;
+      color: #0f3b7a;
     }
     .wfs-icon-arrow {
         width: 1rem;
         height: 1rem;
     }
+
+    /* Animations */
+    @keyframes wfs-fade-slide {
+      from { opacity: 0; transform: translateY(14px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes wfs-slide-in-right {
+      from { opacity: 0; transform: translateX(40px) scale(0.98); }
+      to { opacity: 1; transform: translateX(0) scale(1); }
+    }
+    @keyframes wfs-slide-in-left {
+      from { opacity: 0; transform: translateX(-40px) scale(0.98); }
+      to { opacity: 1; transform: translateX(0) scale(1); }
+    }
+    @keyframes wfs-fade-up {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Staggered content reveal */
+    .wfs-anim-next .wfs-title,
+    .wfs-anim-prev .wfs-title { animation: wfs-fade-up 420ms ease both; animation-delay: 120ms; }
+    .wfs-anim-next .wfs-description,
+    .wfs-anim-prev .wfs-description { animation: wfs-fade-up 420ms ease both; animation-delay: 180ms; }
+    .wfs-anim-next .wfs-bottomSection,
+    .wfs-anim-prev .wfs-bottomSection { animation: wfs-fade-up 420ms ease both; animation-delay: 240ms; }
 
     /* Responsive Styles for Mobile */
     @media (max-width: 767px) {
@@ -205,6 +245,7 @@ const WhywayforskyStyles = () => (
         width: 100%;
         border-radius: 1rem;
         overflow: hidden;
+        animation: wfs-fade-slide 420ms cubic-bezier(.2,.8,.2,1) both;
       }
       .wfs-imageContainer {
         width: 100%;
@@ -213,6 +254,7 @@ const WhywayforskyStyles = () => (
       .wfs-contentContainer {
         width: 100%;
         padding: 2rem 1.5rem;
+        border-left: none;
       }
       .wfs-header {
         margin-bottom: 1rem; /* Reduced gap below the header block */
@@ -242,6 +284,7 @@ const WhywayforskyStyles = () => (
 
 const Whywayforsky = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState('next'); // 'next' | 'prev'
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -307,10 +350,12 @@ const cardData = [
 ];
 
   const nextCard = () => {
+    setDirection('next');
     setCurrentIndex((prev) => (prev + 1) % cardData.length);
   };
 
   const prevCard = () => {
+    setDirection('prev');
     setCurrentIndex((prev) => (prev - 1 + cardData.length) % cardData.length);
   };
 
@@ -371,8 +416,8 @@ const cardData = [
       </div>
 
       {/* Card Container */}
-      <div className="wfs-cardContainer">
-        <div className="wfs-card">
+    <div className="wfs-cardContainer">
+  <div className={`wfs-card ${direction === 'next' ? 'wfs-anim-next' : 'wfs-anim-prev'}`} key={`${currentIndex}-${direction}`}>
           {/* Left Side - Image Container */}
           <div className="wfs-imageContainer">
             <img 
@@ -412,7 +457,11 @@ const cardData = [
         {cardData.map((_, index) => (
           <button
             key={index}
-            onClick={() => setCurrentIndex(index)}
+            onClick={() => {
+              if (index === currentIndex) return;
+              setDirection(index > currentIndex ? 'next' : 'prev');
+              setCurrentIndex(index);
+            }}
             className={`wfs-dot ${index === currentIndex ? 'wfs-dot-active' : 'wfs-dot-inactive'}`}
           />
         ))}

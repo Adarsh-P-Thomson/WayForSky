@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from "react-router-dom";
 
 import cessna172 from '../../../assets/Fleets/cessna.png';
@@ -36,6 +36,9 @@ const Fleet = () => {
   // State to track the index in the master 'aircrafts' list
   const [masterIndex, setMasterIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [direction, setDirection] = useState('next'); // 'next' | 'prev' for subtle directional cues
+  const [paused, setPaused] = useState(false); // pause auto-rotate on hover
+  const displayRef = useRef(null);
   
   // The active category is now derived from the current aircraft in the master list
   const activeCategory = aircrafts[masterIndex].category;
@@ -50,8 +53,9 @@ const Fleet = () => {
   const currentIndexInCategory = filteredAircrafts.findIndex(a => a.name === currentAircraft.name);
 const navigate = useNavigate();
   // REFACTORED: Navigation now works on the entire 'aircrafts' list
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     if (isTransitioning) return;
+    setDirection('next');
     setIsTransitioning(true);
     
     setTimeout(() => {
@@ -59,10 +63,11 @@ const navigate = useNavigate();
       setMasterIndex(nextIndex);
       setIsTransitioning(false);
     }, 250);
-  };
+  }, [isTransitioning, masterIndex, aircrafts.length]);
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     if (isTransitioning) return;
+    setDirection('prev');
     setIsTransitioning(true);
     
     setTimeout(() => {
@@ -70,7 +75,7 @@ const navigate = useNavigate();
       setMasterIndex(prevIndex);
       setIsTransitioning(false);
     }, 250);
-  };
+  }, [isTransitioning, masterIndex, aircrafts.length]);
 
   // REFACTORED: Jumps to the first aircraft of the selected category
   const handleCategoryFilter = (category) => {
@@ -81,6 +86,7 @@ const navigate = useNavigate();
     setTimeout(() => {
       const firstIndexInCategory = aircrafts.findIndex(a => a.category === category);
       if (firstIndexInCategory !== -1) {
+        setDirection('next');
         setMasterIndex(firstIndexInCategory);
       }
       setIsTransitioning(false);
@@ -96,10 +102,41 @@ const navigate = useNavigate();
     setTimeout(() => {
       const newMasterIndex = aircrafts.findIndex(a => a.name === targetAircraft.name);
       if (newMasterIndex !== -1) {
+        setDirection(newMasterIndex > masterIndex ? 'next' : 'prev');
         setMasterIndex(newMasterIndex);
       }
       setIsTransitioning(false);
     }, 250);
+  };
+
+  // Auto-rotate through aircrafts for a lively, fun feel
+  useEffect(() => {
+    const id = setInterval(() => {
+      if (!paused && !isTransitioning) {
+        handleNext();
+      }
+    }, 4000);
+    return () => clearInterval(id);
+  }, [paused, isTransitioning, handleNext]);
+
+  // Interactive tilt effect via CSS variables
+  const handleMouseMove = (e) => {
+    if (!displayRef.current) return;
+    const rect = displayRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const px = (x / rect.width) * 2 - 1; // -1 to 1
+    const py = (y / rect.height) * 2 - 1;
+    const rotateY = px * 6; // deg
+    const rotateX = -py * 6; // deg
+    displayRef.current.style.setProperty('--ry', `${rotateY}deg`);
+    displayRef.current.style.setProperty('--rx', `${rotateX}deg`);
+  };
+
+  const handleMouseLeaveTilt = () => {
+    if (!displayRef.current) return;
+    displayRef.current.style.setProperty('--ry', `0deg`);
+    displayRef.current.style.setProperty('--rx', `0deg`);
   };
 
   return (
@@ -150,7 +187,13 @@ const navigate = useNavigate();
 
         <div className="main-content">
           <div className="aircraft-container">
-            <div className="aircraft-display">
+            <div
+              className={`aircraft-display ${direction}`}
+              ref={displayRef}
+              onMouseEnter={() => setPaused(true)}
+              onMouseLeave={() => { setPaused(false); handleMouseLeaveTilt(); }}
+              onMouseMove={handleMouseMove}
+            >
               <button
                 className="nav-button nav-button-prev"
                 onClick={handlePrev}
@@ -174,6 +217,8 @@ const navigate = useNavigate();
                 alt={currentAircraft?.name}
                 className={`aircraft-image ${isTransitioning ? 'fade-out' : 'fade-in'}`}
               />
+              <div className="platform-large" />
+              <div className="platform-small" />
             </div>
           </div>
         </div>

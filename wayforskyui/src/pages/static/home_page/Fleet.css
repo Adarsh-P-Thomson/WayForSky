@@ -2,7 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap');
 
 .fleet-container {
-  background-color: #000;
+  background: radial-gradient(1200px 600px at 80% -10%, rgba(56, 189, 248, 0.15), transparent),
+              radial-gradient(900px 500px at 0% 0%, rgba(29, 78, 216, 0.25), transparent),
+              #0a0f1a; /* deep navy */
   min-height: 100vh;
   overflow-x: hidden;
   font-family: 'Inter', sans-serif;
@@ -26,7 +28,7 @@
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   font-size: 2.25rem;
   font-weight: 600;
-  color: white;
+  color: #e6f2ff;
   margin-bottom: 0; /* Margin is now on parent container */
   letter-spacing: -0.025em;
   line-height: 1.2;
@@ -35,7 +37,7 @@
 .fleet-description {
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   font-size: 1.125rem;
-  color: #7c7c7c;
+  color: #9fb3c8;
   font-weight: 500;
   line-height: 1.6;
   max-width: 32rem;
@@ -48,12 +50,13 @@
   align-items: center;
   gap: 0.25rem;
   padding: 0.25rem 0.5rem;
-  background-color: white;
-  color: black;
+  background: linear-gradient(180deg, #3b82f6, #1d4ed8);
+  color: white;
   font-weight: 600;
   border-radius: 0.5rem;
-  border: 2px solid transparent;
-  transition: all 0.3s ease-in-out;
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 10px 20px rgba(59, 130, 246, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
   transform: scale(1);
   font-size: 0.875rem;
   cursor: pointer;
@@ -61,11 +64,9 @@
 }
 
 .explore-button:hover {
-  background-color: black;
-  color: white;
-  border-color: white;
-  transform: scale(1.05);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  filter: brightness(1.05);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 14px 28px rgba(59, 130, 246, 0.35);
 }
 
 .explore-icon {
@@ -87,7 +88,7 @@
 .aircraft-name {
   font-size: 1.875rem;
   font-weight: 700;
-  color: white;
+  color: #e6f2ff;
   margin-bottom: 0.5rem;
   letter-spacing: -0.025em;
   transition: all 0.5s ease-in-out;
@@ -95,7 +96,7 @@
 
 .aircraft-category {
   font-size: 1rem;
-  color: #7c7c7c;
+  color: #86a2be;
   font-weight: 500;
   transition: all 0.5s ease-in-out;
 }
@@ -127,6 +128,9 @@
   align-items: center;
   justify-content: center;
   margin: 0 auto;
+  perspective: 1000px;
+  --rx: 0deg;
+  --ry: 0deg;
 }
 
 /* Navigation Buttons */
@@ -137,29 +141,30 @@
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
-  border: 2px solid #7c7c7c;
-  background-color: transparent;
-  color: white;
+  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(6px);
+  color: #e6f2ff;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
   z-index: 20;
   cursor: pointer;
 }
 
 .nav-button:hover {
-  background-color: #7c7c7c;
+  background: rgba(30, 58, 138, 0.8);
+  box-shadow: 0 10px 20px rgba(30, 58, 138, 0.35);
+  transform: translateY(-50%) scale(1.05);
 }
 
 .nav-button-prev {
-  left: 0;
-  transform: translateY(-50%) translateX(-1rem);
+  left: -1rem;
 }
 
 .nav-button-next {
-  right: 0;
-  transform: translateY(-50%) translateX(1rem);
+  right: -1rem;
 }
 
 .nav-icon {
@@ -173,7 +178,7 @@
   bottom: 0;
   width: 14rem;
   height: 1rem;
-  background: linear-gradient(to right, #7c7c7c, white, #7c7c7c);
+  background: linear-gradient(to right, rgba(3, 105, 161, 0.1), rgba(255,255,255,0.5), rgba(3, 105, 161, 0.1));
   border-radius: 50px;
   opacity: 0.3;
   filter: blur(2px);
@@ -184,7 +189,7 @@
   bottom: 0.25rem;
   width: 12rem;
   height: 0.5rem;
-  background: linear-gradient(to right, transparent, #7c7c7c, transparent);
+  background: linear-gradient(to right, transparent, rgba(59, 130, 246, 0.5), transparent);
   border-radius: 50px;
   opacity: 0.4;
 }
@@ -196,18 +201,19 @@
   object-fit: contain;
   position: relative;
   z-index: 10;
-  filter: drop-shadow(0 25px 25px rgb(0 0 0 / 0.15));
-  transition: all 0.5s ease-in-out;
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+  filter: drop-shadow(0 25px 25px rgba(0, 0, 0, 0.35)) saturate(1.05);
+  transition: transform 0.2s ease, filter 0.4s ease, opacity 0.4s ease;
 }
 
 .fade-in {
   opacity: 1;
-  transform: translateX(0);
+  transform: translateX(0) rotateX(var(--rx)) rotateY(var(--ry));
 }
 
 .fade-out {
   opacity: 0;
-  transform: translateX(20px);
+  transform: translateX(20px) rotateX(var(--rx)) rotateY(var(--ry));
 }
 
 /* Indicators */
@@ -222,15 +228,20 @@
 .indicator {
   width: 2rem;
   height: 0.25rem;
-  background-color: #7c7c7c;
+  background: linear-gradient(90deg, rgba(148, 163, 184, 0.4), rgba(148, 163, 184, 0.6));
   border: none;
   border-radius: 2px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: transform 0.2s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.indicator:hover {
+  transform: translateY(-1px);
 }
 
 .indicator-active {
-  background-color: white;
+  background: linear-gradient(90deg, #60a5fa, #1d4ed8);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.35);
 }
 
 /* Category Filter */
@@ -247,19 +258,21 @@
   padding: 0.5rem 1rem;
   font-size: 0.75rem;
   font-weight: 500;
-  background-color: transparent;
-  color: white;
-  border: 1px solid #7c7c7c;
-  border-radius: 0.25rem;
-  transition: all 0.3s ease;
+  background: rgba(30, 58, 138, 0.25);
+  color: #e6f2ff;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 999px;
+  transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
   white-space: nowrap;
   cursor: pointer;
 }
 
 .category-btn:hover,
 .category-btn-active {
-  background-color: #7c7c7c;
-  border-color: white;
+  background: linear-gradient(180deg, rgba(59, 130, 246, 0.85), rgba(29, 78, 216, 0.85));
+  border-color: rgba(255,255,255,0.35);
+  box-shadow: 0 10px 24px rgba(59, 130, 246, 0.35);
+  transform: translateY(-1px);
 }
 
 /* Tablet Styles */
@@ -313,13 +326,8 @@
     height: 3rem;
   }
   
-  .nav-button-prev {
-    transform: translateY(-50%) translateX(-1.5rem);
-  }
-  
-  .nav-button-next {
-    transform: translateY(-50%) translateX(1.5rem);
-  }
+  .nav-button-prev { left: -1.5rem; }
+  .nav-button-next { right: -1.5rem; }
   
   .nav-icon {
     width: 1.5rem;
@@ -377,13 +385,8 @@
     height: 500px;
   }
   
-  .nav-button-prev {
-    transform: translateY(-50%) translateX(-4rem);
-  }
-  
-  .nav-button-next {
-    transform: translateY(-50%) translateX(4rem);
-  }
+  .nav-button-prev { left: -4rem; }
+  .nav-button-next { right: -4rem; }
   
   .platform-large {
     width: 32.5rem;
@@ -407,11 +410,6 @@
     font-size: 3.75rem;
   }
   
-  .nav-button-prev {
-    transform: translateY(-50%) translateX(-5rem);
-  }
-  
-  .nav-button-next {
-    transform: translateY(-50%) translateX(5rem);
-  }
+  .nav-button-prev { left: -5rem; }
+  .nav-button-next { right: -5rem; }
 }

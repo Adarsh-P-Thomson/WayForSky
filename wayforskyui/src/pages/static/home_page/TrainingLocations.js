@@ -533,6 +533,93 @@ const componentStyles = `
       font-weight: 400;
     }
   }
+
+  /* --- Overrides: compact spacing, blue accents, responsive grid --- */
+  .training-locations-section {
+    padding: clamp(40px, 6vh, 72px) clamp(16px, 5vw, 40px);
+    background: linear-gradient(180deg, #f7fbff 0%, #eef6ff 100%);
+  }
+  .training-locations-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 0;
+    padding-right: 0;
+    grid-template-columns: 1fr auto;
+    gap: clamp(16px, 3vw, 24px);
+    align-items: center;
+  }
+  .training-locations-right-column { gap: clamp(16px, 3vw, 24px); }
+  .training-locations-header-container { align-items: center; gap: clamp(12px, 2vw, 16px); }
+
+  .training-locations-cta-button {
+    background-color: #007bff;
+    color: #ffffff;
+    border: 1px solid #0066d6;
+    padding: clamp(12px, 2vw, 16px) clamp(22px, 4vw, 32px);
+    border-radius: 12px;
+    box-shadow: 0 clamp(6px, 1vw, 10px) clamp(16px, 3vw, 24px) rgba(0, 123, 255, 0.28);
+    transition: all 0.25s ease;
+  }
+  .training-locations-cta-button:hover {
+    transform: translateY(-1px);
+    background-color: #0066d6;
+    border-color: #0052ad;
+    box-shadow: 0 clamp(10px, 2vw, 18px) clamp(22px, 4vw, 32px) rgba(0, 102, 214, 0.35);
+  }
+
+  .training-locations-cards-grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: clamp(16px, 3vw, 28px);
+    width: 100%;
+    max-width: 1200px;
+    margin: clamp(28px, 6vw, 48px) auto 0 auto;
+  }
+
+  .training-locations-card {
+    background-color: #f8fbff;
+    border: 1px solid #e6f0ff;
+    border-radius: clamp(16px, 3vw, 22px);
+    padding: clamp(20px, 4vw, 28px);
+    box-shadow: 0 clamp(4px, 1vw, 8px) clamp(14px, 3vw, 24px) rgba(2, 6, 23, 0.08);
+    transition: all 0.3s ease;
+    animation: tl-fade-up 520ms ease both;
+  }
+  .training-locations-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 clamp(12px, 2.5vw, 20px) clamp(28px, 5vw, 36px) rgba(0, 102, 214, 0.22);
+    background-color: #eef6ff;
+  }
+
+  .training-locations-card-img {
+    width: clamp(140px, 18vw, 180px);
+    height: clamp(140px, 18vw, 180px);
+  }
+
+  .training-locations-card-number { color: #0f3b7a; }
+
+  /* Mobile overrides */
+  @media (max-width: 768px) {
+    .training-locations-cards-grid {
+      grid-template-columns: 1fr;
+      gap: clamp(20px, 5vw, 28px);
+      margin: clamp(28px, 6vw, 48px) auto 0 auto;
+    }
+    .training-locations-card { padding: clamp(20px, 5vw, 28px); }
+    .training-locations-cta-button {
+      display: inline-flex; /* override earlier hide */
+      width: 100%;
+      justify-content: center;
+      padding: clamp(12px, 3vw, 16px) clamp(18px, 4vw, 24px);
+    }
+  }
+
+  @keyframes tl-fade-up {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .training-locations-card:nth-child(1) { animation-delay: 60ms; }
+  .training-locations-card:nth-child(2) { animation-delay: 120ms; }
+  .training-locations-card:nth-child(3) { animation-delay: 180ms; }
 `;
 
 const TrainingLocations = () => {
