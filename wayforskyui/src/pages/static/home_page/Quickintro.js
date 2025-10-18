@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { Link } from "react-router-dom";
+import { motion } from 'framer-motion'
 
 import img21 from '../../../assets/Aboutwfs/2.1.JPG';
 import img22 from '../../../assets/Aboutwfs/2.2.JPG';
@@ -72,7 +73,7 @@ const SectionContainer = styled.section`
   background-color: #ffffff;
   padding: 80px 40px;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  
+
   @media (max-width: 1024px) {
     padding: 70px 30px;
   }
@@ -163,237 +164,106 @@ const ContactLink = styled.a`
 // Container for all benefit items
 const BenefitsContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  margin: 0 auto;
-  max-width: calc(100vw - 4cm);
-  padding: 0 2cm;
-  
-  @media (max-width: 1400px) {
-    gap: 50px;
-    padding: 0 1.5cm;
-    max-width: calc(100vw - 3cm);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+
+  @media (max-width: 1100px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  
-  @media (max-width: 1200px) {
-    gap: 40px;
-    padding: 0 1cm;
-    max-width: calc(100vw - 2cm);
-  }
-  
-  @media (max-width: 1024px) {
-    gap: 30px;
-    padding: 0 30px;
-    max-width: calc(100vw - 60px);
-  }
-  
-  @media (max-width: 900px) {
+
+  @media (max-width: 700px) {
     grid-template-columns: 1fr;
-    gap: 0;
-    padding: 0 20px;
-    max-width: calc(100vw - 40px);
-  }
-  
-  @media (max-width: 768px) {
-    display: block;
-    margin: 0;
-    gap: 0;
-    padding: 0;
-    max-width: 100%;
   }
 `
 
-// Individual benefit item with 3-column grid
-const BenefitItem = styled.div`
-  display: grid;
-  grid-template-columns: 200px 80px 1fr;
-  gap: 40px;
-  align-items: flex-start;
-  padding: 0;
-  min-width: 0; /* Prevent grid overflow */
-  overflow: hidden; /* Prevent content overflow */
-  
-  @media (max-width: 1024px) {
-    grid-template-columns: 180px 70px 1fr;
-    gap: 30px;
-    padding: 0;
-  }
-  
-  @media (max-width: 900px) {
-    grid-template-columns: 1fr;
-    gap: 20px;
-    padding: 30px 0;
-  }
-  
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    gap: 20px;
-    padding: 30px 0;
-  }
-  
-  @media (max-width: 480px) {
-    gap: 16px;
-    padding: 24px 0;
-  }
-`
-
-// Image container with rounded corners
-const ImageContainer = styled.div`
-  width: 100%;
-  height: 140px;
-  border-radius: 12px;
+// Card for each benefit — rounded, shadowed, and responsive
+const BenefitCard = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid #eef2f7;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
   overflow: hidden;
-  flex-shrink: 0; /* Prevent image from shrinking */
-  
-  @media (max-width: 1024px) {
-    height: 130px;
-  }
-  
-  @media (max-width: 900px) {
-    display: none; /* Hide desktop image on tablet and below */
-  }
-  
-  @media (max-width: 768px) {
-    display: none; /* Hide desktop image on mobile */
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.10);
   }
 `
 
-// Number styling - large, bold, and gray
-const BenefitNumber = styled.div`
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #666666;
-  font-family: 'Inter', monospace;
-  flex-shrink: 0; /* Prevent number from shrinking */
-  
-  @media (max-width: 1024px) {
-    font-size: 2.25rem;
+// Image container with rounded corners (visible on all sizes, responsive)
+const ImageContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: #f8fafc;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
-  
+
   @media (max-width: 900px) {
-    display: none; /* Hide desktop number on tablet and below */
+    height: 180px;
   }
-  
-  @media (max-width: 768px) {
-    display: none; /* Hide desktop number on mobile */
+
+  @media (max-width: 480px) {
+    height: 160px;
   }
+`
+
+// Circular badge number overlay
+const BenefitNumber = styled.div`
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 8px 12px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(0,0,0,0.06);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #111827;
+  box-shadow: 0 4px 12px rgba(16,24,40,0.08);
 `
 
 // Text content container
 const TextContent = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  min-width: 0; /* Allow text to wrap properly */
-  word-wrap: break-word; /* Ensure long words break */
-  
-  @media (max-width: 480px) {
-    gap: 12px;
-  }
+  gap: 10px;
+  padding: 16px 16px 18px;
+  min-width: 0;
+  word-wrap: break-word;
 `
 
 // Benefit title styling
 const BenefitTitle = styled.h3`
-  font-size: 1.75rem;
-  font-weight: 600;
-  color: #1a1a1a;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0f172a;
   margin: 0;
   line-height: 1.3;
-  word-wrap: break-word; /* Prevent title overflow */
-  
-  @media (max-width: 1024px) {
-    font-size: 1.625rem;
-  }
-  
-  @media (max-width: 768px) {
-    font-size: 1.5rem;
-    line-height: 1.35;
-  }
-  
-  @media (max-width: 480px) {
-    font-size: 1.375rem;
-    line-height: 1.4;
-  }
-  
-  @media (max-width: 360px) {
-    font-size: 1.25rem;
-  }
 `
 
 // Benefit description styling
 const BenefitDescription = styled.p`
-  font-size: 1.125rem;
-  color: #666666;
-  line-height: 1.6;
+  font-size: 0.975rem;
+  color: #475569;
+  line-height: 1.7;
   margin: 0;
-  word-wrap: break-word; /* Prevent description overflow */
-  hyphens: auto; /* Enable hyphenation for better text flow */
-  
-  @media (max-width: 1024px) {
-    font-size: 1.0625rem;
-  }
-  
-  @media (max-width: 768px) {
-    font-size: 1rem;
-    line-height: 1.65;
-  }
-  
-  @media (max-width: 480px) {
-    font-size: 0.9375rem;
-    line-height: 1.7;
-  }
+  word-wrap: break-word;
+  hyphens: auto;
 `
 
-// Mobile layout adjustments for image and number
-const MobileTopRow = styled.div`
-  display: none;
-  
-  @media (max-width: 768px) {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 20px;
-    align-items: center;
-    margin-bottom: 16px; /* Add spacing below mobile row */
-    
-    ${ImageContainer} {
-      height: 200px; /* Larger mobile image for better visual impact */
-      border-radius: 16px;
-      display: block; /* Show image in mobile layout */
-    }
-    
-    ${BenefitNumber} {
-      font-size: 2rem;
-      display: block; /* Show number in mobile layout */
-      color: #666666;
-      font-weight: 700;
-      font-family: 'Inter', monospace;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    gap: 16px;
-    margin-bottom: 12px;
-    
-    ${ImageContainer} {
-      height: 180px;
-      border-radius: 12px;
-    }
-    
-    ${BenefitNumber} {
-      font-size: 1.75rem;
-    }
-  }
-  
-  @media (max-width: 360px) {
-    ${ImageContainer} {
-      height: 160px;
-    }
-    
-    ${BenefitNumber} {
-      font-size: 1.5rem;
-    }
-  }
-`
+// removed MobileTopRow (no longer needed with vertical card layout)
 
 // Separator line component
 const Separator = styled.div`
@@ -463,33 +333,24 @@ const Quickintro = () => {
       {/* Benefits list container */}
       <BenefitsContainer>
         {benefitsData.map((benefit, index) => (
-          <React.Fragment key={benefit.id}>
-            <BenefitItem>
-              {/* Desktop layout - 3 columns (hidden on mobile) */}
-              <ImageContainer className="desktop-image">
-                <BenefitImage src={benefit.image || "/placeholder.svg"} alt={benefit.title} loading="lazy" />
+          <motion.div
+            key={benefit.id}
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.06, duration: 0.45, ease: 'easeOut' }}
+          >
+            <BenefitCard as={motion.div} whileHover={{ scale: 1.02 }}>
+              <ImageContainer>
+                <BenefitNumber>{benefit.number}</BenefitNumber>
+                <img src={benefit.image || "/placeholder.svg"} alt={benefit.title} loading="lazy" />
               </ImageContainer>
 
-              <BenefitNumber className="desktop-number">{benefit.number}</BenefitNumber>
-
-              {/* Mobile layout - stacked image and number on top */}
-              <MobileTopRow>
-                <ImageContainer>
-                  <BenefitImage src={benefit.image || "/placeholder.svg"} alt={benefit.title} loading="lazy" />
-                </ImageContainer>
-                <BenefitNumber>{benefit.number}</BenefitNumber>
-              </MobileTopRow>
-
-              {/* Text content - title and description */}
               <TextContent>
                 <BenefitTitle>{benefit.title}</BenefitTitle>
                 <BenefitDescription>{benefit.description}</BenefitDescription>
               </TextContent>
-            </BenefitItem>
-
-            {/* Separator line between items (except after last item) */}
-            {index < benefitsData.length - 1 && <Separator />}
-          </React.Fragment>
+            </BenefitCard>
+          </motion.div>
         ))}
       </BenefitsContainer>
     </SectionContainer>
