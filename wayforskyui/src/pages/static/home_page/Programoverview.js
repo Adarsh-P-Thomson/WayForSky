@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from "react"
 const ProgramOverview = () => {
   const [activeSection, setActiveSection] = useState(0)
   const [expandedCard, setExpandedCard] = useState(null)
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' ? window.innerWidth <= 1024 : false)
   const featureTourRef = useRef(null)
 
   useEffect(() => {
@@ -33,6 +34,17 @@ const ProgramOverview = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll)
     }
+  }, [])
+
+  // Make mobile/desktop view reactive to viewport changes
+  useEffect(() => {
+    const onResize = () => {
+      if (typeof window === 'undefined') return
+      setIsMobile(window.innerWidth <= 1024)
+    }
+    onResize()
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
   }, [])
 
   const handleFeatureClick = (index) => {
@@ -87,43 +99,47 @@ const ProgramOverview = () => {
     },
     leftPanel: {
       width: "50%",
-      background: "#000",
+      background: "linear-gradient(180deg, #0b1220 0%, #0f172a 100%)",
       color: "white",
-      padding: "80px 60px",
+      padding: "clamp(24px, 6vw, 80px) clamp(16px, 5vw, 60px)",
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
       position: "relative",
+      boxSizing: "border-box",
+      borderRight: "1px solid rgba(255,255,255,0.06)",
     },
     headerContainer: {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
-      marginBottom: "60px",
+      marginBottom: "clamp(24px, 6vw, 60px)",
     },
     mainHeading: {
-      fontSize: "48px",
+      fontSize: "clamp(28px, 4vw, 48px)",
       fontWeight: 700,
       lineHeight: 1.1,
       marginBottom: "0", // Removed bottom margin since it's now in headerContainer
       letterSpacing: "-0.02em",
     },
     viewAllButton: {
-      background: "rgba(255, 255, 255, 0.1)",
+      background: "linear-gradient(180deg, #3b82f6, #1d4ed8)",
       color: "white",
-      border: "1px solid rgba(255, 255, 255, 0.2)",
-      borderRadius: "8px",
+      border: "1px solid rgba(255, 255, 255, 0.25)",
+      borderRadius: "10px",
       padding: "12px 20px",
       fontSize: "14px",
-      fontWeight: 500,
+      fontWeight: 600,
       cursor: "pointer",
-      transition: "all 0.3s ease",
+      transition: "transform 0.2s ease, box-shadow 0.3s ease, filter 0.2s ease",
       whiteSpace: "nowrap",
       marginLeft: "20px",
+      boxShadow: "0 10px 20px rgba(59,130,246,0.25)",
     },
     viewAllButtonHover: {
-      background: "rgba(255, 255, 255, 0.2)",
+      filter: "brightness(1.05)",
       transform: "translateY(-2px)",
+      boxShadow: "0 14px 28px rgba(59,130,246,0.35)",
     },
     featureItem: {
       marginBottom: "50px",
@@ -133,8 +149,9 @@ const ProgramOverview = () => {
       cursor: "pointer",
     },
     featureItemActive: {
-      background: "rgba(255, 255, 255, 0.1)",
-      transform: "translateX(10px)",
+      background: "rgba(59, 130, 246, 0.12)",
+      border: "1px solid rgba(59, 130, 246, 0.35)",
+      transform: "translateX(8px)",
     },
     featureTitle: {
       display: "flex",
@@ -159,7 +176,7 @@ const ProgramOverview = () => {
       transition: "color 0.3s ease",
     },
     featureDescriptionActive: {
-      color: "#fff",
+      color: "#e6f2ff",
     },
     posLink: {
       color: "white",
@@ -167,12 +184,13 @@ const ProgramOverview = () => {
     },
     rightPanel: {
       width: "50%",
-      background: "linear-gradient(135deg, #f5f5f5 0%, #f0e8e0 100%)",
-      padding: "40px",
+      background: "linear-gradient(135deg, #0a0f1a 0%, #0c1c3a 100%)",
+      padding: "clamp(20px, 4vw, 40px)",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
       position: "relative",
+      boxSizing: "border-box",
     },
     contentSection: {
       position: "absolute",
@@ -193,18 +211,19 @@ const ProgramOverview = () => {
     browserMockup: {
       background: "white",
       borderRadius: "12px",
-      boxShadow: "0 20px 40px rgba(0, 0, 0, 0.1)",
+      boxShadow: "0 20px 40px rgba(2, 6, 23, 0.4)",
       overflow: "hidden",
       width: "100%",
       maxWidth: "600px",
       position: "relative",
+      border: "1px solid rgba(2,6,23,0.2)",
     },
     browserHeader: {
-      background: "#f6f6f6",
+      background: "linear-gradient(180deg, #f8fbff, #eff6ff)",
       padding: "12px 20px",
       display: "flex",
       alignItems: "center",
-      borderBottom: "1px solid #e0e0e0",
+      borderBottom: "1px solid #dbeafe",
     },
     browserDots: {
       display: "flex",
@@ -237,7 +256,7 @@ const ProgramOverview = () => {
       fontSize: "14px",
     },
     navItem: {
-      color: "#666",
+      color: "#4b5563",
       textDecoration: "none",
       fontWeight: 500,
     },
@@ -252,10 +271,10 @@ const ProgramOverview = () => {
       marginBottom: "30px",
     },
     heroTitle: {
-      fontSize: "32px",
+      fontSize: "clamp(20px, 3vw, 32px)",
       fontWeight: 700,
       marginBottom: "8px",
-      color: "#000",
+      color: "#0b1220",
     },
     heroSubtitle: {
       color: "#666",
@@ -270,9 +289,9 @@ const ProgramOverview = () => {
       marginBottom: "20px",
     },
     productImage: {
-      width: "280px",
-      height: "200px",
-      background: "linear-gradient(135deg, #f0f0f0, #e8e8e8)",
+      width: "min(45vw, 280px)",
+      height: "min(32vw, 200px)",
+      background: "linear-gradient(135deg, #f0f7ff, #e6efff)",
       borderRadius: "8px",
       display: "flex",
       alignItems: "center",
@@ -315,16 +334,17 @@ const ProgramOverview = () => {
     navArrow: {
       width: "40px",
       height: "40px",
-      background: "#333",
+      background: "linear-gradient(180deg, #3b82f6, #1d4ed8)",
       color: "white",
-      border: "none",
-      borderRadius: "6px",
+      border: "1px solid rgba(255,255,255,0.25)",
+      borderRadius: "8px",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
       cursor: "pointer",
-      fontSize: "16px",
-      transition: "transform 0.15s ease",
+      fontSize: "18px",
+      transition: "transform 0.15s ease, filter 0.2s ease, box-shadow 0.3s ease",
+      boxShadow: "0 10px 20px rgba(59, 130, 246, 0.25)",
     },
     progressSection: {
       display: "flex",
@@ -335,14 +355,14 @@ const ProgramOverview = () => {
     progressBar: {
       width: "200px",
       height: "4px",
-      background: "#e0e0e0",
+      background: "#dbeafe",
       borderRadius: "2px",
       overflow: "hidden",
     },
     progressFill: {
       width: "60%",
       height: "100%",
-      background: "#c4e538",
+      background: "#3b82f6",
     },
     progressText: {
       fontSize: "12px",
@@ -467,7 +487,7 @@ const ProgramOverview = () => {
     },
     programBadge: {
       display: "inline-block",
-      background: "#4f46e5",
+      background: "#1d4ed8",
       color: "white",
       padding: "4px 12px",
       borderRadius: "20px",
@@ -476,7 +496,7 @@ const ProgramOverview = () => {
       marginBottom: "16px",
     },
     mobileViewAllButton: {
-      background: "#000",
+      background: "#1d4ed8",
       color: "white",
       border: "none",
       borderRadius: "8px",
@@ -490,7 +510,7 @@ const ProgramOverview = () => {
     },
   }
 
-  const isMobile = typeof window !== "undefined" && window.innerWidth <= 1024
+  // isMobile now comes from state and updates on resize
 
   // Enhanced mobile styles with better responsiveness
   const mobileStyles = {
