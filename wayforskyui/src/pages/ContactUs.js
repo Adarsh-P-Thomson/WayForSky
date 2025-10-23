@@ -3,31 +3,16 @@ import React, { useState, useEffect } from 'react';
 import { APIProvider, Map, AdvancedMarker } from '@vis.gl/react-google-maps';
 
 const ContactUs = () => {
-    // --- All your existing state and form logic remains unchanged ---
+    // Simplified state for redesigned form
     const [selectedInterests, setSelectedInterests] = useState(new Set());
     const [formData, setFormData] = useState({
         name: '', phone: '', email: '', country: '', intake: '', budget: '',
-        'ground-classes': '', project: '', consent: false,
+        'ground-classes': '', project: '', consent: false, otherInterest: ''
     });
     const [submitStatus, setSubmitStatus] = useState('');
-    const [showSuccessPopup, setShowSuccessPopup] = useState(false);
-    const [showThankYouPopup, setShowThankYouPopup] = useState(false);
-    const [showSchedulingModal, setShowSchedulingModal] = useState(false);
-    const [showFinalConfirmation, setShowFinalConfirmation] = useState(false);
-    const [currentStep, setCurrentStep] = useState('calendar');
-    const [selectedDate, setSelectedDate] = useState(null);
-    const [selectedTime, setSelectedTime] = useState(null);
-    const [currentMonth, setCurrentMonth] = useState(new Date());
-
-    const timeSlots = [];
-    for (let i = 0; i < 16; i++) {
-        const hour = 10 + Math.floor(i / 2);
-        const minute = (i % 2) * 30;
-        const period = hour >= 12 ? 'PM' : 'AM';
-        const displayHour = hour > 12 ? hour - 12 : (hour === 0 ? 12 : hour);
-        const displayMinute = minute === 0 ? '00' : '30';
-        timeSlots.push(`${displayHour}:${displayMinute} ${period}`);
-    }
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitError, setSubmitError] = useState('');
+    const [submitSuccess, setSubmitSuccess] = useState('');
 
     const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
     const COMPANY_LOCATION = { lat: 12.98125, lng: 77.60672 };
@@ -43,9 +28,7 @@ const ContactUs = () => {
         }
     }, []);
 
-    // --- All of the old, problematic useEffect and initMap functions have been REMOVED ---
-    
-    // --- All your handler functions remain unchanged ---
+    // --- Handlers ---
     const handleInterestClick = (interest) => {
         const newInterests = new Set(selectedInterests);
         if (newInterests.has(interest)) {
@@ -64,161 +47,44 @@ const ContactUs = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = { ...formData, interests: Array.from(selectedInterests) };
-        console.log('Form submitted:', data);
-        setSubmitStatus('Request sent!');
-        setShowSuccessPopup(true);
-        setTimeout(() => {
+        setSubmitError('');
+        setSubmitSuccess('');
+
+        const payload = { ...formData, interests: Array.from(selectedInterests) };
+
+        try {
+            setIsSubmitting(true);
+            setSubmitStatus('Submitting...');
+            const res = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
+            if (!res.ok) throw new Error('Failed to submit contact form');
+            await res.json().catch(() => ({}));
+            setSubmitStatus('Submitted');
+            setSubmitSuccess('Thanks! Your request has been sent. We will contact you shortly.');
+            // Optionally clear form
+            setFormData({
+                name: '', phone: '', email: '', country: '', intake: '', budget: '',
+                'ground-classes': '', project: '', consent: false, otherInterest: ''
+            });
+            setSelectedInterests(new Set());
+        } catch (err) {
+            console.error(err);
+            setSubmitError('Something went wrong. Please try again.');
             setSubmitStatus('');
-        }, 2000);
-    };
-
-    const handleBookSession = () => {
-        setShowSuccessPopup(false);
-        setShowSchedulingModal(true);
-    };
-
-    const handleNoThanks = () => {
-        setShowSuccessPopup(false);
-        setShowThankYouPopup(true);
+        } finally {
+            setIsSubmitting(false);
+        }
     };
     
     const handleGetDirections = () => {
         const url = `https://www.google.com/maps/dir/?api=1&destination=${COMPANY_LOCATION.lat},${COMPANY_LOCATION.lng}`;
         window.open(url, '_blank');
     };
-
-    // --- All your scheduling and calendar logic remains unchanged ---
-    const generateCalendar = () => {
-        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        const calendarGrid = [];
-        const firstDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
-        const lastDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
-        const startDate = new Date(firstDay);
-        startDate.setDate(startDate.getDate() - firstDay.getDay());
-
-        for (let i = 0; i < 42; i++) {
-            const date = new Date(startDate);
-            date.setDate(startDate.getDate() + i);
-            calendarGrid.push(date);
-        }
-        return {
-            monthName: monthNames[currentMonth.getMonth()] + ' ' + currentMonth.getFullYear(),
-            grid: calendarGrid
-        };
-    };
-
-    const { monthName, grid } = generateCalendar();
-
-    const handleDateClick = (date) => {
-        setSelectedDate(date);
-    };
-    
-    const handleTimeClick = (time) => {
-        setSelectedTime(time);
-    };
-
-    const selectedDateTimeString = () => {
-        if (selectedDate && selectedTime) {
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            return `${selectedTime}, ${selectedDate.toLocaleDateString('en-US', options)}`;
-        }
-        return 'Select date and time';
-    };
-
-    const renderCalendar = () => (
-        <div id="calendarStep">
-            <div className="mb-6">
-                <div className="calendar-header">
-                    <button onClick={() => setCurrentMonth(new Date(currentMonth.setMonth(currentMonth.getMonth() - 1)))} className="calendar-nav-btn">
-                        <svg className="icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path></svg>
-                    </button>
-                    <h3 className="month-name">{monthName}</h3>
-                    <button onClick={() => setCurrentMonth(new Date(currentMonth.setMonth(currentMonth.getMonth() + 1)))} className="calendar-nav-btn">
-                        <svg className="icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path></svg>
-                    </button>
-                </div>
-                <div className="calendar-days-grid">
-                    {['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'].map(day => <div key={day} className="calendar-day-label">{day}</div>)}
-                </div>
-                <div className="calendar-dates-grid">
-                    {grid.map((date, index) => {
-                        const isCurrentMonth = date.getMonth() === currentMonth.getMonth();
-                        const isSelected = selectedDate && date.toDateString() === selectedDate.toDateString();
-                        return (
-                            <button
-                                key={index}
-                                disabled={!isCurrentMonth}
-                                onClick={() => handleDateClick(date)}
-                                className={`calendar-date-btn ${!isCurrentMonth ? 'disabled' : ''} ${isSelected ? 'selected' : ''}`}
-                            >
-                                {date.getDate()}
-                            </button>
-                        );
-                    })}
-                </div>
-            </div>
-             <div className="mb-6">
-                <label className="form-label-white">Time Zone</label>
-                <select className="form-select-dark">
-                    <option>India Standard Time (IST)</option>
-                    <option>Eastern Time (EST)</option>
-                    <option>Pacific Time (PST)</option>
-                </select>
-            </div>
-            <button onClick={() => setCurrentStep('time')} disabled={!selectedDate} className="modal-action-button">
-                Next
-            </button>
-        </div>
-    );
-    
-    const renderTimeSelector = () => (
-         <div id="timeStep">
-            <div className="mb-6">
-                <h3 className="modal-subtitle">Select Time</h3>
-                <div className="time-slots-grid">
-                    {timeSlots.map((time) => (
-                        <button
-                            key={time}
-                            onClick={() => handleTimeClick(time)}
-                            className={`time-slot-btn ${selectedTime === time ? 'selected' : ''}`}
-                        >
-                            {time}
-                        </button>
-                    ))}
-                </div>
-            </div>
-            <div className="session-info-box">
-                <h4 className="session-info-title">📞 Free Phone Counselling Session</h4>
-                <div className="session-info-details">
-                    <div className="session-info-item">
-                         <svg className="icon-xs" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        <span>30 min</span>
-                    </div>
-                    <div className="session-info-item">
-                        <svg className="icon-xs" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                        <span>Phone call details provided upon confirmation.</span>
-                    </div>
-                    <div className="session-info-item">
-                        <svg className="icon-xs" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0h6m-6 0l-2 13a2 2 0 002 2h8a2 2 0 002-2L16 7"></path></svg>
-                        <span>{selectedDateTimeString()}</span>
-                    </div>
-                </div>
-            </div>
-             <button
-                onClick={() => {
-                    setShowSchedulingModal(false);
-                    setShowFinalConfirmation(true);
-                }}
-                disabled={!selectedTime}
-                className="modal-action-button"
-            >
-                Confirm My Session
-            </button>
-        </div>
-    );
     
     // --- The JSX for your page remains the same, except for the map section ---
     return (
@@ -246,167 +112,272 @@ const ContactUs = () => {
   }
 }
 
-            /* Main Section Styles */
+            /* Hero Section */
             .hero-section {
-                min-height: 100vh;
                 position: relative;
-            }
-            .gradient-bg {
-                position: absolute;
-                inset: 0;
-                background: linear-gradient(135deg, #00d4ff 0%, #3b82f6 25%, #8b5cf6 50%, #ec4899 75%, #f97316 100%);
-            }
-            .dark-overlay {
-                position: absolute;
-                inset: 0;
-                background-color: rgba(0, 0, 0, 0.4);
-            }
-            .main-container {
-                position: relative;
-                z-index: 10;
-                min-height: 100vh;
-                display: flex;
-            }
-            .left-section {
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                padding: 4rem;
+                background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #06b6d4 100%);
+                padding: 3rem 0 2rem;
+                margin-bottom: 2rem;
             }
             .hero-content {
-                flex: 1;
-                display: flex;
-                align-items: center;
-            }
-            .main-heading {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 1rem;
+                text-align: center;
                 color: white;
+            }
+            .hero-title {
+                font-size: 2.5rem;
                 font-weight: 700;
-                line-height: 1.1;
-                margin-bottom: 2rem;
-                font-size: 3.5rem;
+                margin-bottom: 1rem;
+                line-height: 1.2;
             }
-            .right-section {
-                flex: 1;
-                padding: 4rem;
-                backdrop-filter: blur(20px);
-                background: rgba(0, 0, 0, 0.6);
-            }
-            .main-nav {
-                display: flex;
-                justify-content: flex-start;
-                margin-bottom: 4rem;
-            }
-            .main-nav a {
-                margin-right: 2rem;
-                color: white;
+            .hero-subtitle {
                 font-size: 1.125rem;
-                text-decoration: none;
+                opacity: 0.9;
+                max-width: 600px;
+                margin: 0 auto;
+                line-height: 1.6;
+            }
+            @media (max-width: 768px) {
+                .hero-title { font-size: 2rem; }
+                .hero-subtitle { font-size: 1rem; }
+                .hero-section { padding: 2rem 0 1.5rem; }
             }
 
-            /* Form Styles */
-            .contact-form {
-                display: flex;
-                flex-direction: column;
-                gap: 2rem;
+            /* Main Container */
+            .main-container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 1rem;
             }
-            .form-prompt {
-                color: #9ca3af;
-                font-size: 1.125rem;
-                margin-bottom: 1.5rem;
+            /* Form Section */
+            .form-section {
+                background: #f8fafc;
+                padding: 3rem 0;
             }
-            .interest-grid {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 1rem;
+            .form-container {
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 0 1rem;
+            }
+            .form-card {
+                background: #ffffff;
+                border-radius: 20px;
+                padding: 2rem;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+                border: 1px solid #e2e8f0;
+            }
+            .form-header {
+                text-align: center;
                 margin-bottom: 2rem;
             }
-            .interest-btn {
-                padding: 0.75rem 1.5rem;
-                border: 1px solid #4b5563;
+            .form-title {
+                color: #1e293b;
+                font-size: 2rem;
+                font-weight: 700;
+                margin-bottom: 0.5rem;
+            }
+            .form-subtitle {
+                color: #64748b;
+                font-size: 1rem;
+                line-height: 1.6;
+            }
+
+            /* Form Grid - Mobile First */
+            .form-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            @media (min-width: 768px) {
+                .form-grid { grid-template-columns: repeat(2, 1fr); }
+                .form-card { padding: 2.5rem; }
+            }
+            @media (min-width: 1024px) {
+                .form-grid { grid-template-columns: repeat(3, 1fr); }
+            }
+            
+            .span-full { grid-column: 1 / -1; }
+            @media (min-width: 768px) {
+                .span-2 { grid-column: span 2; }
+            }
+            @media (min-width: 1024px) {
+                .span-3 { grid-column: span 3; }
+            }
+            /* Form Elements */
+            .form-field {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .label {
+                color: #374151;
                 font-size: 0.875rem;
-                font-weight: 500;
-                color: #d1d5db;
-                background-color: transparent;
-                cursor: pointer;
-                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                font-weight: 600;
             }
-            .interest-btn:hover {
-                transform: translateY(-1px);
-                box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
-            }
-            .interest-btn.selected {
-                background: white;
-                color: black;
-                border-color: white;
-            }
-            .form-input, .form-select, .form-textarea {
+            .input, .select, .textarea {
                 width: 100%;
-                background-color: transparent;
-                border: 0;
-                border-bottom: 1px solid #4b5563;
-                padding: 1rem 0;
-                color: white;
-                font-size: 1.125rem;
-                transition: all 0.3s ease;
-            }
-            .form-input::placeholder, .form-textarea::placeholder {
-                color: #6b7280;
-            }
-            .form-input:focus, .form-select:focus, .form-textarea:focus {
-                border-color: rgba(255, 255, 255, 0.6);
+                border: 2px solid #e2e8f0;
+                background: #ffffff;
+                color: #1e293b;
+                padding: 0.875rem 1rem;
+                border-radius: 12px;
+                font-size: 1rem;
+                transition: all 0.2s ease;
                 outline: none;
             }
-            .form-select {
-                color: #9ca3af;
+            .input:focus, .select:focus, .textarea:focus {
+                border-color: #3b82f6;
+                box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
             }
-            .form-select option {
-                color: #000;
+            .input::placeholder, .textarea::placeholder {
+                color: #94a3b8;
             }
-            .form-textarea {
-                resize: none;
+            .textarea {
+                resize: vertical;
+                min-height: 120px;
             }
-            .consent-container {
-                padding-top: 1rem;
+
+            /* Interest Pills */
+            .interest-section {
+                margin-bottom: 1rem;
             }
-            .consent-label {
+            .interest-pills {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.75rem;
+                margin-top: 0.75rem;
+            }
+            .pill {
+                border: 2px solid #e2e8f0;
+                color: #64748b;
+                background: #ffffff;
+                padding: 0.625rem 1rem;
+                border-radius: 25px;
+                font-size: 0.875rem;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                user-select: none;
+            }
+            .pill:hover {
+                border-color: #3b82f6;
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+            }
+            .pill.selected {
+                background: #3b82f6;
+                color: #ffffff;
+                border-color: #3b82f6;
+            }
+
+            /* Submit Section */
+            .submit-section {
+                margin-top: 1rem;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .consent-wrapper {
                 display: flex;
                 align-items: flex-start;
                 gap: 0.75rem;
-                color: #9ca3af;
+                color: #64748b;
                 font-size: 0.875rem;
-                cursor: pointer;
+                line-height: 1.5;
             }
-            .consent-label span {
-                line-height: 1.625;
-            }
-            .consent-checkbox {
-                margin-top: 0.25rem;
+            .consent-wrapper input[type="checkbox"] {
+                margin-top: 0.125rem;
                 width: 1rem;
                 height: 1rem;
-            }
-            .submit-btn-container {
-                padding-top: 2rem;
-                display: flex;
-                justify-content: flex-start;
+                accent-color: #3b82f6;
             }
             .submit-btn {
-                background-color: white;
-                color: black;
+                background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+                color: #ffffff;
                 padding: 1rem 2rem;
-                font-weight: 500;
-                font-size: 1.125rem;
+                font-weight: 600;
+                font-size: 1rem;
                 border: none;
-                box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+                border-radius: 12px;
                 cursor: pointer;
-                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                transition: all 0.2s ease;
+                box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
+                min-height: 48px;
             }
-            .submit-btn:hover {
-                transform: translateY(-2px) scale(1.02);
-                box-shadow: 0 10px 15px -3px rgba(255,255,255,0.2), 0 4px 6px -2px rgba(255,255,255,0.1);
+            .submit-btn:hover:not(:disabled) {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
             }
-            .submit-btn:active {
-                transform: translateY(0) scale(0.98);
+            .submit-btn:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+                transform: none;
+            }
+
+            /* Alerts */
+            .alert {
+                border-radius: 12px;
+                padding: 1rem;
+                margin-bottom: 1.5rem;
+                font-size: 0.875rem;
+                font-weight: 500;
+            }
+            .alert-success {
+                background: #dcfce7;
+                border: 1px solid #bbf7d0;
+                color: #15803d;
+            }
+            .alert-error {
+                background: #fee2e2;
+                border: 1px solid #fecaca;
+                color: #dc2626;
+            }
+
+            /* Benefits Strip */
+            .benefits-strip {
+                margin-top: 2rem;
+                background: #ffffff;
+                border-radius: 16px;
+                padding: 1.5rem;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+                border: 1px solid #e2e8f0;
+            }
+            .benefits-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            @media (min-width: 640px) {
+                .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+            }
+            @media (min-width: 1024px) {
+                .benefits-grid { grid-template-columns: repeat(4, 1fr); }
+            }
+            .benefit {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                color: #1e293b;
+                padding: 0.5rem;
+            }
+            .benefit .icon {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+                color: #ffffff;
+                font-size: 0.875rem;
+                flex-shrink: 0;
+            }
+            .benefit .text {
+                font-weight: 600;
+                font-size: 0.875rem;
+                line-height: 1.4;
             }
 
             /* Location Section */
@@ -689,35 +660,14 @@ const ContactUs = () => {
             .icon-xs { width: 1rem; height: 1rem; }
 
             /* Responsive Styles */
-            @media (max-width: 1024px) {
-                .main-container { flex-direction: column; }
-                .left-section { min-height: 50vh; padding: 2rem; }
-                .right-section { padding: 2rem; }
-                .main-heading { font-size: 3rem; }
-                .location-grid { grid-template-columns: 1fr; }
-                .scheduling-modal-left { display: none; }
-                .scheduling-modal-right { width: 100%; }
-            }
-            @media (min-width: 1025px) {
-                .content-wrapper { margin: 0 4cm; max-width: calc(100vw - 8cm); min-height: 90vh; max-height: none; }
-                .left-section { flex: 0 0 45%; max-width: 45%; }
-                .right-section { flex: 0 0 55%; max-width: 55%; padding: 3rem; }
-                .location-grid { grid-template-columns: repeat(12, 1fr); }
-                .contact-info-section { grid-column: span 4; }
-                .map-section { grid-column: span 8; }
-                .mobile-directions { display: none; }
-            }
-            @media (max-width: 768px) {
-                .interest-grid { grid-template-columns: repeat(2, 1fr); }
-                .main-heading { font-size: 2.5rem; }
-                .left-section, .right-section { padding: 1.5rem; }
-                .contact-info-section { padding: 3rem; }
-            }
             @media (max-width: 640px) {
-                .interest-grid { grid-template-columns: 1fr; }
-                .main-heading { font-size: 2rem; }
-                .left-section, .right-section { padding-left: 0.9rem !important; padding-right: 0.9rem !important; }
+                .form-card { padding: 1.5rem; }
+                .benefits-strip { margin-top: 1.5rem; padding: 1rem; }
+                .benefit { flex-direction: column; text-align: center; gap: 0.5rem; }
+                .benefit .text { font-size: 0.8rem; }
             }
+
+            /* Remove old responsive styles that are no longer needed */
         `}</style>
         <div className="page-container">
             <div style={{ height: '1px', backgroundColor: 'white', width: '100%' }}></div>
@@ -725,85 +675,154 @@ const ContactUs = () => {
                 <div className="gradient-bg"></div>
                 <div className="dark-overlay"></div>
                 <div className="main-container content-wrapper">
-                    <div className="left-section">
-                        <div className="hero-content">
-                            <h2 className="main-heading">
-                                Got a Big Idea?<br />
-                                We've Got the<br />
-                                Wings for It.
-                            </h2>
-                        </div>
-                    </div>
                     <div className="right-section">
+                        <div className="form-wrapper">
+                            <div className="form-card">
+                                {submitSuccess && <div className="alert alert-success">{submitSuccess}</div>}
+                                {submitError && <div className="alert alert-error">{submitError}</div>}
+                                <div className="form-header">
+                                    <h3 className="form-title">Contact Us</h3>
+                                    <p className="form-subtitle">Fill out the form and our team will get back to you shortly.</p>
+                                </div>
+                                <form id="contactForm" onSubmit={handleSubmit} className="form-grid">
+                                    {/* Interests */}
+                                    <div className="span-3">
+                                        <div className="label">I'm interested in</div>
+                                        <div className="interest-pills">
+                                            {[
+                                                'Private Pilot License',
+                                                'Commercial Pilot License',
+                                                'DGCA Ground Classes',
+                                                'English Language Proficiency',
+                                                'NIOS Prep',
+                                                'Type Rating',
+                                                'Flight Instructor',
+                                                'Cabin Crew',
+                                                'Zero to Hero',
+                                                'Other'
+                                            ].map(interest => (
+                                                <button
+                                                    key={interest}
+                                                    type="button"
+                                                    onClick={() => handleInterestClick(interest)}
+                                                    className={`pill ${selectedInterests.has(interest) ? 'selected' : ''}`}
+                                                >
+                                                    {interest}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
 
-                        <form id="contactForm" className="contact-form" onSubmit={handleSubmit}>
-                            <div>
-                                <p className="form-prompt">I'm interested in...</p>
-                                <div className="interest-grid">
-                                    {['Private Pilot License', 'Commercial Pilot License', 'DGCA Ground Classes', 'Aviation Diploma', 'Other'].map(interest => (
-                                        <button
-                                            key={interest}
-                                            type="button"
-                                            onClick={() => handleInterestClick(interest)}
-                                            className={`interest-btn ${selectedInterests.has(interest) ? 'selected' : ''}`}
-                                        >
-                                            {interest}
+                                    {/* If Other is selected */}
+                                    {selectedInterests.has('Other') && (
+                                        <div className="form-field span-3">
+                                            <div className="label">If other, please specify</div>
+                                            <input
+                                                type="text"
+                                                name="otherInterest"
+                                                placeholder="Tell us what you’re looking for"
+                                                value={formData.otherInterest}
+                                                onChange={handleInputChange}
+                                                className="input"
+                                            />
+                                        </div>
+                                    )}
+
+                                    {/* Contact details */}
+                                    <div className="form-field">
+                                        <div className="label">Full name</div>
+                                        <input type="text" name="name" placeholder="Your full name" value={formData.name} onChange={handleInputChange} className="input" required />
+                                    </div>
+                                    <div className="form-field">
+                                        <div className="label">Phone</div>
+                                        <input type="tel" name="phone" placeholder="Your phone number" value={formData.phone} onChange={handleInputChange} className="input" required />
+                                    </div>
+                                    <div className="form-field">
+                                        <div className="label">Email</div>
+                                        <input type="email" name="email" placeholder="you@example.com" value={formData.email} onChange={handleInputChange} className="input" required />
+                                    </div>
+                                    <div className="form-field">
+                                        <div className="label">Country of Interest</div>
+                                        <select name="country" onChange={handleInputChange} value={formData.country} className="select" required>
+                                            <option value="" disabled>Choose a country</option>
+                                            <option value="india">India</option>
+                                            <option value="south-africa">South Africa</option>
+                                            <option value="hungary">Hungary</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+
+                                    {/* Program preferences */}
+                                    <div className="form-field">
+                                        <div className="label">Preferred Intake</div>
+                                        <select name="intake" onChange={handleInputChange} value={formData.intake} className="select" required>
+                                            <option value="" disabled>Select intake</option>
+                                            <option value="oct-2024">October 2024</option>
+                                            <option value="nov-2024">November 2024</option>
+                                            <option value="dec-2024">December 2024</option>
+                                            <option value="jan-2025">January 2025</option>
+                                        </select>
+                                    </div>
+                                    <div className="form-field">
+                                        <div className="label">Budget</div>
+                                        <select name="budget" onChange={handleInputChange} value={formData.budget} className="select" required>
+                                            <option value="" disabled>Choose a range</option>
+                                            <option value="below-35">Below 35 lakhs</option>
+                                            <option value="35-40">35 - 40 lakhs</option>
+                                            <option value="40-45">40 - 45 lakhs</option>
+                                        </select>
+                                    </div>
+                                    <div className="form-field">
+                                        <div className="label">Ground Classes</div>
+                                        <select name="ground-classes" onChange={handleInputChange} value={formData['ground-classes']} className="select" required>
+                                            <option value="" disabled>Status</option>
+                                            <option value="completed">Completed</option>
+                                            <option value="ongoing">Ongoing</option>
+                                            <option value="not-started">Not started yet</option>
+                                        </select>
+                                    </div>
+
+                                    {/* Notes */}
+                                    <div className="form-field span-3">
+                                        <div className="label">Additional details (optional)</div>
+                                        <textarea name="project" placeholder="Anything you'd like to add?" value={formData.project} onChange={handleInputChange} className="textarea"></textarea>
+                                    </div>
+
+                                    {/* Consent & submit */}
+                                    <label className="consent">
+                                        <input type="checkbox" name="consent" checked={formData.consent} required onChange={handleInputChange} />
+                                        <span>I consent to WayForSky storing my information to contact me about aviation training opportunities.</span>
+                                    </label>
+                                    <div className="submit-area">
+                                        <button type="submit" className="submit-btn" disabled={isSubmitting}>
+                                            {isSubmitting ? 'Submitting…' : submitStatus || 'Send request'}
                                         </button>
-                                    ))}
+                                        {submitStatus && <span className="submit-hint">{submitStatus}</span>}
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        {/* Benefits strip under the form */}
+                        <div className="benefits-strip">
+                            <div className="benefits-grid">
+                                <div className="benefit">
+                                    <span className="icon"><i className="fas fa-user-tie"></i></span>
+                                    <span className="text">DGCA-certified mentors</span>
+                                </div>
+                                <div className="benefit">
+                                    <span className="icon"><i className="fas fa-globe"></i></span>
+                                    <span className="text">Global training partners</span>
+                                </div>
+                                <div className="benefit">
+                                    <span className="icon"><i className="fas fa-briefcase"></i></span>
+                                    <span className="text">Career & placement support</span>
+                                </div>
+                                <div className="benefit">
+                                    <span className="icon"><i className="fas fa-clock"></i></span>
+                                    <span className="text">Response within 24 hours</span>
                                 </div>
                             </div>
-                            
-                            <input type="text" name="name" placeholder="Your name" onChange={handleInputChange} className="form-input" />
-                            <input type="tel" name="phone" placeholder="Your phone number" onChange={handleInputChange} className="form-input" />
-                            <input type="email" name="email" placeholder="Your email" onChange={handleInputChange} className="form-input" />
-
-                            <select name="country" onChange={handleInputChange} defaultValue="" className="form-select">
-                                <option value="" disabled>Country of Interest</option>
-                                <option value="india">India</option>
-                                <option value="south-africa">South Africa</option>
-                                <option value="hungary">Hungary</option>
-                                <option value="other">Other</option>
-                            </select>
-
-                            <select name="intake" onChange={handleInputChange} defaultValue="" className="form-select">
-                                <option value="" disabled>Preferred Intake</option>
-                                <option value="oct-2024">October 2024</option>
-                                <option value="nov-2024">November 2024</option>
-                                <option value="dec-2024">December 2024</option>
-                                <option value="jan-2025">January 2025</option>
-                            </select>
-                            
-                             <select name="budget" onChange={handleInputChange} defaultValue="" className="form-select">
-                                <option value="" disabled>Budget</option>
-                                <option value="below-35">Below 35 lakhs</option>
-                                <option value="35-40">35 - 40 lakhs</option>
-                                <option value="40-45">40 - 45 lakhs</option>
-                            </select>
-
-                            <select name="ground-classes" onChange={handleInputChange} defaultValue="" className="form-select">
-                                <option value="" disabled>Ground Classes</option>
-                                <option value="completed">Completed</option>
-                                <option value="ongoing">Ongoing</option>
-                                <option value="not-started">Not started yet</option>
-                            </select>
-
-                            <textarea name="project" placeholder="Anything you'd like to add? (optional)" rows="4" onChange={handleInputChange} className="form-textarea"></textarea>
-                            
-                             <div className="consent-container">
-                                <label className="consent-label">
-                                    <input type="checkbox" name="consent" required onChange={handleInputChange} className="consent-checkbox" />
-                                    <span>
-                                        I consent to WayForSky storing my information to contact me about aviation training opportunities.
-                                    </span>
-                                </label>
-                            </div>
-
-                            <div className="submit-btn-container">
-                                <button type="submit" className="submit-btn" style={{backgroundColor: submitStatus ? '#10b981' : 'white'}}>
-                                    {submitStatus || 'Sent request'}
-                                </button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -881,64 +900,7 @@ const ContactUs = () => {
                 </div>
             </div>
 
-            {/* --- All your modals are preserved below --- */}
-            {showSuccessPopup && (
-                <div className="modal-overlay">
-                    <div className="modal-content">
-                        <div className="modal-icon">✅</div>
-                        <h3 className="modal-title">Thank you for sharing your details!</h3>
-                        <p className="modal-text">Our team has received your enquiry and will get back to you shortly. Would you like to book a free phone counselling session with one of our Junior Counsellors at a time that suits you?</p>
-                        <div className="modal-actions">
-                            <button onClick={handleBookSession} className="modal-button primary">Yes, Book My Free Counselling Session</button>
-                            <button onClick={handleNoThanks} className="modal-button secondary">No Thanks, I'll Wait for Contact</button>
-                        </div>
-                    </div>
-                </div>
-            )}
-            
-            {showThankYouPopup && (
-                 <div className="modal-overlay">
-                    <div className="modal-content">
-                        <div className="modal-icon">✅</div>
-                        <h3 className="modal-title">Your enquiry has been submitted successfully.</h3>
-                        <p className="modal-text">Our team will reach out to you soon.</p>
-                        <button onClick={() => setShowThankYouPopup(false)} className="modal-button secondary">Close</button>
-                    </div>
-                </div>
-            )}
-            
-            {showSchedulingModal && (
-                 <div className="scheduling-modal-overlay">
-                    <div className="scheduling-modal-content">
-                         <div className="scheduling-modal-left">
-                            <h1 className="scheduling-modal-title">Let's get down to business</h1>
-                            <p className="scheduling-modal-text">
-                                We'd love to chat! If you fill out the information below, someone from the team will reach out right away!
-                            </p>
-                        </div>
-                        <div className="scheduling-modal-right">
-                             <div className="modal-tabs">
-                                <button className="tab-btn active">Schedule a Call</button>
-                            </div>
-                            {currentStep === 'calendar' ? renderCalendar() : renderTimeSelector()}
-                             <button onClick={() => setShowSchedulingModal(false)} className="modal-close-btn">
-                                <svg className="icon-md" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {showFinalConfirmation && (
-                <div className="modal-overlay">
-                    <div className="modal-content">
-                        <div className="modal-icon">🎉</div>
-                        <h3 className="modal-title">Your counselling session has been booked successfully!</h3>
-                        <p className="modal-text">Our Junior Counsellor will call you on your selected date and time. A confirmation email/WhatsApp has also been sent to you.</p>
-                        <button onClick={() => setShowFinalConfirmation(false)} className="modal-button secondary">Close</button>
-                    </div>
-                </div>
-            )}
+            {/* No modals for now - simplified submit flow routes to /inconstruction */}
 
         </div>
     </>

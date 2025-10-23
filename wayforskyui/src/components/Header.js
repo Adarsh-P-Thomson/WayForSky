@@ -165,25 +165,10 @@ export default function Header() {
               </Link>
 
               <div className="dropdown-container">
-                <Link to="/our-story" className="nav-link focus-ring dropdown-trigger">
-                  About Us
-                  <DropdownArrow />
-                </Link>
-                <div className="dropdown-menu">
-                  <Link to="/our-story" className="dropdown-item">
-                    About WayForSky
-                  </Link>
-                  <Link to="/why-wayforsky" className="dropdown-item">
-                    Why WayForSky ?
-                  </Link>
-                </div>
-              </div>
-
-              <div className="dropdown-container">
                 <Link
                   to="/courses"
                   className={`nav-link focus-ring dropdown-trigger ${
-                    location.pathname.startsWith("/courses") || location.pathname.startsWith("/zero-to-hero") || location.pathname.startsWith("/commercial-pilot-license") ? "active" : ""
+                    location.pathname.startsWith("/courses") || location.pathname.startsWith("/zero-to-hero") || location.pathname.startsWith("/commercial-pilot-license") || ["/dgca-classes", "/elp-classes", "/nios-classes"].includes(location.pathname) ? "active" : ""
                   }`}
                 >
                   Courses
@@ -208,6 +193,15 @@ export default function Header() {
                   <Link to="/cabin-crew" className="dropdown-item">
                     Cabin Crew
                   </Link>
+                  <Link to="/dgca-classes" className="dropdown-item">
+                    DGCA ground Classes
+                  </Link>
+                  <Link to="/elp-classes" className="dropdown-item">
+                    English Language Proficiency (ELP) Training
+                  </Link>
+                  <Link to="/nios-classes" className="dropdown-item">
+                    NIOS Prep Classes
+                  </Link>
                 </div>
               </div>
 
@@ -223,27 +217,26 @@ export default function Header() {
               </div>
 
               <div className="dropdown-container">
-                <Link
-                  to="/dgca-classes"
-                  className={`nav-link focus-ring dropdown-trigger ${
-                    ["/dgca-classes", "/elp-classes", "/nios-classes"].includes(location.pathname) ? "active" : ""
-                  }`}
-                >
-                  Classes
+                <Link to="/our-story" className="nav-link focus-ring dropdown-trigger">
+                  About Us
                   <DropdownArrow />
                 </Link>
                 <div className="dropdown-menu">
-                  <Link to="/dgca-classes" className="dropdown-item">
-                    DGCA ground Classes
+                  <Link to="/our-story" className="dropdown-item">
+                    About WayForSky
                   </Link>
-                  <Link to="/elp-classes" className="dropdown-item">
-                    English Language Proficiency (ELP) Training
-                  </Link>
-                  <Link to="/nios-classes" className="dropdown-item">
-                    NIOS Prep Classes
+                  <Link to="/why-wayforsky" className="dropdown-item">
+                    Why WayForSky ?
                   </Link>
                 </div>
               </div>
+
+              <Link
+                to="/contactus"
+                className={`nav-link focus-ring ${location.pathname === "/contactus" ? "active" : ""}`}
+              >
+                Contact Us
+              </Link>
 
               <Link
                 to="/webinar"
@@ -251,22 +244,16 @@ export default function Header() {
               >
                 Join the Webinar
               </Link>
-              <Link
-                to="/contactus"
-                className={`nav-link focus-ring ${location.pathname === "/contactus" ? "active" : ""}`}
-                >
-                Contact Us
-              </Link>
             </nav>
 
             {/* Right Actions */}
             <div className="right-actions">
               <Link
-                to="/contactus"
+                to="/login"
                 className="contact-btn focus-ring"
                 style={{ textDecoration: 'none' }}
               >
-                Apply Now
+                Log in/Sign Up
               </Link>
 
               <button className="mobile-menu-btn focus-ring" aria-label="Menu" onClick={toggleMobileMenu}>
@@ -308,24 +295,6 @@ export default function Header() {
 
             <div className="mobile-dropdown-container">
               <button
-                className={`mobile-nav-link mobile-dropdown-trigger focus-ring ${activeDropdown === "aboutus" ? "active" : ""}`}
-                onClick={() => toggleMobileDropdown("aboutus")}
-              >
-                About Us
-                <MobileDropdownArrow />
-              </button>
-              <div className={`mobile-dropdown-menu ${activeDropdown === "aboutus" ? "open" : ""}`}>
-                <Link to="/our-story" className="mobile-dropdown-item" onClick={closeMobileMenu}>
-                  About WayForSky
-                </Link>
-                <Link to="/why-wayforsky" className="mobile-dropdown-item" onClick={closeMobileMenu}>
-                  Why WayForSky ?
-                </Link>
-              </div>
-            </div>
-
-            <div className="mobile-dropdown-container">
-              <button
                 className={`mobile-nav-link mobile-dropdown-trigger focus-ring ${
                   location.pathname.startsWith("/courses") || activeDropdown === "courses" ? "active" : ""
                 }`}
@@ -353,6 +322,15 @@ export default function Header() {
                 </Link>
                 <Link to="/cabin-crew" className="mobile-dropdown-item" onClick={closeMobileMenu}>
                   Cabin Crew
+                </Link>
+                <Link to="/dgca-classes" className="mobile-dropdown-item" onClick={closeMobileMenu}>
+                  DGCA ground Classes
+                </Link>
+                <Link to="/elp-classes" className="mobile-dropdown-item" onClick={closeMobileMenu}>
+                  English Language Proficiency (ELP) Training
+                </Link>
+                <Link to="/nios-classes" className="mobile-dropdown-item" onClick={closeMobileMenu}>
+                  NIOS Prep Classes
                 </Link>
               </div>
             </div>
@@ -383,35 +361,32 @@ export default function Header() {
                 </Link>
               </div>
             </div>
-            <Link
-                to="/contactus"
-                className={`mobile-nav-link focus-ring ${location.pathname === "/contactus" ? "active" : ""}`}
-                onClick={closeMobileMenu}>
-              Contact Us
-            </Link>
 
             <div className="mobile-dropdown-container">
               <button
-                className={`mobile-nav-link mobile-dropdown-trigger focus-ring ${
-                  activeDropdown === "classes" || ["/dgca-classes", "/rtr-classes", "/nios-classes"].includes(location.pathname) ? "active" : ""
-                }`}
-                onClick={() => toggleMobileDropdown("classes")}
+                className={`mobile-nav-link mobile-dropdown-trigger focus-ring ${activeDropdown === "aboutus" ? "active" : ""}`}
+                onClick={() => toggleMobileDropdown("aboutus")}
               >
-                Classes
+                About Us
                 <MobileDropdownArrow />
               </button>
-              <div className={`mobile-dropdown-menu ${activeDropdown === "classes" ? "open" : ""}`}>
-                <Link to="/dgca-classes" className="mobile-dropdown-item" onClick={closeMobileMenu}>
-                  DGCA ground Classes
+              <div className={`mobile-dropdown-menu ${activeDropdown === "aboutus" ? "open" : ""}`}>
+                <Link to="/our-story" className="mobile-dropdown-item" onClick={closeMobileMenu}>
+                  About WayForSky
                 </Link>
-                <Link to="/rtr-classes" className="mobile-dropdown-item" onClick={closeMobileMenu}>
-                  Radiology Telephonics (RTR) classes
-                </Link>
-                <Link to="/nios-classes" className="mobile-dropdown-item" onClick={closeMobileMenu}>
-                  NIOS Prep Classes
+                <Link to="/why-wayforsky" className="mobile-dropdown-item" onClick={closeMobileMenu}>
+                  Why WayForSky ?
                 </Link>
               </div>
             </div>
+
+            <Link
+              to="/contactus"
+              className={`mobile-nav-link focus-ring ${location.pathname === "/contactus" ? "active" : ""}`}
+              onClick={closeMobileMenu}
+            >
+              Contact Us
+            </Link>
 
             <Link
               to="/webinar"

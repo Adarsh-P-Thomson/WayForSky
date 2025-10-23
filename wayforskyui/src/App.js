@@ -3,6 +3,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import ScrollToTop from "./ScrollToTop"   // ✅ import it here
 import Header from "./components/Header" 
+import Login from "./pages/login.js"
 import FleetPage from "./fleetpage.js" 
 import Footer from "./components/Footer"
 import Aboutus from "./pages/Aboutus"
@@ -42,7 +43,6 @@ function App() {
 
           {/* Contact Page */}
         
-Cabincrew.js
           <Route path="/our-story" element={<Aboutus />} />
 
           <Route path="/why-wayforsky" element={<WhyUs />} />
@@ -61,6 +61,10 @@ Cabincrew.js
           <Route path="/cabin-crew" element={<Cabincrew />} />
 
           <Route path="/contactus" element={<ContactUs />} />
+
+          {/* Login */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Login />} />
 
 
         <Route path="/dgca-classes" element={<DGCAGroundClassesPage />} />
