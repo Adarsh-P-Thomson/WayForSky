@@ -41,157 +41,293 @@ const WhyUsPage = styled.div`
 
 const WhyUsHero = styled.section`
   text-align: center;
-  padding: 80px 20px;
+  padding: 120px 20px 100px;
+  position: relative;
   background: linear-gradient(135deg, #001f3f 0%, #003d82 100%);
   color: white;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="rgba(255,255,255,0.05)"/></svg>');
+    opacity: 0.3;
+  }
 
   h1 {
-    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    font-size: clamp(2.5rem, 6vw, 4rem);
     font-weight: 800;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
   }
 
   p {
-    font-size: clamp(1rem, 3vw, 1.2rem);
+    font-size: clamp(1.05rem, 3vw, 1.3rem);
     max-width: 800px;
-    margin: 10px auto 0;
-    opacity: 0.9;
+    margin: 0 auto;
+    opacity: 0.95;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (max-width: 768px) {
+    padding: 100px 20px 80px;
   }
 `;
 
 const WhyUsGrid = styled.section`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 30px;
+  gap: 35px;
   max-width: 1400px;
-  margin: 80px auto;
+  margin: -60px auto 80px;
   padding: 0 20px;
+  position: relative;
+  z-index: 2;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
     padding: 0 15px;
+    margin-top: -40px;
   }
 `;
 
 const WhyCard = styled.div`
   background-color: white;
-  border-radius: 16px;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 10px 30px rgba(56, 189, 248, 0.12);
+  transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
+  border: 2px solid #e0f2fe;
 
   &:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    transform: translateY(-12px);
+    box-shadow: 0 20px 50px rgba(56, 189, 248, 0.2);
+    border-color: #38bdf8;
   }
 
   .card-image {
-    height: 200px;
+    height: 220px;
     width: 100%;
     object-fit: cover;
   }
 
   .card-content {
-    padding: 30px;
+    padding: 35px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
   }
 
   .icon-container {
-    color: #0056b3;
-    margin-bottom: 16px;
+    color: #38bdf8;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(56, 189, 248, 0.15);
   }
 
   h3 {
     font-size: 1.5rem;
-    margin: 0 0 12px;
-    color: #001f3f;
+    margin: 0 0 16px;
+    color: #0369a1;
+    font-weight: 700;
   }
 
   p {
     margin: 0;
-    color: #555;
-    line-height: 1.6;
+    color: #64748b;
+    line-height: 1.7;
     flex-grow: 1;
+    font-size: 1rem;
   }
 `;
 
 const SupportSection = styled.section`
   max-width: 1200px;
-  margin: 80px auto;
-  padding: 0 20px;
+  margin: 100px auto;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%);
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(56, 189, 248, 0.08);
 
   h2 {
     font-size: clamp(2.2rem, 5vw, 3rem);
-    color: #001f3f;
+    color: #0369a1;
     text-align: center;
-    margin-bottom: 60px;
-    font-weight: 700;
+    margin-bottom: 20px;
+    font-weight: 800;
+    position: relative;
+    padding-bottom: 20px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, #38bdf8, #7dd3fc);
+      border-radius: 2px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    margin: 80px auto;
+    padding: 40px 20px;
   }
 `;
 
 const SupportSteps = styled.div`
   position: relative;
-  max-width: 800px;
-  margin: 40px auto 0;
+  max-width: 900px;
+  margin: 60px auto 0;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    left: 30px;
+    top: 30px;
+    bottom: 30px;
+    width: 3px;
+    background: linear-gradient(180deg, #38bdf8, #7dd3fc, #bae6fd);
+    border-radius: 2px;
+
+    @media (max-width: 768px) {
+      left: 20px;
+    }
+  }
 `;
 
 const Step = styled.div`
   display: flex;
   align-items: flex-start;
-  margin-bottom: 40px;
-  gap: 25px;
+  margin-bottom: 45px;
+  gap: 30px;
+  position: relative;
+  padding: 25px;
+  background: white;
+  border-radius: 16px;
+  border: 2px solid #e0f2fe;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: #38bdf8;
+    box-shadow: 0 8px 25px rgba(56, 189, 248, 0.12);
+    transform: translateX(8px);
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 768px) {
+    gap: 20px;
+    padding: 20px;
+  }
 `;
 
 const StepNumber = styled.div`
   font-size: 2.5rem;
-  font-weight: 700;
-  color: #0056b3;
+  font-weight: 800;
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   line-height: 1;
+  min-width: 60px;
+  flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+    min-width: 50px;
+  }
 `;
 
 const StepContent = styled.div`
+  flex: 1;
+  
   h5 {
     font-size: 1.4rem;
-    margin: 0 0 8px;
-    color: #001f3f;
+    margin: 0 0 10px;
+    color: #0369a1;
+    font-weight: 700;
   }
+  
   p {
     margin: 0;
-    color: #555;
+    color: #64748b;
+    line-height: 1.7;
+    font-size: 1rem;
   }
+`;
+
+const SectionSubtitle = styled.p`
+  text-align: center;
+  font-size: 1.15rem;
+  color: #64748b;
+  max-width: 700px;
+  margin: -10px auto 40px;
+  line-height: 1.7;
 `;
 
 const ClosingSection = styled.section`
   text-align: center;
-  padding: 80px 20px;
-  background-color: #fff;
+  padding: 100px 20px;
+  background: linear-gradient(135deg, #001f3f 0%, #003d82 100%);
+  color: white;
+  margin-top: 80px;
 
   p {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     max-width: 800px;
-    margin: 0 auto 30px;
-    color: #003d82;
-    font-weight: 500;
+    margin: 0 auto 35px;
+    font-weight: 600;
+    line-height: 1.5;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.15);
   }
 
   .cta-button {
-    background-color: #0056b3;
-    color: #fff;
-    padding: 16px 35px;
+    background-color: #fff;
+    color: #0ea5e9;
+    padding: 18px 40px;
     text-decoration: none;
     border-radius: 50px;
-    font-weight: bold;
+    font-weight: 700;
+    font-size: 1.1rem;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 86, 179, 0.2);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    display: inline-block;
 
     &:hover {
-      background-color: #003d82;
+      background-color: #f0f9ff;
       transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0, 86, 179, 0.3);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      color: #38bdf8;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 80px 20px;
+    
+    p {
+      font-size: 1.3rem;
     }
   }
 `;
@@ -259,6 +395,7 @@ const WhyUs = () => {
 
         <SupportSection id="support">
             <h2>Our Student-First Approach</h2>
+            <SectionSubtitle>We understand that becoming a pilot isn't just about flying—it's about navigating every stage of the journey with expert guidance and unwavering support.</SectionSubtitle>
             <SupportSteps>
                 <Step><StepNumber>01</StepNumber><StepContent><h5>Personalised Counselling</h5><p>Every student speaks with professional counsellors and pilots to clear all their doubts.</p></StepContent></Step>
                 <Step><StepNumber>02</StepNumber><StepContent><h5>Panel Sessions with Pilots</h5><p>Students hear directly from experienced pilots who have been through the journey themselves.</p></StepContent></Step>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// Import the new components from the official Google Maps library for React
-import { APIProvider, Map, AdvancedMarker } from '@vis.gl/react-google-maps';
+import HeroImage from '../assets/Hero.JPG';
 
 const ContactUs = () => {
     // Simplified state for redesigned form
@@ -14,7 +13,6 @@ const ContactUs = () => {
     const [submitError, setSubmitError] = useState('');
     const [submitSuccess, setSubmitSuccess] = useState('');
 
-    const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
     const COMPANY_LOCATION = { lat: 12.98125, lng: 77.60672 };
 
     useEffect(() => {
@@ -114,10 +112,12 @@ const ContactUs = () => {
             /* Hero Section */
             .hero-section {
                 position: relative;
-                background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 50%, #7dd3fc 100%);
-                padding: 4rem 0;
+                background: linear-gradient(135deg, rgba(56, 189, 248, 0.65) 0%, rgba(125, 211, 252, 0.65) 50%, rgba(186, 230, 253, 0.60) 100%), 
+                            url(${HeroImage}) center center / cover no-repeat;
+                padding: 8rem 0;
                 margin-bottom: 0;
                 overflow: hidden;
+                min-height: 500px;
             }
             .hero-section::before {
                 content: '';
@@ -126,8 +126,8 @@ const ContactUs = () => {
                 left: 0;
                 right: 0;
                 bottom: 0;
-                background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="rgba(255,255,255,0.05)"/></svg>');
-                opacity: 0.3;
+                background: rgba(0, 0, 0, 0.25);
+                z-index: 0;
             }
             .hero-content {
                 max-width: 1200px;
@@ -136,14 +136,14 @@ const ContactUs = () => {
                 text-align: center;
                 color: white;
                 position: relative;
-                z-index: 1;
+                z-index: 2;
             }
             .hero-title {
                 font-size: clamp(2rem, 5vw, 3.5rem);
                 font-weight: 800;
                 margin-bottom: 1rem;
                 line-height: 1.1;
-                text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                text-shadow: 0 4px 20px rgba(0,0,0,0.4);
             }
             .hero-subtitle {
                 font-size: clamp(1rem, 2.5vw, 1.25rem);
@@ -152,9 +152,13 @@ const ContactUs = () => {
                 margin: 0 auto;
                 line-height: 1.6;
                 font-weight: 400;
+                text-shadow: 0 2px 10px rgba(0,0,0,0.3);
             }
             @media (max-width: 768px) {
-                .hero-section { padding: 3rem 0; }
+                .hero-section { 
+                    padding: 5rem 0; 
+                    min-height: 400px;
+                }
             }
 
             /* Main Container */
@@ -1025,34 +1029,18 @@ const ContactUs = () => {
                                 </div>
                             </div>
                         </div>
-                        {/* === START: FIXED MAP SECTION === */}
+                        {/* === START: EMBEDDED MAP SECTION === */}
                         <div className="map-section">
-                            {GOOGLE_MAPS_API_KEY ? (
-                                <APIProvider apiKey={GOOGLE_MAPS_API_KEY}>
-                                    <Map
-                                        defaultZoom={15}
-                                        defaultCenter={COMPANY_LOCATION}
-                                        gestureHandling={'greedy'}
-                                        disableDefaultUI={true}
-                                        mapId={'YOUR_MAP_ID'} // Optional: Create a Map ID in Google Cloud for custom styles
-                                        styles={[ // Your custom styles are applied here
-                                            { featureType: 'all', elementType: 'geometry.fill', stylers: [{ weight: '2.00' }] },
-                                            { featureType: 'all', elementType: 'geometry.stroke', stylers: [{ color: '#9c9c9c' }] },
-                                            { featureType: 'all', elementType: 'labels.text', stylers: [{ visibility: 'on' }] },
-                                            { featureType: 'landscape', elementType: 'all', stylers: [{ color: '#f2f2f2' }] },
-                                            { featureType: 'water', elementType: 'all', stylers: [{ color: '#46bcec' }, { visibility: 'on' }] }
-                                        ]}
-                                    >
-                                        <AdvancedMarker position={COMPANY_LOCATION} title={'Our Training Center'}>
-                                            {/* You can add a custom pin image here if you want */}
-                                        </AdvancedMarker>
-                                    </Map>
-                                </APIProvider>
-                            ) : (
-                                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%'}}>
-                                    <p>Map unavailable: API key not configured.</p>
-                                </div>
-                            )}
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.6891234567890!2d77.60672!3d12.98125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDU4JzUyLjUiTiA3N8KwMzYnMjQuMiJF!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin"
+                                width="100%"
+                                height="100%"
+                                style={{ border: 0 }}
+                                allowFullScreen=""
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                                title="WayForSky Office Location"
+                            ></iframe>
                              <div className="mobile-directions">
                                 <button onClick={handleGetDirections} className="mobile-directions-btn">
                                     <i className="fas fa-directions fa"></i>
@@ -1060,7 +1048,7 @@ const ContactUs = () => {
                                 </button>
                             </div>
                         </div>
-                        {/* === END: FIXED MAP SECTION === */}
+                        {/* === END: EMBEDDED MAP SECTION === */}
                     </div>
                 </div>
             </div>

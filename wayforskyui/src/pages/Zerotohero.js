@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Plane, Globe, MapPin, Clock, DollarSign, Users, Award, CheckCircle, Shield, Target, BookOpen, ChevronRight, Star, ArrowLeft } from 'lucide-react';
+import { Plane, Globe, MapPin, Clock, DollarSign, Users, Award, CheckCircle, Shield, Target, BookOpen, ChevronRight, Star, ArrowLeft, Calendar, TrendingUp } from 'lucide-react';
 
 const CPLHungaryPage = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [activeSection, setActiveSection] = useState('overview');
+  const [hoveredBenefit, setHoveredBenefit] = useState(null);
+  const [hoveredStep, setHoveredStep] = useState(null);
 
   useEffect(() => {
     setIsVisible(true);
@@ -14,7 +16,7 @@ const CPLHungaryPage = () => {
 
       sections.forEach(section => {
         const sectionTop = section.offsetTop;
-        if (window.scrollY >= sectionTop - 100) { // 100px offset for header
+        if (window.scrollY >= sectionTop - 120) {
           currentSection = section.id;
         }
       });
@@ -36,34 +38,39 @@ const CPLHungaryPage = () => {
 
   const benefits = [
     {
-      icon: <Shield style={{ width: '32px', height: '32px' }} />,
+      icon: <Shield className="benefit-icon" />,
       title: "EASA Standards Training",
       description: "Training under EASA (European Union Aviation Safety Agency) standards",
-      color: "linear-gradient(135deg, #3b82f6, #06b6d4)"
+      iconBg: "#0369a1",
+      accentColor: "#0ea5e9"
     },
     {
-      icon: <Globe style={{ width: '32px', height: '32px' }} />,
+      icon: <Globe className="benefit-icon" />,
       title: "European Lifestyle",
       description: "Opportunity to train and live in Europe, exposure to EU lifestyle and aviation practices",
-      color: "linear-gradient(135deg, #8b5cf6, #ec4899)"
+      iconBg: "#0369a1",
+      accentColor: "#0ea5e9"
     },
     {
-      icon: <Target style={{ width: '32px', height: '32px' }} />,
+      icon: <Target className="benefit-icon" />,
       title: "World-Class Simulators",
       description: "Access to PharmaFlight's world-class simulators and aviation research facilities",
-      color: "linear-gradient(135deg, #10b981, #059669)"
+      iconBg: "#0369a1",
+      accentColor: "#0ea5e9"
     },
     {
-      icon: <Star style={{ width: '32px', height: '32px' }} />,
+      icon: <Star className="benefit-icon" />,
       title: "Airline Placement Foundation",
       description: "Strong foundation for airline placements across Europe and beyond",
-      color: "linear-gradient(135deg, #eab308, #f97316)"
+      iconBg: "#0369a1",
+      accentColor: "#0ea5e9"
     },
     {
-      icon: <BookOpen style={{ width: '32px', height: '32px' }} />,
+      icon: <BookOpen className="benefit-icon" />,
       title: "Structured Program",
       description: "Highly structured training program, ensuring discipline and quality",
-      color: "linear-gradient(135deg, #ef4444, #ec4899)"
+      iconBg: "#0369a1",
+      accentColor: "#0ea5e9"
     }
   ];
 
@@ -126,608 +133,306 @@ const CPLHungaryPage = () => {
   const styles = {
     container: {
       minHeight: '100vh',
-      background: 'linear-gradient(135deg, #f8fafc, #dbeafe)',
-      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      background: '#ffffff',
+      fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+      color: '#1e293b'
     },
     stickyHeader: {
       position: 'sticky',
       top: 0,
-      zIndex: 50,
-      background: 'rgba(255, 255, 255, 0.9)',
-      backdropFilter: 'blur(12px)',
-      borderBottom: '1px solid #e5e7eb'
+      zIndex: 100,
+      background: 'rgba(255, 255, 255, 0.98)',
+      backdropFilter: 'blur(20px)',
+      borderBottom: '1px solid #e2e8f0',
+      boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
     },
     headerContent: {
-      maxWidth: '1280px',
+      maxWidth: '1400px',
       margin: '0 auto',
-      padding: '0 24px'
+      padding: '0 32px'
     },
     headerFlex: {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
-      padding: '16px 0'
+      padding: '20px 0'
     },
     headerLeft: {
       display: 'flex',
       alignItems: 'center',
-      gap: '16px'
+      gap: '20px'
     },
     backButton: {
-      padding: '8px',
-      borderRadius: '8px',
-      transition: 'background-color 0.2s',
+      padding: '10px',
+      borderRadius: '10px',
+      border: '1px solid #e2e8f0',
+      background: 'white',
       cursor: 'pointer',
-      border: 'none',
-      background: 'transparent'
-    },
-    backButtonHover: {
-      backgroundColor: '#f3f4f6'
-    },
-    iconContainer: {
-      width: '40px',
-      height: '40px',
-      background: 'linear-gradient(135deg, #9333ea, #ec4899)',
-      borderRadius: '12px',
+      transition: 'all 0.3s',
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'center',
-      color: 'white'
+      justifyContent: 'center'
     },
+    headerInfo: {},
     headerTitle: {
-      fontSize: '18px',
-      fontWeight: '500',
-      color: '#111827',
+      fontSize: '20px',
+      fontWeight: '600',
+      color: '#0f172a',
       margin: 0
     },
     headerSubtitle: {
       fontSize: '14px',
-      color: '#6b7280',
-      margin: 0
+      color: '#64748b',
+      margin: '4px 0 0 0'
     },
     nav: {
-      display: 'none',
-      gap: '32px'
-    },
-    navVisible: {
-      display: 'flex'
+      display: 'flex',
+      gap: '8px'
     },
     navButton: {
-      fontSize: '14px',
-      fontWeight: '500',
-      transition: 'color 0.2s',
-      cursor: 'pointer',
+      padding: '10px 20px',
+      borderRadius: '10px',
       border: 'none',
       background: 'transparent',
-      padding: '4px 0'
-    },
-    navActive: {
-      color: '#9333ea'
-    },
-    navInactive: {
-      color: '#6b7280'
+      fontSize: '14px',
+      fontWeight: '500',
+      cursor: 'pointer',
+      transition: 'all 0.3s',
+      color: '#64748b'
     },
     hero: {
       position: 'relative',
-      overflow: 'hidden',
-      transition: 'all 1s',
-      opacity: isVisible ? 1 : 0,
-      transform: isVisible ? 'translateY(0)' : 'translateY(40px)'
+      background: 'linear-gradient(135deg, #001f3f 0%, #003d82 100%)',
+      padding: '90px 32px 70px',
+      overflow: 'hidden'
     },
-    heroOverlay: {
+    heroBackground: {
       position: 'absolute',
       top: 0,
       left: 0,
       right: 0,
       bottom: 0,
-      background: 'linear-gradient(135deg, rgba(147, 51, 234, 0.1), rgba(236, 72, 153, 0.1))'
+      opacity: 0.1
     },
     heroContent: {
-      position: 'relative',
-      maxWidth: '1280px',
+      maxWidth: '1400px',
       margin: '0 auto',
-      padding: '0 24px',
-      paddingTop: '96px',
-      paddingBottom: '96px'
+      position: 'relative',
+      zIndex: 1
     },
-    heroCenter: {
-      textAlign: 'center'
+    heroGrid: {
+      display: 'grid',
+      gridTemplateColumns: '1fr 1fr',
+      gap: '60px',
+      alignItems: 'center'
     },
+    heroLeft: {},
     badge: {
       display: 'inline-flex',
       alignItems: 'center',
-      padding: '8px 16px',
-      backgroundColor: '#e0e7ff',
-      color: '#7c3aed',
-      borderRadius: '9999px',
+      gap: '10px',
+      padding: '10px 20px',
+      background: 'rgba(255, 255, 255, 0.15)',
+      backdropFilter: 'blur(10px)',
+      borderRadius: '100px',
+      color: 'white',
       fontSize: '14px',
       fontWeight: '500',
-      marginBottom: '32px'
+      marginBottom: '32px',
+      border: '1px solid rgba(255, 255, 255, 0.2)'
     },
     heroTitle: {
-      fontSize: '4.5rem',
-      fontWeight: '300',
-      color: '#111827',
-      marginBottom: '32px',
-      letterSpacing: '-0.025em',
-      lineHeight: '1.1'
+      fontSize: '56px',
+      fontWeight: '700',
+      color: 'white',
+      lineHeight: '1.1',
+      marginBottom: '24px'
     },
-    heroTitleGradient: {
-      background: 'linear-gradient(135deg, #9333ea, #ec4899)',
+    heroAccent: {
+      display: 'block',
+      background: 'linear-gradient(135deg, #38bdf8, #7dd3fc)',
       WebkitBackgroundClip: 'text',
       WebkitTextFillColor: 'transparent',
-      fontWeight: '500'
+      backgroundClip: 'text'
     },
     heroDescription: {
-      fontSize: '24px',
-      color: '#6b7280',
-      maxWidth: '1024px',
-      margin: '0 auto',
-      lineHeight: '1.625',
-      fontWeight: '300',
-      marginBottom: '48px'
+      fontSize: '18px',
+      color: 'rgba(255, 255, 255, 0.9)',
+      lineHeight: '1.7',
+      marginBottom: '40px',
+      maxWidth: '600px'
     },
-    statsGrid: {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-      gap: '32px',
-      maxWidth: '1024px',
-      margin: '0 auto'
+    heroActions: {
+      display: 'flex',
+      gap: '16px',
+      flexWrap: 'wrap'
     },
-    statItem: {
-      textAlign: 'center'
+    primaryButton: {
+      padding: '16px 32px',
+      background: 'white',
+      color: '#0369a1',
+      border: 'none',
+      borderRadius: '12px',
+      fontSize: '16px',
+      fontWeight: '600',
+      cursor: 'pointer',
+      transition: 'all 0.3s',
+      boxShadow: '0 4px 20px rgba(255, 255, 255, 0.2)'
     },
-    statNumber: {
-      fontSize: '36px',
-      fontWeight: '300',
-      color: '#111827',
-      marginBottom: '8px'
+    secondaryButton: {
+      padding: '16px 32px',
+      background: 'transparent',
+      color: 'white',
+      border: '2px solid rgba(255, 255, 255, 0.3)',
+      borderRadius: '12px',
+      fontSize: '16px',
+      fontWeight: '600',
+      cursor: 'pointer',
+      transition: 'all 0.3s'
     },
-    statLabel: {
-      color: '#6b7280'
+    heroRight: {},
+    statsCard: {
+      background: 'rgba(255, 255, 255, 0.1)',
+      backdropFilter: 'blur(20px)',
+      borderRadius: '24px',
+      padding: '32px',
+      border: '1px solid rgba(255, 255, 255, 0.2)'
     },
     section: {
-      maxWidth: '1280px',
+      maxWidth: '1400px',
       margin: '0 auto',
-      padding: '0 24px',
-      paddingTop: '80px',
-      paddingBottom: '80px'
+      padding: '70px 32px'
     },
-    sectionCenter: {
+    sectionHeader: {
       textAlign: 'center',
-      marginBottom: '64px'
+      marginBottom: '50px'
     },
     sectionTitle: {
       fontSize: '48px',
-      fontWeight: '300',
-      color: '#111827',
-      marginBottom: '24px'
+      fontWeight: '700',
+      color: '#0f172a',
+      marginBottom: '20px'
     },
     sectionDescription: {
-      fontSize: '20px',
-      color: '#6b7280',
-      maxWidth: '768px',
-      margin: '0 auto'
+      fontSize: '18px',
+      color: '#64748b',
+      maxWidth: '800px',
+      margin: '0 auto',
+      lineHeight: '1.7'
     },
     overviewGrid: {
       display: 'grid',
-      gridTemplateColumns: '1fr',
-      gap: '64px',
-      alignItems: 'center'
-    },
-    overviewGridLg: {
-      gridTemplateColumns: '1fr 1fr'
-    },
-    cardSpace: {
-      display: 'flex',
-      flexDirection: 'column',
+      gridTemplateColumns: 'repeat(3, 1fr)',
       gap: '32px'
     },
-    card: {
-      backgroundColor: 'white',
-      borderRadius: '24px',
+    overviewCard: {
+      background: 'white',
+      borderRadius: '20px',
       padding: '32px',
-      boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
+      border: '1px solid #e2e8f0',
+      transition: 'all 0.3s'
     },
-    cardHeader: {
-      display: 'flex',
-      alignItems: 'center',
-      marginBottom: '24px'
-    },
-    cardIcon: {
-      width: '32px',
-      height: '32px',
-      marginRight: '16px'
-    },
-    cardTitle: {
-      fontSize: '24px',
-      fontWeight: '500',
-      color: '#111827'
-    },
-    cardSubtitle: {
-      color: '#6b7280'
-    },
-    cardMainText: {
-      fontSize: '36px',
-      fontWeight: '300',
-      color: '#111827',
-      marginBottom: '8px'
-    },
-    cardDescription: {
-      color: '#6b7280'
-    },
-    gradientCard: {
-      background: 'linear-gradient(135deg, #9333ea, #ec4899)',
-      borderRadius: '24px',
-      padding: '48px',
+    highlightCard: {
+      background: 'linear-gradient(135deg, #001f3f, #003d82)',
+      borderRadius: '20px',
+      padding: '32px',
       color: 'white'
     },
-    gradientCardTitle: {
-      fontSize: '36px',
-      fontWeight: '300',
-      marginBottom: '32px'
-    },
-    benefitItem: {
-      display: 'flex',
-      alignItems: 'flex-start',
-      marginBottom: '24px'
-    },
-    benefitIcon: {
-      width: '24px',
-      height: '24px',
-      marginRight: '16px',
-      marginTop: '4px',
-      flexShrink: 0
-    },
-    benefitTitle: {
-      fontWeight: '500',
-      marginBottom: '8px'
-    },
-    benefitDescription: {
-      color: 'rgba(255, 255, 255, 0.9)',
-    },
-    whiteSection: {
-      backgroundColor: 'white',
-      paddingTop: '80px',
-      paddingBottom: '80px'
+    benefitsSection: {
+      background: '#f8fafc',
+      padding: '70px 32px'
     },
     benefitsGrid: {
+      maxWidth: '1400px',
+      margin: '0 auto',
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-      gap: '32px'
+      gap: '24px'
     },
     benefitCard: {
-      padding: '32px',
+      background: 'white',
+      borderRadius: '20px',
+      padding: '28px',
+      border: '1px solid #e2e8f0',
+      transition: 'all 0.3s',
+      position: 'relative',
+      overflow: 'hidden'
+    },
+    campusSection: {
+      maxWidth: '1400px',
+      margin: '0 auto',
+      padding: '70px 32px'
+    },
+    campusContainer: {
+      background: 'white',
       borderRadius: '24px',
-      color: 'white',
-      cursor: 'pointer',
-      transition: 'transform 0.3s',
-      display: 'flex',
-      flexDirection: 'column'
-    },
-    benefitCardHover: {
-      transform: 'scale(1.05)'
-    },
-    benefitCardIcon: {
-      marginBottom: '24px'
-    },
-    benefitCardTitle: {
-      fontSize: '24px',
-      fontWeight: '500',
-      marginBottom: '16px'
-    },
-    benefitCardDesc: {
-      color: 'rgba(255, 255, 255, 0.9)',
-      lineHeight: '1.625'
-    },
-    campusCard: {
-      backgroundColor: 'white',
-      borderRadius: '24px',
-      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
       padding: '48px',
-      marginBottom: '64px'
-    },
-    campusHeader: {
-      display: 'flex',
-      alignItems: 'center',
-      marginBottom: '32px'
-    },
-    campusIcon: {
-      width: '80px',
-      height: '80px',
-      background: 'linear-gradient(135deg, #8b5cf6, #ec4899)',
-      borderRadius: '16px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      color: 'white',
-      marginRight: '24px'
-    },
-    campusTitle: {
-      fontSize: '36px',
-      fontWeight: '300',
-      color: '#111827',
-      marginBottom: '8px'
-    },
-    campusSubtitle: {
-      fontSize: '20px',
-      color: '#6b7280'
+      border: '1px solid #e2e8f0',
+      boxShadow: '0 4px 20px rgba(0, 0, 0, 0.05)'
     },
     campusGrid: {
       display: 'grid',
-      gridTemplateColumns: '1fr',
-      gap: '48px'
+      gridTemplateColumns: '1fr 1fr',
+      gap: '40px',
+      marginTop: '40px'
     },
-    campusGridLg: {
-      gridTemplateColumns: '1fr 1fr'
+    studentLifeSection: {
+      background: '#f8fafc',
+      padding: '70px 32px'
     },
-    facilitiesTitle: {
-      fontSize: '24px',
-      fontWeight: '500',
-      color: '#111827',
-      marginBottom: '24px'
-    },
-    facilityItem: {
-      display: 'flex',
-      alignItems: 'flex-start',
-      marginBottom: '16px'
-    },
-    facilityIcon: {
-      width: '24px',
-      height: '24px',
-      color: '#10b981',
-      marginRight: '16px',
-      marginTop: '4px',
-      flexShrink: 0
-    },
-    facilityTitle: {
-      fontWeight: '500',
-      color: '#111827'
-    },
-    facilityDesc: {
-      color: '#6b7280'
-    },
-    fleetContainer: {
-      backgroundColor: '#f9fafb',
-      borderRadius: '16px',
-      padding: '32px'
-    },
-    fleetGrid: {
+    lifeGrid: {
+      maxWidth: '1400px',
+      margin: '0 auto',
       display: 'grid',
-      gap: '16px'
+      gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+      gap: '24px'
     },
-    fleetItem: {
-      backgroundColor: 'white',
-      borderRadius: '12px',
-      padding: '16px',
-      transition: 'box-shadow 0.2s'
+    admissionSection: {
+      maxWidth: '1400px',
+      margin: '0 auto',
+      padding: '70px 32px'
     },
-    fleetItemHover: {
-      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
+    stepsContainer: {
+      maxWidth: '1000px',
+      margin: '0 auto 50px',
+      position: 'relative'
     },
-    fleetHeader: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'flex-start',
-      marginBottom: '8px'
-    },
-    fleetName: {
-      fontWeight: '500',
-      color: '#111827'
-    },
-    fleetType: {
-      fontSize: '12px',
-      backgroundColor: '#e0e7ff',
-      color: '#7c3aed',
-      padding: '4px 8px',
-      borderRadius: '9999px'
-    },
-    fleetDesc: {
-      color: '#6b7280',
-      fontSize: '14px'
-    },
-    studentLifeGrid: {
-      display: 'grid',
-      gridTemplateColumns: '1fr',
-      gap: '64px',
-      alignItems: 'center'
-    },
-    studentLifeGridLg: {
-      gridTemplateColumns: '1fr 1fr'
-    },
-    lifeCardSpace: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '32px'
-    },
-    lifeCard: {
+    ctaContainer: {
+      background: 'linear-gradient(135deg, #001f3f, #003d82)',
       borderRadius: '24px',
-      padding: '32px'
-    },
-    blueCard: {
-      backgroundColor: '#eff6ff'
-    },
-    purpleCard: {
-      backgroundColor: '#faf5ff'
-    },
-    greenCard: {
-      backgroundColor: '#ecfdf5'
-    },
-    yellowCard: {
-      backgroundColor: '#fefce8'
-    },
-    lifeCardHeader: {
-      display: 'flex',
-      alignItems: 'center',
-      marginBottom: '24px'
-    },
-    lifeCardIcon: {
-      width: '32px',
-      height: '32px',
-      marginRight: '16px'
-    },
-    blueIcon: {
-      color: '#2563eb'
-    },
-    purpleIcon: {
-      color: '#9333ea'
-    },
-    greenIcon: {
-      color: '#059669'
-    },
-    yellowIcon: {
-      color: '#ca8a04'
-    },
-    lifeCardTitle: {
-      fontSize: '24px',
-      fontWeight: '500',
-      color: '#111827'
-    },
-    lifeCardText: {
-      color: '#374151',
-      lineHeight: '1.625'
-    },
-    admissionSteps: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '32px'
-    },
-    stepCard: {
-      backgroundColor: 'white',
-      borderRadius: '24px',
-      boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-      transition: 'box-shadow 0.3s',
-      overflow: 'hidden',
-      cursor: 'pointer'
-    },
-    stepCardHover: {
-      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
-    },
-    stepContent: {
-      padding: '32px 48px'
-    },
-    stepFlex: {
-      display: 'flex',
-      alignItems: 'flex-start'
-    },
-    stepFlexLg: {
-      alignItems: 'center'
-    },
-    stepNumber: {
-      width: '80px',
-      height: '80px',
-      background: 'linear-gradient(135deg, #9333ea, #ec4899)',
-      borderRadius: '16px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      color: 'white',
-      fontSize: '24px',
-      fontWeight: '300',
-      marginRight: '32px',
-      flexShrink: 0
-    },
-    stepDetails: {
-      flexGrow: 1
-    },
-    stepTitle: {
-      fontSize: '36px',
-      fontWeight: '500',
-      color: '#111827',
-      marginBottom: '16px'
-    },
-    stepDescription: {
-      fontSize: '20px',
-      color: '#374151',
-      marginBottom: '16px'
-    },
-    stepDetail: {
-      color: '#6b7280',
-      lineHeight: '1.625'
-    },
-    stepArrow: {
-      marginLeft: '32px',
-      width: '32px',
-      height: '32px',
-      color: '#9ca3af',
-      transition: 'all 0.3s',
-      display: 'none'
-    },
-    stepArrowLg: {
-      display: 'block'
-    },
-    stepArrowHover: {
-      color: '#9333ea',
-      transform: 'translateX(8px)'
-    },
-    ctaSection: {
+      padding: '60px 50px',
       textAlign: 'center',
-      marginTop: '80px'
-    },
-    ctaCard: {
-      background: 'linear-gradient(135deg, #9333ea, #ec4899)',
-      borderRadius: '24px',
-      padding: '48px',
-      color: 'white'
-    },
-    ctaTitle: {
-      fontSize: '36px',
-      fontWeight: '300',
-      marginBottom: '24px'
-    },
-    ctaDescription: {
-      fontSize: '20px',
-      color: 'rgba(255, 255, 255, 0.9)',
-      marginBottom: '32px',
-      maxWidth: '768px',
-      margin: '0 auto 32px'
-    },
-    ctaButton: {
-      backgroundColor: 'white',
-      color: '#9333ea',
-      padding: '16px 32px',
-      borderRadius: '12px',
-      fontWeight: '500',
-      fontSize: '18px',
-      transition: 'background-color 0.3s',
-      border: 'none',
-      cursor: 'pointer'
-    },
-    ctaButtonHover: {
-      backgroundColor: '#faf5ff'
+      position: 'relative',
+      overflow: 'hidden'
     }
   };
 
   return (
     <div style={styles.container}>
-      {/* Header with Back Navigation */}
-      <div style={styles.stickyHeader} className="mobile-header">
-        <div style={styles.headerContent} className="mobile-header-content">
-          <div style={styles.headerFlex} className="mobile-header-flex">
+      {/* Professional Header */}
+      <header style={styles.stickyHeader}>
+        <div style={styles.headerContent}>
+          <div style={styles.headerFlex}>
             <div style={styles.headerLeft}>
               <button 
                 style={styles.backButton}
-                onMouseEnter={(e) => e.target.style.backgroundColor = styles.backButtonHover.backgroundColor}
-                onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
                 onClick={() => window.location.href = '/programs'}
+                className="back-btn"
               >
-                <ArrowLeft style={{ width: '20px', height: '20px', color: '#6b7280' }} />
+                <ArrowLeft className="back-icon" />
               </button>
-              <div>
-                <h1 style={styles.headerTitle} className="mobile-header-title">CPL – Hungary</h1>
-                <p style={styles.headerSubtitle} className="mobile-header-subtitle">Commercial Pilot License</p>
+              <div style={styles.headerInfo}>
+                <h1 style={styles.headerTitle}>CPL Training – Hungary</h1>
+                <p style={styles.headerSubtitle}>European Aviation Excellence</p>
               </div>
             </div>
-            {/* UPDATED NAV ELEMENT */}
-            <nav style={{...styles.nav, ...styles.navVisible}} className="nav-visible">
+            <nav style={styles.nav} className="desktop-nav">
               {sections.map((section) => (
                 <button
                   key={section.id}
                   onClick={() => scrollToSection(section.id)}
-                  style={{
-                    ...styles.navButton,
-                    ...(activeSection === section.id ? styles.navActive : styles.navInactive)
-                  }}
+                  style={styles.navButton}
+                  className={activeSection === section.id ? 'nav-active' : 'nav-inactive'}
                 >
                   {section.label}
                 </button>
@@ -735,755 +440,1510 @@ const CPLHungaryPage = () => {
             </nav>
           </div>
         </div>
-      </div>
+      </header>
 
       {/* Hero Section */}
-      <div id="hero" data-section style={styles.hero} className="mobile-hero">
-        <div style={styles.heroOverlay}></div>
-        <div style={styles.heroContent} className="mobile-hero-content">
-          <div style={styles.heroCenter} className="mobile-hero-center">
-            <div style={styles.badge} className="mobile-hero-badge">
-              <Globe style={{ width: '16px', height: '16px', marginRight: '8px' }} />
-              EASA Certified in Europe
-            </div>
-            <h1 style={styles.heroTitle} className="mobile-hero-title">
-              Commercial Pilot License <br />
-              <span style={styles.heroTitleGradient}>
-                Hungary
-              </span>
-            </h1>
-            <p style={styles.heroDescription} className="mobile-hero-description">
-              Earn your Commercial Pilot License in Hungary with EASA standards training. Experience European aviation excellence 
-              while building your path to a successful airline career.
-            </p>
-            
-            {/* Key Stats */}
-            <div style={styles.statsGrid} className="mobile-stats-grid">
-              <div style={styles.statItem} className="mobile-stat-card">
-                <div style={styles.statNumber} className="mobile-stat-number">16-18</div>
-                <div style={styles.statLabel} className="mobile-stat-label">Months Duration</div>
+      <section id="hero" data-section style={styles.hero} className="heroSection">
+        <div style={styles.heroBackground}>
+          <div className="hero-pattern"></div>
+        </div>
+        <div style={styles.heroContent}>
+          <div style={styles.heroGrid}>
+            <div style={styles.heroLeft}>
+              <div style={styles.badge}>
+                <Globe className="badge-icon" />
+                <span>EASA Certified Training</span>
               </div>
-              <div style={styles.statItem} className="mobile-stat-card">
-                <div style={styles.statNumber} className="mobile-stat-number">₹46L</div>
-                <div style={styles.statLabel} className="mobile-stat-label">All Inclusive Fees</div>
+              <h1 style={styles.heroTitle}>
+                Commercial Pilot License
+                <span style={styles.heroAccent}> Hungary</span>
+              </h1>
+              <p style={styles.heroDescription}>
+                Earn your Commercial Pilot License in Hungary with EASA standards training. Experience European aviation excellence 
+                while building your path to a successful airline career.
+              </p>
+              <div style={styles.heroActions}>
+                <button style={styles.primaryButton} className="primary-btn">
+                  Start Application
+                </button>
+                <button style={styles.secondaryButton} className="secondary-btn">
+                  Download Brochure
+                </button>
               </div>
             </div>
-            <div style={styles.statsGrid} className="mobile-stats-grid">
-              <div style={styles.statItem} className="mobile-stat-card">
-                <div style={styles.statNumber} className="mobile-stat-number">EASA</div>
-                <div style={styles.statLabel} className="mobile-stat-label">European Standards</div>
-              </div>
-              <div style={styles.statItem} className="mobile-stat-card">
-                <div style={styles.statNumber} className="mobile-stat-number">EU</div>
-                <div style={styles.statLabel} className="mobile-stat-label">Training Location</div>
+            <div style={styles.heroRight}>
+              <div style={styles.statsCard}>
+                <div className="stat-item">
+                  <Calendar className="stat-icon" />
+                  <div className="stat-content">
+                    <div className="stat-value">16-18 Months</div>
+                    <div className="stat-label">Program Duration</div>
+                  </div>
+                </div>
+                <div className="stat-divider"></div>
+                <div className="stat-item">
+                  <DollarSign className="stat-icon" />
+                  <div className="stat-content">
+                    <div className="stat-value">₹46,50,000</div>
+                    <div className="stat-label">All-Inclusive Fees</div>
+                  </div>
+                </div>
+                <div className="stat-divider"></div>
+                <div className="stat-item">
+                  <Award className="stat-icon" />
+                  <div className="stat-content">
+                    <div className="stat-value">EASA Certified</div>
+                    <div className="stat-label">European Standards</div>
+                  </div>
+                </div>
+                <div className="stat-divider"></div>
+                <div className="stat-item">
+                  <MapPin className="stat-icon" />
+                  <div className="stat-content">
+                    <div className="stat-value">Hungary, EU</div>
+                    <div className="stat-label">Training Location</div>
+                  </div>
+                </div>
               </div>
             </div>
-            
-            <button 
-              style={styles.ctaButton}
-              className="mobile-cta-button"
-              onMouseEnter={(e) => e.target.style.backgroundColor = styles.ctaButtonHover.backgroundColor}
-              onMouseLeave={(e) => e.target.style.backgroundColor = 'white'}
-            >
-              Start Application
-            </button>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Program Overview Section */}
-      <div id="overview" data-section style={styles.section} className="mobile-section">
-        <div style={styles.sectionCenter} className="mobile-section-center">
-          <h2 style={styles.sectionTitle} className="mobile-section-title">Program Overview</h2>
-          <p style={styles.sectionDescription} className="mobile-section-description">
+      <section id="overview" data-section style={styles.section}>
+        <div style={styles.sectionHeader}>
+          <div className="section-badge">Program Details</div>
+          <h2 style={styles.sectionTitle}>Program Overview</h2>
+          <p style={styles.sectionDescription}>
             Our CPL Hungary program provides comprehensive commercial pilot training under EASA regulations, 
             preparing you for a successful career in European and international aviation.
           </p>
         </div>
 
-        <div style={{...styles.overviewGrid, ...styles.overviewGridLg}} className="overview-grid-lg">
-          <div style={styles.cardSpace}>
-            <div style={styles.card} className="mobile-card">
-              <div style={styles.cardHeader} className="mobile-card-header">
-                <Clock style={{...styles.cardIcon, color: '#9333ea'}} className="mobile-card-icon" />
-                <div>
-                  <h3 style={styles.cardTitle} className="mobile-card-title">Duration</h3>
-                  <p style={styles.cardSubtitle} className="mobile-card-subtitle">Flexible timeline based on conditions</p>
-                </div>
-              </div>
-              <p style={styles.cardMainText} className="mobile-card-main-text">16–18 months</p>
-              <p style={styles.cardDescription} className="mobile-card-description">Duration depends on weather conditions and individual student pace, ensuring quality training</p>
+        <div style={styles.overviewGrid}>
+          <div style={styles.overviewCard} className="overview-card">
+            <div className="overview-icon-wrapper">
+              <Clock className="overview-icon" />
             </div>
-
-            <div style={styles.card} className="mobile-card">
-              <div style={styles.cardHeader} className="mobile-card-header">
-                <DollarSign style={{...styles.cardIcon, color: '#059669'}} className="mobile-card-icon" />
-                <div>
-                  <h3 style={styles.cardTitle} className="mobile-card-title">Investment</h3>
-                  <p style={styles.cardSubtitle} className="mobile-card-subtitle">Complete program cost</p>
-                </div>
-              </div>
-              <p style={styles.cardMainText} className="mobile-card-main-text">₹46,50,000 INR</p>
-              <p style={styles.cardDescription} className="mobile-card-description">All inclusive fees with no hidden costs - covers training, certification, and support</p>
-            </div>
-          </div>
-
-          <div style={styles.gradientCard}>
-            <h3 style={styles.gradientCardTitle}>Why CPL Hungary?</h3>
-            <div>
-              <div style={styles.benefitItem}>
-                <CheckCircle style={styles.benefitIcon} />
-                <div>
-                  <h4 style={styles.benefitTitle}>EASA Standards</h4>
-                  <p style={styles.benefitDescription}>Train under European aviation standards, globally recognized</p>
-                </div>
-              </div>
-              <div style={styles.benefitItem}>
-                <CheckCircle style={styles.benefitIcon} />
-                <div>
-                  <h4 style={styles.benefitTitle}>European Experience</h4>
-                  <p style={styles.benefitDescription}>Live and train in Europe with cultural immersion</p>
-                </div>
-              </div>
-              <div style={styles.benefitItem}>
-                <CheckCircle style={styles.benefitIcon} />
-                <div>
-                  <h4 style={styles.benefitTitle}>Career Foundation</h4>
-                  <p style={styles.benefitDescription}>Strong foundation for airline placements across Europe</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Key Benefits Section */}
-      <div id="benefits" data-section style={styles.whiteSection} className="mobile-white-section">
-        <div style={styles.section} className="mobile-section">
-          <div style={styles.sectionCenter} className="mobile-section-center">
-            <h2 style={styles.sectionTitle} className="mobile-section-title">Key Benefits</h2>
-            <p style={styles.sectionDescription} className="mobile-section-description">
-              Experience world-class aviation training with comprehensive benefits designed for your success.
+            <h3 className="overview-card-title">Duration</h3>
+            <div className="overview-value">16–18 months</div>
+            <p className="overview-description">
+              Duration depends on weather conditions and individual student pace, ensuring quality training
             </p>
           </div>
 
-          <div style={styles.benefitsGrid} className="mobile-benefits-grid">
-            {benefits.map((benefit, index) => (
-              <div
-                key={index}
-                style={{
-                  ...styles.benefitCard,
-                  background: benefit.color
-                }}
-                className="mobile-benefit-card"
-                onMouseEnter={(e) => e.target.style.transform = 'scale(1.05)'}
-                onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
-              >
-                <div style={styles.benefitCardIcon} className="mobile-benefit-icon">
-                  {benefit.icon}
+          <div style={styles.overviewCard} className="overview-card">
+            <div className="overview-icon-wrapper">
+              <DollarSign className="overview-icon" />
+            </div>
+            <h3 className="overview-card-title">Investment</h3>
+            <div className="overview-value">₹46,50,000</div>
+            <p className="overview-description">
+              All inclusive fees with no hidden costs - covers training, certification, and support
+            </p>
+          </div>
+
+          <div style={styles.highlightCard} className="highlight-card">
+            <h3 className="highlight-title">Why CPL Hungary?</h3>
+            <div className="highlight-list">
+              <div className="highlight-item">
+                <CheckCircle className="highlight-check" />
+                <div>
+                  <strong>EASA Standards</strong>
+                  <p>Train under European aviation standards, globally recognized</p>
                 </div>
-                <h3 style={styles.benefitCardTitle} className="mobile-benefit-title">{benefit.title}</h3>
-                <p style={styles.benefitCardDesc} className="mobile-benefit-desc">{benefit.description}</p>
               </div>
-            ))}
+              <div className="highlight-item">
+                <CheckCircle className="highlight-check" />
+                <div>
+                  <strong>European Experience</strong>
+                  <p>Live and train in Europe with cultural immersion</p>
+                </div>
+              </div>
+              <div className="highlight-item">
+                <CheckCircle className="highlight-check" />
+                <div>
+                  <strong>Career Foundation</strong>
+                  <p>Strong foundation for airline placements across Europe</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* Key Benefits Section */}
+      <section id="benefits" data-section style={styles.benefitsSection} className="benefitsSection">
+        <div style={styles.sectionHeader}>
+          <div className="section-badge">Program Advantages</div>
+          <h2 style={styles.sectionTitle}>Key Benefits</h2>
+          <p style={styles.sectionDescription}>
+            Experience world-class aviation training with comprehensive benefits designed for your success.
+          </p>
+        </div>
+
+        <div style={styles.benefitsGrid}>
+          {benefits.map((benefit, index) => (
+            <div
+              key={index}
+              style={styles.benefitCard}
+              className="benefit-card"
+              onMouseEnter={() => setHoveredBenefit(index)}
+              onMouseLeave={() => setHoveredBenefit(null)}
+            >
+              <div 
+                className="benefit-icon-container"
+                style={{
+                  backgroundColor: hoveredBenefit === index ? benefit.accentColor : benefit.iconBg
+                }}
+              >
+                {benefit.icon}
+              </div>
+              <h3 className="benefit-title">{benefit.title}</h3>
+              <p className="benefit-description">{benefit.description}</p>
+              <div 
+                className="benefit-accent"
+                style={{
+                  backgroundColor: benefit.accentColor,
+                  opacity: hoveredBenefit === index ? 1 : 0
+                }}
+              ></div>
+            </div>
+          ))}
+        </div>
+      </section>
 
       {/* Campus & Fleet Section */}
-      <div id="campus" data-section style={styles.section} className="mobile-section">
-        <div style={styles.sectionCenter} className="mobile-section-center">
-          <h2 style={styles.sectionTitle} className="mobile-section-title">Campus & Fleet</h2>
-          <p style={styles.sectionDescription} className="mobile-section-description">
+      <section id="campus" data-section style={styles.campusSection} className="campusSection">
+        <div style={styles.sectionHeader}>
+          <div className="section-badge">Training Infrastructure</div>
+          <h2 style={styles.sectionTitle}>Campus & Fleet</h2>
+          <p style={styles.sectionDescription}>
             Train at PharmaFlight's advanced facilities with state-of-the-art aircraft and simulation technology.
           </p>
         </div>
 
-        {/* Partner Information */}
-        <div style={styles.campusCard} className="mobile-campus-card">
-          <div style={styles.campusHeader} className="mobile-campus-header">
-            <div style={styles.campusIcon} className="mobile-campus-icon">
-              <MapPin style={{ width: '40px', height: '40px' }} />
+        <div style={styles.campusContainer} className="campusContainer">
+          <div className="campus-header">
+            <div className="campus-badge">
+              <MapPin className="campus-badge-icon" />
             </div>
-            <div>
-              <h3 style={styles.campusTitle} className="mobile-campus-title">PharmaFlight Academy</h3>
-              <p style={styles.campusSubtitle} className="mobile-campus-subtitle">Premium Training Partner in Hungary</p>
+            <div className="campus-info">
+              <h3 className="campus-name">PharmaFlight Academy</h3>
+              <p className="campus-location">Premium Training Partner in Hungary</p>
             </div>
           </div>
 
-          <div style={{...styles.campusGrid, ...styles.campusGridLg}} className="campus-grid-lg">
-            <div>
-              <h4 style={styles.facilitiesTitle} className="mobile-facilities-title">Advanced Facilities</h4>
-              <div>
-                <div style={styles.facilityItem} className="mobile-facility-item">
-                  <CheckCircle style={styles.facilityIcon} className="mobile-facility-icon" />
-                  <div>
-                    <h5 style={styles.facilityTitle} className="mobile-facility-title">Advanced Simulators</h5>
-                    <p style={styles.facilityDesc} className="mobile-facility-desc">Full flight + procedural simulators for comprehensive pilot training</p>
+          <div style={styles.campusGrid}>
+            <div className="facilities-section">
+              <h4 className="subsection-title">Advanced Facilities</h4>
+              <div className="facility-list">
+                <div className="facility-item">
+                  <div className="facility-icon-box">
+                    <CheckCircle className="facility-check" />
+                  </div>
+                  <div className="facility-content">
+                    <h5 className="facility-name">Advanced Simulators</h5>
+                    <p className="facility-detail">Full flight + procedural simulators for comprehensive pilot training</p>
                   </div>
                 </div>
-                <div style={styles.facilityItem} className="mobile-facility-item">
-                  <CheckCircle style={styles.facilityIcon} className="mobile-facility-icon" />
-                  <div>
-                    <h5 style={styles.facilityTitle} className="mobile-facility-title">Medical & Performance Labs</h5>
-                    <p style={styles.facilityDesc} className="mobile-facility-desc">Integrated medical and human performance laboratories for aviation medicine</p>
+                <div className="facility-item">
+                  <div className="facility-icon-box">
+                    <CheckCircle className="facility-check" />
+                  </div>
+                  <div className="facility-content">
+                    <h5 className="facility-name">Medical & Performance Labs</h5>
+                    <p className="facility-detail">Integrated medical and human performance laboratories for aviation medicine</p>
                   </div>
                 </div>
-                <div style={styles.facilityItem} className="mobile-facility-item">
-                  <CheckCircle style={styles.facilityIcon} className="mobile-facility-icon" />
-                  <div>
-                    <h5 style={styles.facilityTitle} className="mobile-facility-title">Modern Classrooms</h5>
-                    <p style={styles.facilityDesc} className="mobile-facility-desc">State-of-the-art learning environments with latest aviation technology</p>
+                <div className="facility-item">
+                  <div className="facility-icon-box">
+                    <CheckCircle className="facility-check" />
+                  </div>
+                  <div className="facility-content">
+                    <h5 className="facility-name">Modern Classrooms</h5>
+                    <p className="facility-detail">State-of-the-art learning environments with latest aviation technology</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div style={styles.fleetContainer} className="mobile-fleet-container">
-              <h4 style={styles.facilitiesTitle} className="mobile-facilities-title">Training Fleet</h4>
-              <div style={styles.fleetGrid} className="mobile-fleet-grid">
+            <div className="fleet-section">
+              <h4 className="subsection-title">Training Fleet</h4>
+              <div className="fleet-list">
                 {fleetDetails.map((aircraft, index) => (
-                  <div 
-                    key={index} 
-                    style={styles.fleetItem}
-                    className="mobile-fleet-item"
-                    onMouseEnter={(e) => e.target.style.boxShadow = styles.fleetItemHover.boxShadow}
-                    onMouseLeave={(e) => e.target.style.boxShadow = 'none'}
-                  >
-                    <div style={styles.fleetHeader}>
-                      <h5 style={styles.fleetName} className="mobile-fleet-name">{aircraft.name}</h5>
-                      <span style={styles.fleetType} className="mobile-fleet-type">{aircraft.type}</span>
+                  <div key={index} className="fleet-card">
+                    <div className="fleet-card-header">
+                      <Plane className="fleet-icon" />
+                      <span className="fleet-badge">{aircraft.type}</span>
                     </div>
-                    <p style={styles.fleetDesc} className="mobile-fleet-desc">{aircraft.description}</p>
+                    <h5 className="fleet-name">{aircraft.name}</h5>
+                    <p className="fleet-description">{aircraft.description}</p>
                   </div>
                 ))}
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Student Life Section */}
-      <div id="student-life" data-section style={styles.whiteSection} className="mobile-white-section">
-        <div style={styles.section} className="mobile-section">
-          <div style={styles.sectionCenter} className="mobile-section-center">
-            <h2 style={styles.sectionTitle} className="mobile-section-title">Student Life & Environment</h2>
-            <p style={styles.sectionDescription} className="mobile-section-description">
-              Immerse yourself in European culture while pursuing your aviation dreams in a safe, professional environment.
+      <section id="student-life" data-section style={styles.studentLifeSection} className="studentLifeSection">
+        <div style={styles.sectionHeader}>
+          <div className="section-badge">Living in Europe</div>
+          <h2 style={styles.sectionTitle}>Student Life & Environment</h2>
+          <p style={styles.sectionDescription}>
+            Immerse yourself in European culture while pursuing your aviation dreams in a safe, professional environment.
+          </p>
+        </div>
+
+        <div style={styles.lifeGrid}>
+          <div className="life-card">
+            <div className="life-icon-wrapper" style={{background: 'linear-gradient(135deg, #0369a1, #0ea5e9)'}}>
+              <Users className="life-icon" />
+            </div>
+            <h3 className="life-card-title">Safe EU Environment</h3>
+            <p className="life-card-text">
+              Train in a safe European Union environment with cultural diversity, exposure to international aviation standards and practices.
             </p>
           </div>
 
-          <div style={{...styles.studentLifeGrid, ...styles.studentLifeGridLg}} className="student-life-grid-lg">
-            <div style={styles.lifeCardSpace}>
-              <div style={{...styles.lifeCard, ...styles.blueCard}} className="mobile-life-card">
-                <div style={styles.lifeCardHeader} className="mobile-life-card-header">
-                  <Users style={{...styles.lifeCardIcon, ...styles.blueIcon}} className="mobile-life-card-icon" />
-                  <h3 style={styles.lifeCardTitle} className="mobile-life-card-title">Safe EU Environment</h3>
-                </div>
-                <p style={styles.lifeCardText} className="mobile-life-card-text">
-                  Train in a safe European Union environment with cultural diversity, exposure to international aviation standards and practices.
-                </p>
-              </div>
-
-              <div style={{...styles.lifeCard, ...styles.purpleCard}} className="mobile-life-card">
-                <div style={styles.lifeCardHeader} className="mobile-life-card-header">
-                  <Globe style={{...styles.lifeCardIcon, ...styles.purpleIcon}} className="mobile-life-card-icon" />
-                  <h3 style={styles.lifeCardTitle} className="mobile-life-card-title">European Lifestyle</h3>
-                </div>
-                <p style={styles.lifeCardText} className="mobile-life-card-text">
-                  Experience European lifestyle and travel opportunities across the Schengen zone, broadening your cultural and professional horizons.
-                </p>
-              </div>
+          <div className="life-card">
+            <div className="life-icon-wrapper" style={{background: 'linear-gradient(135deg, #0369a1, #0ea5e9)'}}>
+              <Globe className="life-icon" />
             </div>
+            <h3 className="life-card-title">European Lifestyle</h3>
+            <p className="life-card-text">
+              Experience European lifestyle and travel opportunities across the Schengen zone, broadening your cultural and professional horizons.
+            </p>
+          </div>
 
-            <div style={styles.lifeCardSpace}>
-              <div style={{...styles.lifeCard, ...styles.greenCard}} className="mobile-life-card">
-                <div style={styles.lifeCardHeader} className="mobile-life-card-header">
-                  <Award style={{...styles.lifeCardIcon, ...styles.greenIcon}} className="mobile-life-card-icon" />
-                  <h3 style={styles.lifeCardTitle} className="mobile-life-card-title">Professional Excellence</h3>
-                </div>
-                <p style={styles.lifeCardText} className="mobile-life-card-text">
-                  Strong emphasis on discipline and professionalism in training, preparing you for the highest standards of the aviation industry.
-                </p>
-              </div>
-
-              <div style={{...styles.lifeCard, ...styles.yellowCard}} className="mobile-life-card">
-                <div style={styles.lifeCardHeader} className="mobile-life-card-header">
-                  <MapPin style={{...styles.lifeCardIcon, ...styles.yellowIcon}} className="mobile-life-card-icon" />
-                  <h3 style={styles.lifeCardTitle} className="mobile-life-card-title">Campus Accommodation</h3>
-                </div>
-                <p style={styles.lifeCardText} className="mobile-life-card-text">
-                  Student accommodations available near campus, ensuring convenience and community with fellow international aviation students.
-                </p>
-              </div>
+          <div className="life-card">
+            <div className="life-icon-wrapper" style={{background: 'linear-gradient(135deg, #0369a1, #0ea5e9)'}}>
+              <Award className="life-icon" />
             </div>
+            <h3 className="life-card-title">Professional Excellence</h3>
+            <p className="life-card-text">
+              Strong emphasis on discipline and professionalism in training, preparing you for the highest standards of the aviation industry.
+            </p>
+          </div>
+
+          <div className="life-card">
+            <div className="life-icon-wrapper" style={{background: 'linear-gradient(135deg, #0369a1, #0ea5e9)'}}>
+              <MapPin className="life-icon" />
+            </div>
+            <h3 className="life-card-title">Campus Accommodation</h3>
+            <p className="life-card-text">
+              Student accommodations available near campus, ensuring convenience and community with fellow international aviation students.
+            </p>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Admission Process Section */}
-      <div id="admission" data-section style={styles.section} className="mobile-section">
-        <div style={styles.sectionCenter} className="mobile-section-center">
-          <h2 style={styles.sectionTitle} className="mobile-section-title">Admission Process</h2>
-          <p style={styles.sectionDescription} className="mobile-section-description">
+      <section id="admission" data-section style={styles.admissionSection}>
+        <div style={styles.sectionHeader}>
+          <div className="section-badge">Getting Started</div>
+          <h2 style={styles.sectionTitle}>Admission Process</h2>
+          <p style={styles.sectionDescription}>
             Your journey to becoming a commercial pilot starts here. Follow our streamlined admission process designed for your success.
           </p>
         </div>
 
-        <div style={styles.admissionSteps} className="mobile-admission-steps">
+        <div style={styles.stepsContainer}>
           {admissionSteps.map((step, index) => (
             <div
               key={index}
-              style={styles.stepCard}
-              className="mobile-step-card"
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = styles.stepCardHover.boxShadow;
-                const arrow = e.currentTarget.querySelector('.step-arrow-dynamic');
-                if (arrow) Object.assign(arrow.style, styles.stepArrowHover);
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = styles.stepCard.boxShadow;
-                const arrow = e.currentTarget.querySelector('.step-arrow-dynamic');
-                if (arrow) {
-                   arrow.style.color = styles.stepArrow.color;
-                   arrow.style.transform = 'translateX(0px)';
-                }
-              }}
+              className="admission-step"
+              onMouseEnter={() => setHoveredStep(index)}
+              onMouseLeave={() => setHoveredStep(null)}
             >
-              <div style={styles.stepContent} className="mobile-step-content">
-                <div style={{...styles.stepFlex, ...styles.stepFlexLg}} className="step-flex-lg mobile-step-flex">
-                  <div style={styles.stepNumber} className="mobile-step-number">
-                    {step.number}
+              <div className="step-line"></div>
+              <div className="step-badge">
+                <span className="step-num">{step.number}</span>
+              </div>
+              <div className="step-content-box">
+                <h3 className="step-title-main">{step.title}</h3>
+                <p className="step-desc">{step.description}</p>
+                <p className="step-detail-text">{step.detail}</p>
+                {hoveredStep === index && (
+                  <div className="step-arrow-indicator">
+                    <ChevronRight className="arrow-icon" />
                   </div>
-                  <div style={styles.stepDetails}>
-                    <h3 style={styles.stepTitle} className="mobile-step-title">{step.title}</h3>
-                    <p style={styles.stepDescription} className="mobile-step-description">{step.description}</p>
-                    <p style={styles.stepDetail} className="mobile-step-detail">{step.detail}</p>
-                  </div>
-                  <div style={{...styles.stepArrow, ...styles.stepArrowLg}} className="step-arrow-dynamic step-arrow-lg">
-                    <ChevronRight style={{ width: '32px', height: '32px' }} />
-                  </div>
-                </div>
+                )}
               </div>
             </div>
           ))}
         </div>
 
         {/* Call to Action */}
-        <div style={styles.ctaSection} className="mobile-cta-section">
-          <div style={styles.ctaCard} className="mobile-cta-card">
-            <h3 style={styles.ctaTitle} className="mobile-cta-title">Ready to Begin Your CPL Journey?</h3>
-            <p style={styles.ctaDescription} className="mobile-cta-description">
+        <div style={styles.ctaContainer} className="ctaContainer">
+          <div className="cta-content">
+            <TrendingUp className="cta-icon" />
+            <h3 className="cta-heading">Ready to Begin Your CPL Journey?</h3>
+            <p className="cta-text">
               Take the first step towards your commercial pilot career in Hungary. Our admission team is ready to guide you through the entire process.
             </p>
-            <button 
-              style={styles.ctaButton}
-              className="mobile-cta-button"
-              onMouseEnter={(e) => e.target.style.backgroundColor = styles.ctaButtonHover.backgroundColor}
-              onMouseLeave={(e) => e.target.style.backgroundColor = 'white'}
-            >
-              Start Application Process
-            </button>
+            <div className="cta-buttons">
+              <button className="cta-primary">Start Application Process</button>
+              <button className="cta-secondary">Schedule Consultation</button>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* UPDATED STYLE BLOCK */}
+      {/* Professional Styling */}
       <style>
         {`
+          * {
+            box-sizing: border-box;
+          }
+
           html {
             scroll-behavior: smooth;
           }
-          
-          @keyframes fadeInUp {
-            from {
-              opacity: 0;
-              transform: translateY(30px);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0);
-            }
+
+          /* Header Interactions */
+          .back-btn:hover {
+            background: #f8fafc !important;
+            border-color: #cbd5e1 !important;
+            transform: translateX(-2px);
           }
 
+          .back-icon {
+            width: 20px;
+            height: 20px;
+            color: #64748b;
+          }
+
+          .desktop-nav {
+            display: flex;
+          }
+
+          .nav-active {
+            background: #eff6ff !important;
+            color: #0369a1 !important;
+          }
+
+          .nav-inactive:hover {
+            background: #f8fafc !important;
+            color: #0f172a !important;
+          }
+
+          /* Hero Section */
+          .hero-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="30" r="1" fill="white" opacity="0.4"/></svg>');
+          }
+
+          .badge-icon {
+            width: 18px;
+            height: 18px;
+          }
+
+          .primary-btn:hover {
+            background: #f0f9ff !important;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3) !important;
+          }
+
+          .secondary-btn:hover {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-color: rgba(255, 255, 255, 0.5) !important;
+          }
+
+          /* Stats Card */
+          .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 0;
+          }
+
+          .stat-icon {
+            width: 40px;
+            height: 40px;
+            color: #38bdf8;
+            flex-shrink: 0;
+          }
+
+          .stat-content {
+            text-align: left;
+          }
+
+          .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 4px;
+          }
+
+          .stat-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+          }
+
+          .stat-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+          }
+
+          /* Section Badges */
+          .section-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: #eff6ff;
+            color: #0369a1;
+            borderRadius: 100px;
+            fontSize: 14px;
+            fontWeight: 600;
+            marginBottom: 24px;
+          }
+
+          /* Overview Cards */
+          .overview-card {
+            position: relative;
+          }
+
+          .overview-card:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1) !important;
+            transform: translateY(-4px);
+            border-color: #0ea5e9 !important;
+          }
+
+          .overview-icon-wrapper {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+          }
+
+          .overview-icon {
+            width: 32px;
+            height: 32px;
+            color: #0369a1;
+          }
+
+          .overview-card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+          }
+
+          .overview-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 12px;
+          }
+
+          .overview-description {
+            color: #64748b;
+            line-height: 1.7;
+          }
+
+          /* Highlight Card */
+          .highlight-title {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: white;
+          }
+
+          .highlight-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+          }
+
+          .highlight-item {
+            display: flex;
+            gap: 14px;
+          }
+
+          .highlight-check {
+            width: 24px;
+            height: 24px;
+            color: #7dd3fc;
+            flex-shrink: 0;
+            margin-top: 2px;
+          }
+
+          .highlight-item strong {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 4px;
+          }
+
+          .highlight-item p {
+            color: rgba(255, 255, 255, 0.85);
+            margin: 0;
+            line-height: 1.6;
+          }
+
+          /* Benefits Section */
+          .benefit-card:hover {
+            box-shadow: 0 20px 40px rgba(3, 105, 161, 0.15) !important;
+            transform: translateY(-4px);
+            border-color: #0ea5e9 !important;
+          }
+
+          .benefit-icon-container {
+            width: 60px;
+            height: 60px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            transition: all 0.3s;
+          }
+
+          .benefit-icon {
+            width: 32px;
+            height: 32px;
+            color: white;
+          }
+
+          .benefit-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 10px;
+          }
+
+          .benefit-description {
+            color: #64748b;
+            line-height: 1.6;
+            font-size: 15px;
+          }
+
+          .benefit-accent {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            border-radius: 0 0 20px 20px;
+            transition: opacity 0.3s;
+          }
+
+          /* Campus Section */
+          .campus-header {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 28px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e2e8f0;
+          }
+
+          .campus-badge {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #0369a1, #0ea5e9);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+          }
+
+          .campus-badge-icon {
+            width: 36px;
+            height: 36px;
+            color: white;
+          }
+
+          .campus-name {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0 0 6px 0;
+          }
+
+          .campus-location {
+            font-size: 16px;
+            color: #64748b;
+            margin: 0;
+          }
+
+          .subsection-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 20px;
+          }
+
+          .facility-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+          }
+
+          .facility-item {
+            display: flex;
+            gap: 14px;
+            padding: 16px;
+            background: #f8fafc;
+            border-radius: 14px;
+            transition: all 0.3s;
+          }
+
+          .facility-item:hover {
+            background: #eff6ff;
+            transform: translateX(4px);
+          }
+
+          .facility-icon-box {
+            width: 48px;
+            height: 48px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+          }
+
+          .facility-check {
+            width: 24px;
+            height: 24px;
+            color: #0ea5e9;
+          }
+
+          .facility-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #0f172a;
+            margin: 0 0 6px 0;
+          }
+
+          .facility-detail {
+            font-size: 14px;
+            color: #64748b;
+            margin: 0;
+            line-height: 1.6;
+          }
+
+          /* Fleet Section */
+          .fleet-list {
+            display: grid;
+            gap: 14px;
+          }
+
+          .fleet-card {
+            background: #f8fafc;
+            border-radius: 14px;
+            padding: 18px;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+          }
+
+          .fleet-card:hover {
+            background: white;
+            border-color: #0ea5e9;
+            box-shadow: 0 4px 20px rgba(3, 105, 161, 0.1);
+          }
+
+          .fleet-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+          }
+
+          .fleet-icon {
+            width: 20px;
+            height: 20px;
+            color: #0369a1;
+          }
+
+          .fleet-badge {
+            font-size: 11px;
+            padding: 4px 12px;
+            background: #eff6ff;
+            color: #0369a1;
+            border-radius: 100px;
+            font-weight: 600;
+          }
+
+          .fleet-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #0f172a;
+            margin: 0 0 8px 0;
+          }
+
+          .fleet-description {
+            font-size: 14px;
+            color: #64748b;
+            margin: 0;
+            line-height: 1.6;
+          }
+
+          /* Student Life Cards */
+          .life-card {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s;
+          }
+
+          .life-card:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
+            border-color: #0ea5e9;
+          }
+
+          .life-icon-wrapper {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+          }
+
+          .life-icon {
+            width: 32px;
+            height: 32px;
+            color: white;
+          }
+
+          .life-card-title {
+            font-size: 19px;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 12px;
+          }
+
+          .life-card-text {
+            color: #64748b;
+            line-height: 1.7;
+            margin: 0;
+          }
+
+          /* Admission Steps */
+          .admission-step {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 28px;
+            position: relative;
+          }
+
+          .admission-step:last-child .step-line {
+            display: none;
+          }
+
+          .step-line {
+            position: absolute;
+            left: 27px;
+            top: 56px;
+            bottom: -28px;
+            width: 2px;
+            background: linear-gradient(180deg, #0ea5e9, #e2e8f0);
+          }
+
+          .step-badge {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #0369a1, #0ea5e9);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+          }
+
+          .step-num {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+          }
+
+          .step-content-box {
+            flex: 1;
+            background: white;
+            border-radius: 18px;
+            padding: 26px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s;
+            position: relative;
+          }
+
+          .admission-step:hover .step-content-box {
+            box-shadow: 0 10px 30px rgba(3, 105, 161, 0.1);
+            border-color: #0ea5e9;
+          }
+
+          .step-title-main {
+            font-size: 19px;
+            font-weight: 600;
+            color: #0f172a;
+            margin: 0 0 10px 0;
+          }
+
+          .step-desc {
+            font-size: 15px;
+            color: #64748b;
+            margin: 0 0 10px 0;
+          }
+
+          .step-detail-text {
+            font-size: 13px;
+            color: #94a3b8;
+            margin: 0;
+            line-height: 1.5;
+          }
+
+          .step-arrow-indicator {
+            position: absolute;
+            right: 32px;
+            top: 50%;
+            transform: translateY(-50%);
+          }
+
+          .arrow-icon {
+            width: 24px;
+            height: 24px;
+            color: #0ea5e9;
+          }
+
+          /* CTA Section */
+          .cta-content {
+            position: relative;
+            z-index: 1;
+          }
+
+          .cta-icon {
+            width: 52px;
+            height: 52px;
+            color: white;
+            margin: 0 auto 20px;
+          }
+
+          .cta-heading {
+            font-size: 36px;
+            font-weight: 700;
+            color: white;
+            margin: 0 0 16px 0;
+          }
+
+          .cta-text {
+            font-size: 17px;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 700px;
+            margin: 0 auto 32px;
+            line-height: 1.6;
+          }
+
+          .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+          }
+
+          .cta-primary {
+            padding: 18px 40px;
+            background: white;
+            color: #0369a1;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+          }
+
+          .cta-primary:hover {
+            background: #f0f9ff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
+          }
+
+          .cta-secondary {
+            padding: 18px 40px;
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+          }
+
+          .cta-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+          }
+
+          /* Responsive Design */
           @media (max-width: 1024px) {
-            .nav-visible {
+            .desktop-nav {
               display: none !important;
+            }
+
+            .heroGrid {
+              grid-template-columns: 1fr !important;
+              gap: 60px !important;
+            }
+
+            .overviewGrid {
+              grid-template-columns: 1fr !important;
+            }
+
+            .campusGrid {
+              grid-template-columns: 1fr !important;
             }
           }
 
           @media (max-width: 768px) {
-            /* Mobile Header Optimization */
-            .mobile-header {
-              padding: 12px 16px !important;
+            /* Header Mobile */
+            .back-icon {
+              width: 18px;
+              height: 18px;
             }
-            
-            .mobile-header-content {
-              padding: 0 !important;
+
+            /* Hero Mobile */
+            .hero-pattern {
+              display: none;
             }
-            
-            .mobile-header-flex {
-              padding: 8px 0 !important;
+
+            .heroSection {
+              padding: 80px 20px 60px !important;
             }
-            
-            .mobile-header-title {
+
+            .heroGrid {
+              gap: 40px !important;
+            }
+
+            .heroTitle {
+              font-size: 36px !important;
+            }
+
+            .heroDescription {
               font-size: 16px !important;
-              font-weight: 600 !important;
+              max-width: 100% !important;
             }
-            
-            .mobile-header-subtitle {
-              font-size: 12px !important;
-              margin-top: 2px !important;
+
+            .badge-icon {
+              width: 16px;
+              height: 16px;
             }
-            
-            /* Mobile Hero Section */
-            .mobile-hero {
-              padding: 32px 16px 48px !important;
-              background: linear-gradient(135deg, #9333ea, #ec4899) !important;
-              color: white !important;
+
+            .heroActions {
+              flex-direction: column;
+              width: 100%;
             }
-            
-            .mobile-hero-badge {
-              background: rgba(255, 255, 255, 0.2) !important;
-              color: white !important;
-              padding: 6px 12px !important;
-              font-size: 12px !important;
-              margin-bottom: 20px !important;
+
+            .primaryButton, .secondaryButton {
+              width: 100%;
+              padding: 14px 24px !important;
             }
-            
-            .mobile-hero-title {
-              font-size: 2.5rem !important;
-              font-weight: 700 !important;
-              line-height: 1.1 !important;
-              margin-bottom: 16px !important;
-              text-align: left !important;
+
+            /* Stats Card Mobile */
+            .stat-item {
+              flex-direction: column;
+              align-items: flex-start;
+              gap: 12px;
+              padding: 16px 0;
             }
-            
-            .mobile-hero-description {
+
+            .stat-icon {
+              width: 32px;
+              height: 32px;
+            }
+
+            .stat-value {
+              font-size: 20px;
+            }
+
+            .stat-label {
+              font-size: 13px;
+            }
+
+            /* Section Padding Mobile */
+            section {
+              padding: 50px 20px !important;
+            }
+
+            .heroSection {
+              padding: 70px 20px 50px !important;
+            }
+
+            .benefitsSection, .studentLifeSection {
+              padding: 50px 20px !important;
+            }
+
+            .campusSection {
+              padding: 50px 20px !important;
+            }
+
+            /* Section Headers Mobile */
+            .section-badge {
+              font-size: 12px;
+              padding: 6px 16px;
+            }
+
+            .sectionTitle {
+              font-size: 32px !important;
+              line-height: 1.2;
+            }
+
+            .sectionDescription {
               font-size: 16px !important;
-              line-height: 1.5 !important;
-              margin-bottom: 32px !important;
-              color: rgba(255, 255, 255, 0.9) !important;
-              text-align: left !important;
             }
-            
-            .mobile-stats-grid {
-              grid-template-columns: 1fr 1fr !important;
-              gap: 16px !important;
-              margin-bottom: 32px !important;
-            }
-            
-            .mobile-stat-card {
-              background: rgba(255, 255, 255, 0.1) !important;
-              backdrop-filter: blur(10px) !important;
-              border-radius: 16px !important;
-              padding: 20px 16px !important;
-              text-align: center !important;
-              border: 1px solid rgba(255, 255, 255, 0.2) !important;
-            }
-            
-            .mobile-stat-number {
-              font-size: 24px !important;
-              font-weight: 700 !important;
-              margin-bottom: 4px !important;
-              color: white !important;
-            }
-            
-            .mobile-stat-label {
-              font-size: 12px !important;
-              color: rgba(255, 255, 255, 0.8) !important;
-              font-weight: 500 !important;
-            }
-            
-            .mobile-cta-button {
-              width: 100% !important;
-              background: white !important;
-              color: #9333ea !important;
-              padding: 16px 24px !important;
-              border-radius: 12px !important;
-              font-weight: 600 !important;
-              font-size: 16px !important;
-              border: none !important;
-              cursor: pointer !important;
-              transition: all 0.3s !important;
-            }
-            
-            /* Mobile Sections */
-            .mobile-section {
-              padding: 48px 16px !important;
-            }
-            
-            .mobile-section-title {
-              font-size: 2.25rem !important;
-              font-weight: 700 !important;
-              text-align: left !important;
-              margin-bottom: 16px !important;
-            }
-            
-            .mobile-section-description {
-              font-size: 16px !important;
-              text-align: left !important;
-              margin-bottom: 32px !important;
-            }
-            
-            /* Mobile Cards */
-            .mobile-card {
-              border-radius: 20px !important;
-              padding: 24px !important;
-              margin-bottom: 16px !important;
-              box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
-            }
-            
-            .mobile-card-header {
-              margin-bottom: 16px !important;
-            }
-            
-            .mobile-card-icon {
-              width: 24px !important;
-              height: 24px !important;
-              margin-right: 12px !important;
-            }
-            
-            .mobile-card-title {
-              font-size: 18px !important;
-              font-weight: 600 !important;
-            }
-            
-            .mobile-card-subtitle {
-              font-size: 14px !important;
-              margin-top: 2px !important;
-            }
-            
-            .mobile-card-main-text {
-              font-size: 28px !important;
-              font-weight: 700 !important;
-              margin-bottom: 8px !important;
-            }
-            
-            .mobile-card-description {
-              font-size: 14px !important;
-              line-height: 1.5 !important;
-            }
-            
-            /* Mobile Benefits Grid */
-            .mobile-benefits-grid {
-              grid-template-columns: 1fr !important;
-              gap: 16px !important;
-            }
-            
-            .mobile-benefit-card {
-              padding: 24px !important;
-              border-radius: 20px !important;
-            }
-            
-            .mobile-benefit-icon {
-              margin-bottom: 16px !important;
-            }
-            
-            .mobile-benefit-title {
-              font-size: 18px !important;
-              font-weight: 600 !important;
-              margin-bottom: 12px !important;
-            }
-            
-            .mobile-benefit-desc {
-              font-size: 14px !important;
-              line-height: 1.5 !important;
-            }
-            
-            /* Mobile Campus Section */
-            .mobile-campus-card {
-              border-radius: 20px !important;
-              padding: 24px !important;
-              margin-bottom: 32px !important;
-            }
-            
-            .mobile-campus-header {
-              flex-direction: column !important;
-              align-items: flex-start !important;
-              text-align: left !important;
-              margin-bottom: 24px !important;
-            }
-            
-            .mobile-campus-icon {
-              width: 60px !important;
-              height: 60px !important;
-              margin-right: 0 !important;
-              margin-bottom: 16px !important;
-            }
-            
-            .mobile-campus-title {
-              font-size: 24px !important;
-              font-weight: 700 !important;
-              margin-bottom: 4px !important;
-            }
-            
-            .mobile-campus-subtitle {
-              font-size: 14px !important;
-            }
-            
-            .mobile-facilities-title {
-              font-size: 18px !important;
-              font-weight: 600 !important;
-              margin-bottom: 16px !important;
-            }
-            
-            .mobile-facility-item {
-              margin-bottom: 12px !important;
-            }
-            
-            .mobile-facility-icon {
-              width: 20px !important;
-              height: 20px !important;
-              margin-right: 12px !important;
-            }
-            
-            .mobile-facility-title {
-              font-size: 14px !important;
-              font-weight: 600 !important;
-            }
-            
-            .mobile-facility-desc {
-              font-size: 13px !important;
-              line-height: 1.4 !important;
-            }
-            
-            .mobile-fleet-container {
-              border-radius: 16px !important;
-              padding: 20px !important;
-              margin-top: 24px !important;
-            }
-            
-            .mobile-fleet-item {
-              border-radius: 12px !important;
-              padding: 16px !important;
-              margin-bottom: 12px !important;
-            }
-            
-            .mobile-fleet-name {
-              font-size: 14px !important;
-              font-weight: 600 !important;
-            }
-            
-            .mobile-fleet-type {
-              font-size: 10px !important;
-              padding: 2px 6px !important;
-            }
-            
-            .mobile-fleet-desc {
-              font-size: 12px !important;
-              line-height: 1.4 !important;
-            }
-            
-            /* Mobile Student Life */
-            .mobile-life-card {
-              border-radius: 20px !important;
-              padding: 24px !important;
-              margin-bottom: 16px !important;
-            }
-            
-            .mobile-life-card-header {
-              margin-bottom: 16px !important;
-            }
-            
-            .mobile-life-card-icon {
-              width: 24px !important;
-              height: 24px !important;
-              margin-right: 12px !important;
-            }
-            
-            .mobile-life-card-title {
-              font-size: 18px !important;
-              font-weight: 600 !important;
-            }
-            
-            .mobile-life-card-text {
-              font-size: 14px !important;
-              line-height: 1.5 !important;
-            }
-            
-            /* Mobile Admission Steps */
-            .mobile-step-card {
-              border-radius: 20px !important;
-              margin-bottom: 16px !important;
-            }
-            
-            .mobile-step-content {
-              padding: 24px !important;
-            }
-            
-            .mobile-step-number {
-              width: 60px !important;
-              height: 60px !important;
-              border-radius: 12px !important;
-              font-size: 18px !important;
-              margin-right: 16px !important;
-              margin-bottom: 16px !important;
-            }
-            
-            .mobile-step-title {
-              font-size: 20px !important;
-              font-weight: 600 !important;
-              margin-bottom: 8px !important;
-            }
-            
-            .mobile-step-description {
-              font-size: 14px !important;
-              margin-bottom: 8px !important;
-            }
-            
-            .mobile-step-detail {
-              font-size: 13px !important;
-              line-height: 1.4 !important;
-            }
-            
-            /* Mobile CTA */
-            .mobile-cta-card {
-              border-radius: 20px !important;
+
+            /* Overview Cards Mobile */
+            .overview-card {
               padding: 32px 24px !important;
             }
-            
-            .mobile-cta-title {
-              font-size: 24px !important;
-              font-weight: 700 !important;
-              margin-bottom: 16px !important;
-              text-align: left !important;
+
+            .overview-icon-wrapper {
+              width: 56px;
+              height: 56px;
             }
-            
-            .mobile-cta-description {
+
+            .overview-icon {
+              width: 28px;
+              height: 28px;
+            }
+
+            .overview-card-title {
+              font-size: 12px;
+            }
+
+            .overview-value {
+              font-size: 28px;
+            }
+
+            .overview-description {
+              font-size: 14px;
+            }
+
+            /* Highlight Card Mobile */
+            .highlight-card {
+              padding: 32px 24px !important;
+            }
+
+            .highlight-title {
+              font-size: 24px;
+              margin-bottom: 24px;
+            }
+
+            .highlight-check {
+              width: 20px;
+              height: 20px;
+            }
+
+            .highlight-item {
+              gap: 12px;
+            }
+
+            .highlight-item strong {
+              font-size: 15px;
+            }
+
+            .highlight-item p {
+              font-size: 14px;
+            }
+
+            /* Benefits Section Mobile */
+            .benefitsSection {
+              padding: 60px 20px !important;
+            }
+
+            /* Benefits Grid Mobile */
+            .benefitsGrid, .lifeGrid {
+              grid-template-columns: 1fr !important;
+              gap: 20px !important;
+            }
+
+            .benefit-card {
+              padding: 28px 20px !important;
+            }
+
+            .benefit-icon-container {
+              width: 56px;
+              height: 56px;
+            }
+
+            .benefit-icon {
+              width: 28px;
+              height: 28px;
+            }
+
+            .benefit-title {
+              font-size: 17px;
+            }
+
+            .benefit-description {
+              font-size: 14px;
+              line-height: 1.5;
+            }
+
+          /* Campus Container Mobile */
+          .campusContainer {
+            padding: 32px 20px !important;
+          }
+
+          .campusGrid {
+            gap: 24px !important;
+            margin-top: 24px !important;
+          }          /* Campus Section Mobile */
+          .campus-header {
+            flex-direction: row;
+            align-items: center;
+            gap: 16px;
+            padding-bottom: 20px;
+            margin-bottom: 24px;
+          }
+
+          .campus-badge {
+            width: 56px;
+            height: 56px;
+          }
+
+          .campus-badge-icon {
+            width: 28px;
+            height: 28px;
+          }
+
+          .campus-name {
+            font-size: 20px;
+          }
+
+          .campus-location {
+            font-size: 13px;
+          }
+
+          .subsection-title {
+            font-size: 18px;
+            margin-bottom: 16px;
+          }
+
+          .facility-item {
+            padding: 14px;
+          }
+
+          .facility-icon-box {
+            width: 36px;
+            height: 36px;
+          }
+
+          .facility-check {
+            width: 18px;
+            height: 18px;
+          }
+
+          .facility-name {
+            font-size: 14px;
+          }
+
+          .facility-detail {
+            font-size: 13px;
+          }
+
+          .fleet-list {
+            gap: 12px;
+          }
+
+          .fleet-card {
+            padding: 16px;
+          }
+
+          .fleet-name {
+            font-size: 14px;
+          }
+
+          .fleet-description {
+            font-size: 13px;
+          }            /* Student Life Cards Mobile */
+            .life-card {
+              padding: 32px 24px;
+            }
+
+            .life-icon-wrapper {
+              width: 64px;
+              height: 64px;
+            }
+
+            .life-icon {
+              width: 32px;
+              height: 32px;
+            }
+
+            .life-card-title {
+              font-size: 18px;
+              margin-bottom: 12px;
+            }
+
+            .life-card-text {
+              font-size: 14px;
+            }
+
+            /* Admission Steps Mobile */
+            .admission-step {
+              flex-direction: column;
+              gap: 16px;
+              margin-bottom: 32px;
+            }
+
+            .step-line {
+              left: 27px;
+              top: 72px;
+            }
+
+            .step-badge {
+              width: 56px;
+              height: 56px;
+            }
+
+            .step-num {
+              font-size: 20px;
+            }
+
+            .step-content-box {
+              padding: 24px;
+            }
+
+            .step-title-main {
+              font-size: 18px;
+              margin-bottom: 8px;
+            }
+
+            .step-desc {
+              font-size: 14px;
+              margin-bottom: 8px;
+            }
+
+            .step-detail-text {
+              font-size: 13px;
+            }
+
+            .step-arrow-indicator {
+              display: none;
+            }
+
+            /* CTA Container Mobile */
+            .ctaContainer {
+              padding: 40px 24px !important;
+            }
+
+            /* CTA Section Mobile */
+            .cta-icon {
+              width: 44px;
+              height: 44px;
+              margin-bottom: 16px;
+            }
+
+            .cta-heading {
+              font-size: 26px !important;
+              line-height: 1.2;
+            }
+
+            .cta-text {
+              font-size: 15px;
+              margin-bottom: 28px;
+            }
+
+            .cta-buttons {
+              flex-direction: column;
+              width: 100%;
+            }
+
+            .cta-primary, .cta-secondary {
+              width: 100%;
+              padding: 16px 32px;
+            }
+          }
+
+          @media (max-width: 480px) {
+            /* Extra Small Devices */
+            .heroSection {
+              padding: 50px 16px 35px !important;
+            }
+
+            section {
+              padding: 40px 16px !important;
+            }
+
+            .benefitsSection, .studentLifeSection {
+              padding: 40px 16px !important;
+            }
+
+            .campusSection {
+              padding: 40px 16px !important;
+            }
+
+            .heroTitle {
+              font-size: 28px !important;
+            }
+
+            .sectionTitle {
+              font-size: 28px !important;
+            }
+
+            .overview-card, .benefit-card, .life-card {
+              padding: 24px 18px !important;
+            }
+
+            .highlight-card {
+              padding: 28px 20px !important;
+            }
+
+            .campusContainer {
+              padding: 24px 16px !important;
+            }
+
+            .campusGrid {
+              gap: 20px !important;
+              margin-top: 20px !important;
+            }
+
+            .campus-header {
+              gap: 12px;
+              padding-bottom: 16px;
+              margin-bottom: 20px;
+            }
+
+            .campus-badge {
+              width: 48px !important;
+              height: 48px !important;
+            }
+
+            .campus-badge-icon {
+              width: 24px !important;
+              height: 24px !important;
+            }
+
+            .campus-name {
+              font-size: 18px !important;
+            }
+
+            .campus-location {
+              font-size: 12px !important;
+            }
+
+            .subsection-title {
+              font-size: 16px !important;
+              margin-bottom: 14px !important;
+            }
+
+            .facility-item {
+              padding: 12px !important;
+              gap: 10px !important;
+            }
+
+            .facility-icon-box {
+              width: 32px !important;
+              height: 32px !important;
+            }
+
+            .facility-check {
+              width: 16px !important;
+              height: 16px !important;
+            }
+
+            .facility-name {
+              font-size: 13px !important;
+            }
+
+            .facility-detail {
+              font-size: 12px !important;
+            }
+
+            .fleet-list {
+              gap: 10px !important;
+            }
+
+            .fleet-card {
+              padding: 14px !important;
+            }
+
+            .fleet-name {
+              font-size: 13px !important;
+            }
+
+            .fleet-description {
+              font-size: 12px !important;
+            }
+
+            .benefitsGrid {
+              gap: 16px !important;
+            }
+
+            .benefit-card {
+              padding: 24px 16px !important;
+            }
+
+            .benefit-icon-container {
+              width: 52px !important;
+              height: 52px !important;
+              margin-bottom: 16px !important;
+            }
+
+            .benefit-icon {
+              width: 26px !important;
+              height: 26px !important;
+            }
+
+            .benefit-title {
+              font-size: 16px !important;
+              margin-bottom: 8px !important;
+            }
+
+            .benefit-description {
+              font-size: 13px !important;
+            }
+
+            .overview-value {
+              font-size: 24px;
+            }
+
+            .stat-value {
+              font-size: 18px;
+            }
+
+            .cta-heading {
+              font-size: 24px !important;
+            }
+
+            .ctaContainer {
+              padding: 35px 20px !important;
+            }
+
+            .cta-icon {
+              width: 40px !important;
+              height: 40px !important;
+            }
+
+            .cta-heading {
+              font-size: 22px !important;
+            }
+
+            .cta-text {
               font-size: 14px !important;
               margin-bottom: 24px !important;
-              text-align: left !important;
-            }
-            
-            .mobile-cta-button {
-              width: 100% !important;
-              padding: 16px 24px !important;
-              font-size: 16px !important;
-              font-weight: 600 !important;
-              border-radius: 12px !important;
-            }
-            
-            /* Mobile Step Flex */
-            .mobile-step-flex {
-              flex-direction: column !important;
-              align-items: flex-start !important;
-            }
-            
-            .overview-grid-lg {
-              grid-template-columns: 1fr !important;
-            }
-            .campus-grid-lg {
-              grid-template-columns: 1fr !important;
-            }
-            .student-life-grid-lg {
-              grid-template-columns: 1fr !important;
-            }
-            .step-flex-lg {
-              align-items: flex-start !important;
-            }
-            .step-arrow-lg {
-              display: none !important;
             }
           }
         `}
