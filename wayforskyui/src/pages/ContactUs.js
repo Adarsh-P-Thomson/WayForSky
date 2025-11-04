@@ -89,7 +89,6 @@ const ContactUs = () => {
     // --- The JSX for your page remains the same, except for the map section ---
     return (
     <>
-        {/* Your entire <style> block is preserved here */}
         <style>{`
             /* General Styles */
             body, html {
@@ -98,93 +97,126 @@ const ContactUs = () => {
                 padding: 0;
             }
             * {
-                font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
                 box-sizing: border-box;
             }
             .page-container {
                 overflow-x: hidden;
                 margin-top: 1.6cm;
+                background: linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%);
             }
-@media screen and (min-width: 1024px) {
-  .page-container {
-    overflow-x: hidden;
-    margin-top: 2.1cm;
-  }
-}
+            @media screen and (min-width: 1024px) {
+                .page-container {
+                    margin-top: 2.1cm;
+                }
+            }
 
             /* Hero Section */
             .hero-section {
                 position: relative;
-                background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #06b6d4 100%);
-                padding: 3rem 0 2rem;
-                margin-bottom: 2rem;
+                background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 50%, #7dd3fc 100%);
+                padding: 4rem 0;
+                margin-bottom: 0;
+                overflow: hidden;
+            }
+            .hero-section::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="rgba(255,255,255,0.05)"/></svg>');
+                opacity: 0.3;
             }
             .hero-content {
                 max-width: 1200px;
                 margin: 0 auto;
-                padding: 0 1rem;
+                padding: 0 2rem;
                 text-align: center;
                 color: white;
+                position: relative;
+                z-index: 1;
             }
             .hero-title {
-                font-size: 2.5rem;
-                font-weight: 700;
+                font-size: clamp(2rem, 5vw, 3.5rem);
+                font-weight: 800;
                 margin-bottom: 1rem;
-                line-height: 1.2;
+                line-height: 1.1;
+                text-shadow: 0 2px 10px rgba(0,0,0,0.1);
             }
             .hero-subtitle {
-                font-size: 1.125rem;
-                opacity: 0.9;
-                max-width: 600px;
+                font-size: clamp(1rem, 2.5vw, 1.25rem);
+                opacity: 0.95;
+                max-width: 700px;
                 margin: 0 auto;
                 line-height: 1.6;
+                font-weight: 400;
             }
             @media (max-width: 768px) {
-                .hero-title { font-size: 2rem; }
-                .hero-subtitle { font-size: 1rem; }
-                .hero-section { padding: 2rem 0 1.5rem; }
+                .hero-section { padding: 3rem 0; }
             }
 
             /* Main Container */
             .main-container {
                 max-width: 1200px;
                 margin: 0 auto;
-                padding: 0 1rem;
+                padding: 0 2rem;
             }
+            
             /* Form Section */
             .form-section {
-                background: #f8fafc;
-                padding: 3rem 0;
+                background: transparent;
+                padding: 4rem 0;
+                position: relative;
+                margin-top: -3rem;
             }
             .form-container {
-                max-width: 800px;
+                max-width: 900px;
                 margin: 0 auto;
                 padding: 0 1rem;
             }
             .form-card {
                 background: #ffffff;
-                border-radius: 20px;
-                padding: 2rem;
-                box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-                border: 1px solid #e2e8f0;
+                border-radius: 24px;
+                padding: clamp(2rem, 4vw, 3rem);
+                box-shadow: 0 20px 60px rgba(14, 165, 233, 0.15);
+                border: 1px solid rgba(56, 189, 248, 0.2);
+                position: relative;
+                overflow: hidden;
+            }
+            .form-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 4px;
+                background: linear-gradient(90deg, #0ea5e9, #38bdf8, #7dd3fc);
             }
             .form-header {
                 text-align: center;
-                margin-bottom: 2rem;
+                margin-bottom: 2.5rem;
             }
             .form-title {
-                color: #1e293b;
-                font-size: 2rem;
-                font-weight: 700;
-                margin-bottom: 0.5rem;
+                color: #0c4a6e;
+                font-size: clamp(1.75rem, 4vw, 2.25rem);
+                font-weight: 800;
+                margin-bottom: 0.75rem;
+                background: linear-gradient(135deg, #0ea5e9, #0284c7);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
             }
             .form-subtitle {
-                color: #64748b;
-                font-size: 1rem;
+                color: #475569;
+                font-size: clamp(0.9rem, 2vw, 1.05rem);
                 line-height: 1.6;
+                max-width: 600px;
+                margin: 0 auto;
             }
 
-            /* Form Grid - Mobile First */
+            /* Form Grid */
             .form-grid {
                 display: grid;
                 grid-template-columns: 1fr;
@@ -192,56 +224,68 @@ const ContactUs = () => {
             }
             @media (min-width: 768px) {
                 .form-grid { grid-template-columns: repeat(2, 1fr); }
-                .form-card { padding: 2.5rem; }
             }
             @media (min-width: 1024px) {
-                .form-grid { grid-template-columns: repeat(3, 1fr); }
+                .form-grid { 
+                    grid-template-columns: repeat(3, 1fr); 
+                    gap: 1.75rem;
+                }
             }
             
             .span-full { grid-column: 1 / -1; }
+            .span-2 { grid-column: 1 / -1; }
+            .span-3 { grid-column: 1 / -1; }
             @media (min-width: 768px) {
                 .span-2 { grid-column: span 2; }
             }
             @media (min-width: 1024px) {
                 .span-3 { grid-column: span 3; }
             }
+
             /* Form Elements */
             .form-field {
                 display: flex;
                 flex-direction: column;
-                gap: 0.5rem;
+                gap: 0.6rem;
             }
             .label {
-                color: #374151;
-                font-size: 0.875rem;
+                color: #0c4a6e;
+                font-size: 0.9rem;
                 font-weight: 600;
+                letter-spacing: 0.01em;
             }
             .input, .select, .textarea {
                 width: 100%;
-                border: 2px solid #e2e8f0;
-                background: #ffffff;
-                color: #1e293b;
-                padding: 0.875rem 1rem;
+                border: 2px solid #e0f2fe;
+                background: #f8fafc;
+                color: #0f172a;
+                padding: 0.95rem 1.1rem;
                 border-radius: 12px;
                 font-size: 1rem;
-                transition: all 0.2s ease;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                 outline: none;
             }
+            .input:hover, .select:hover, .textarea:hover {
+                border-color: #bae6fd;
+                background: #ffffff;
+            }
             .input:focus, .select:focus, .textarea:focus {
-                border-color: #3b82f6;
-                box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+                border-color: #0ea5e9;
+                background: #ffffff;
+                box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
             }
             .input::placeholder, .textarea::placeholder {
                 color: #94a3b8;
             }
             .textarea {
                 resize: vertical;
-                min-height: 120px;
+                min-height: 130px;
+                font-family: inherit;
             }
 
             /* Interest Pills */
             .interest-section {
-                margin-bottom: 1rem;
+                margin-bottom: 0.5rem;
             }
             .interest-pills {
                 display: flex;
@@ -250,104 +294,149 @@ const ContactUs = () => {
                 margin-top: 0.75rem;
             }
             .pill {
-                border: 2px solid #e2e8f0;
-                color: #64748b;
-                background: #ffffff;
-                padding: 0.625rem 1rem;
-                border-radius: 25px;
+                border: 2px solid #e0f2fe;
+                color: #0369a1;
+                background: #f0f9ff;
+                padding: 0.7rem 1.2rem;
+                border-radius: 50px;
                 font-size: 0.875rem;
-                font-weight: 500;
+                font-weight: 600;
                 cursor: pointer;
-                transition: all 0.2s ease;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                 user-select: none;
             }
             .pill:hover {
-                border-color: #3b82f6;
-                transform: translateY(-1px);
-                box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+                border-color: #0ea5e9;
+                background: #e0f2fe;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2);
             }
             .pill.selected {
-                background: #3b82f6;
+                background: linear-gradient(135deg, #0ea5e9, #0284c7);
                 color: #ffffff;
-                border-color: #3b82f6;
+                border-color: #0ea5e9;
+                box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
             }
 
             /* Submit Section */
             .submit-section {
-                margin-top: 1rem;
+                margin-top: 1.5rem;
                 display: flex;
                 flex-direction: column;
-                gap: 1rem;
+                gap: 1.25rem;
             }
             .consent-wrapper {
                 display: flex;
                 align-items: flex-start;
                 gap: 0.75rem;
-                color: #64748b;
+                color: #475569;
                 font-size: 0.875rem;
-                line-height: 1.5;
+                line-height: 1.6;
+                padding: 1rem;
+                background: #f0f9ff;
+                border-radius: 12px;
+                border: 1px solid #e0f2fe;
             }
             .consent-wrapper input[type="checkbox"] {
-                margin-top: 0.125rem;
-                width: 1rem;
-                height: 1rem;
-                accent-color: #3b82f6;
+                margin-top: 0.2rem;
+                width: 1.1rem;
+                height: 1.1rem;
+                accent-color: #0ea5e9;
+                cursor: pointer;
+            }
+            .consent {
+                display: flex;
+                align-items: flex-start;
+                gap: 0.75rem;
+                color: #475569;
+                font-size: 0.875rem;
+                line-height: 1.6;
+                padding: 1rem;
+                background: #f0f9ff;
+                border-radius: 12px;
+                border: 1px solid #e0f2fe;
+                cursor: pointer;
+            }
+            .consent input[type="checkbox"] {
+                margin-top: 0.2rem;
+                width: 1.1rem;
+                height: 1.1rem;
+                accent-color: #0ea5e9;
+                cursor: pointer;
+            }
+            .submit-area {
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
             }
             .submit-btn {
-                background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+                background: linear-gradient(135deg, #0ea5e9, #0284c7);
                 color: #ffffff;
-                padding: 1rem 2rem;
-                font-weight: 600;
-                font-size: 1rem;
+                padding: 1.15rem 2.5rem;
+                font-weight: 700;
+                font-size: 1.05rem;
                 border: none;
                 border-radius: 12px;
                 cursor: pointer;
-                transition: all 0.2s ease;
-                box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
-                min-height: 48px;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: 0 6px 20px rgba(14, 165, 233, 0.35);
+                min-height: 54px;
+                letter-spacing: 0.02em;
             }
             .submit-btn:hover:not(:disabled) {
-                transform: translateY(-2px);
-                box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+                transform: translateY(-3px);
+                box-shadow: 0 10px 30px rgba(14, 165, 233, 0.45);
+                background: linear-gradient(135deg, #0284c7, #0369a1);
+            }
+            .submit-btn:active:not(:disabled) {
+                transform: translateY(-1px);
             }
             .submit-btn:disabled {
                 opacity: 0.6;
                 cursor: not-allowed;
                 transform: none;
             }
+            .submit-hint {
+                text-align: center;
+                color: #64748b;
+                font-size: 0.875rem;
+            }
 
             /* Alerts */
             .alert {
-                border-radius: 12px;
-                padding: 1rem;
+                border-radius: 14px;
+                padding: 1.15rem 1.5rem;
                 margin-bottom: 1.5rem;
-                font-size: 0.875rem;
+                font-size: 0.95rem;
                 font-weight: 500;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
             }
             .alert-success {
-                background: #dcfce7;
-                border: 1px solid #bbf7d0;
-                color: #15803d;
+                background: #ecfdf5;
+                border: 2px solid #6ee7b7;
+                color: #047857;
             }
             .alert-error {
-                background: #fee2e2;
-                border: 1px solid #fecaca;
+                background: #fef2f2;
+                border: 2px solid #fca5a5;
                 color: #dc2626;
             }
 
             /* Benefits Strip */
             .benefits-strip {
-                margin-top: 2rem;
-                background: #ffffff;
-                border-radius: 16px;
-                padding: 1.5rem;
-                box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-                border: 1px solid #e2e8f0;
+                margin-top: 2.5rem;
+                background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+                border-radius: 20px;
+                padding: 2rem;
+                box-shadow: 0 4px 20px rgba(14, 165, 233, 0.1);
+                border: 2px solid rgba(56, 189, 248, 0.2);
             }
             .benefits-grid {
                 display: grid;
                 grid-template-columns: 1fr;
-                gap: 1rem;
+                gap: 1.25rem;
             }
             @media (min-width: 640px) {
                 .benefits-grid { grid-template-columns: repeat(2, 1fr); }
@@ -358,119 +447,159 @@ const ContactUs = () => {
             .benefit {
                 display: flex;
                 align-items: center;
-                gap: 0.75rem;
-                color: #1e293b;
-                padding: 0.5rem;
+                gap: 1rem;
+                color: #0c4a6e;
+                padding: 0.75rem;
+                background: rgba(255, 255, 255, 0.6);
+                border-radius: 12px;
+                transition: all 0.3s ease;
+            }
+            .benefit:hover {
+                transform: translateY(-2px);
+                background: rgba(255, 255, 255, 0.9);
+                box-shadow: 0 4px 12px rgba(14, 165, 233, 0.15);
             }
             .benefit .icon {
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
+                width: 48px;
+                height: 48px;
+                border-radius: 12px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+                background: linear-gradient(135deg, #0ea5e9, #0284c7);
                 color: #ffffff;
-                font-size: 0.875rem;
+                font-size: 1.1rem;
                 flex-shrink: 0;
+                box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
             }
             .benefit .text {
                 font-weight: 600;
-                font-size: 0.875rem;
+                font-size: 0.9rem;
                 line-height: 1.4;
             }
 
             /* Location Section */
             .location-container {
-                padding: 3rem 0;
-                background-color: white;
+                padding: 4rem 0;
+                background: linear-gradient(180deg, #ffffff 0%, #f0f9ff 100%);
             }
             .location-card {
                 background-color: white;
                 overflow: hidden;
-                border: 1px solid #e5e7eb;
+                border-radius: 24px;
+                box-shadow: 0 20px 60px rgba(14, 165, 233, 0.12);
+                border: 1px solid rgba(56, 189, 248, 0.2);
             }
             .location-grid {
                 display: grid;
                 min-height: 600px;
             }
+            @media (min-width: 1024px) {
+                .location-grid {
+                    grid-template-columns: 45% 55%;
+                }
+            }
             .contact-info-section {
-                padding: 4rem;
-                background-color: white;
+                padding: clamp(2rem, 5vw, 4rem);
+                background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%);
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
-                border-right: 1px solid #e5e7eb;
+                border-right: 1px solid #e0f2fe;
             }
             .contact-info-content {
-                max-width: 28rem;
+                max-width: 32rem;
                 margin: 0 auto;
             }
             .contact-header {
-                margin-bottom: 2rem;
+                margin-bottom: 2.5rem;
             }
             .contact-title {
-                font-size: 1.875rem;
-                font-weight: 300;
-                color: #111827;
+                font-size: clamp(1.75rem, 4vw, 2.25rem);
+                font-weight: 800;
+                color: #0c4a6e;
                 margin-bottom: 1rem;
-                letter-spacing: 0.025em;
+                letter-spacing: -0.01em;
+                background: linear-gradient(135deg, #0ea5e9, #0284c7);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
             }
             .contact-subtitle {
-                color: #4b5563;
-                line-height: 1.625;
-                font-weight: 300;
+                color: #475569;
+                line-height: 1.7;
+                font-weight: 400;
+                font-size: 1.05rem;
             }
             .contact-details {
                 display: flex;
                 flex-direction: column;
-                gap: 1.5rem;
+                gap: 1.75rem;
             }
             .info-item {
                 display: flex;
                 align-items: flex-start;
-                gap: 1rem;
+                gap: 1.25rem;
+                padding: 1.25rem;
+                background: white;
+                border-radius: 16px;
+                border: 2px solid #e0f2fe;
+                transition: all 0.3s ease;
+            }
+            .info-item:hover {
+                border-color: #0ea5e9;
+                box-shadow: 0 4px 15px rgba(14, 165, 233, 0.15);
+                transform: translateX(4px);
             }
             .info-icon-wrapper {
                 flex-shrink: 0;
-                width: 3rem;
-                height: 3rem;
-                background-color: white;
-                border: 2px solid #d1d5db;
+                width: 3.25rem;
+                height: 3.25rem;
+                background: linear-gradient(135deg, #0ea5e9, #0284c7);
+                border: none;
+                border-radius: 12px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                color: #4b5563;
-                box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+                color: white;
+                box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
             }
-            .info-icon-wrapper .fa { font-size: 0.875rem; }
+            .info-icon-wrapper .fa { 
+                font-size: 1.1rem; 
+            }
             .info-content {
                 flex: 1;
                 min-width: 0;
             }
             .info-title {
                 font-size: 0.75rem;
-                font-weight: 500;
-                color: #6b7280;
+                font-weight: 700;
+                color: #0ea5e9;
                 text-transform: uppercase;
-                letter-spacing: 0.05em;
+                letter-spacing: 0.08em;
                 margin-bottom: 0.5rem;
             }
             .info-text {
-                color: #111827;
-                font-weight: 300;
-                line-height: 1.625;
+                color: #0f172a;
+                font-weight: 400;
+                line-height: 1.7;
+                font-size: 0.95rem;
             }
             .info-text a {
-                color: #111827;
+                color: #0369a1;
                 text-decoration: none;
                 transition: color 0.2s;
+                font-weight: 500;
             }
-            .info-text a:hover { color: #374151; }
+            .info-text a:hover { 
+                color: #0ea5e9;
+                text-decoration: underline;
+            }
             .map-section {
                 position: relative;
                 height: 100%;
-                min-height: 600px; /* Ensure map section has a minimum height */
+                min-height: 600px;
+                background: #e0f2fe;
             }
             
             .mobile-directions {
@@ -478,26 +607,36 @@ const ContactUs = () => {
                 top: 1.5rem;
                 right: 1.5rem;
                 background-color: white;
-                box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-                padding: 0.75rem;
-                border: 1px solid #e5e7eb;
+                box-shadow: 0 6px 20px rgba(14, 165, 233, 0.25);
+                padding: 0.875rem 1.25rem;
+                border: 2px solid #e0f2fe;
+                border-radius: 12px;
                 z-index: 10;
+                transition: all 0.3s ease;
+            }
+            .mobile-directions:hover {
+                box-shadow: 0 8px 25px rgba(14, 165, 233, 0.35);
+                border-color: #0ea5e9;
             }
             .mobile-directions-btn {
                 display: flex;
                 align-items: center;
-                gap: 0.5rem;
-                color: #374151;
-                font-weight: 500;
+                gap: 0.6rem;
+                color: #0369a1;
+                font-weight: 600;
                 text-decoration: none;
                 background: none;
                 border: none;
                 cursor: pointer;
                 transition: color 0.2s;
+                font-size: 0.95rem;
             }
-            .mobile-directions-btn:hover { color: #111827; }
-            .mobile-directions-btn .fa { font-size: 0.875rem; }
-            .mobile-directions-btn span { font-size: 0.875rem; }
+            .mobile-directions-btn:hover { 
+                color: #0ea5e9;
+            }
+            .mobile-directions-btn .fa { 
+                font-size: 1rem; 
+            }
 
             /* Modals */
             .modal-overlay {
@@ -660,23 +799,50 @@ const ContactUs = () => {
             .icon-xs { width: 1rem; height: 1rem; }
 
             /* Responsive Styles */
-            @media (max-width: 640px) {
-                .form-card { padding: 1.5rem; }
-                .benefits-strip { margin-top: 1.5rem; padding: 1rem; }
-                .benefit { flex-direction: column; text-align: center; gap: 0.5rem; }
-                .benefit .text { font-size: 0.8rem; }
+            @media (max-width: 768px) {
+                .form-card { padding: 1.75rem; }
+                .benefits-strip { 
+                    margin-top: 1.5rem; 
+                    padding: 1.5rem; 
+                }
+                .benefit { 
+                    flex-direction: row;
+                    text-align: left;
+                }
+                .benefit .icon {
+                    width: 44px;
+                    height: 44px;
+                }
+                .contact-info-section {
+                    padding: 2rem 1.5rem;
+                }
+                .location-grid {
+                    grid-template-columns: 1fr;
+                }
+                .map-section {
+                    min-height: 450px;
+                }
             }
-
-            /* Remove old responsive styles that are no longer needed */
+            @media (max-width: 640px) {
+                .benefit .text { font-size: 0.85rem; }
+                .pill {
+                    padding: 0.65rem 1rem;
+                    font-size: 0.8rem;
+                }
+            }
         `}</style>
         <div className="page-container">
-            <div style={{ height: '1px', backgroundColor: 'white', width: '100%' }}></div>
             <div className="hero-section">
-                <div className="gradient-bg"></div>
-                <div className="dark-overlay"></div>
-                <div className="main-container content-wrapper">
-                    <div className="right-section">
-                        <div className="form-wrapper">
+                <div className="hero-content">
+                    <h1 className="hero-title">Get In Touch</h1>
+                    <p className="hero-subtitle">
+                        Ready to start your aviation journey? Fill out the form below and our expert team will guide you through every step of your pilot training.
+                    </p>
+                </div>
+            </div>
+
+            <div className="form-section">
+                <div className="form-container">
                             <div className="form-card">
                                 {submitSuccess && <div className="alert alert-success">{submitSuccess}</div>}
                                 {submitError && <div className="alert alert-error">{submitError}</div>}
@@ -801,7 +967,6 @@ const ContactUs = () => {
                                     </div>
                                 </form>
                             </div>
-                        </div>
                         {/* Benefits strip under the form */}
                         <div className="benefits-strip">
                             <div className="benefits-grid">
@@ -825,10 +990,10 @@ const ContactUs = () => {
                         </div>
                     </div>
                 </div>
-            </div>
 
             <div className="location-container">
-                <div className="location-card">
+                <div className="main-container">
+                    <div className="location-card">
                     <div className="location-grid">
                         <div className="contact-info-section">
                             <div className="contact-info-content">
@@ -899,9 +1064,7 @@ const ContactUs = () => {
                     </div>
                 </div>
             </div>
-
-            {/* No modals for now - simplified submit flow routes to /inconstruction */}
-
+        </div>
         </div>
     </>
     );
